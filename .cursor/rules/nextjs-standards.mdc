@@ -1,0 +1,14 @@
+---
+description: Next.js App Router standards for Bin Askar Technology
+globs: src/**/*
+alwaysApply: false
+---
+
+# Next.js Standards
+
+- Use Server Components by default. Add `'use client'` only for interactivity.
+- Await async `params` in Next.js 16: `params: Promise<{ locale: string }>`.
+- Metadata via `generateMetadata` per locale page.
+- Server Actions in `src/actions/` with `'use server'`.
+- Validate all form input server-side with Zod.
+- No secrets in client code — use env vars server-side only.

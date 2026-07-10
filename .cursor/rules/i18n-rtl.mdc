@@ -1,0 +1,15 @@
+---
+description: i18n and RTL/LTR standards for Bin Askar Technology website
+globs: src/**/*
+alwaysApply: false
+---
+
+# i18n & RTL Standards
+
+- Default locale is `ar` (Arabic). English is `en`.
+- Set `dir="rtl"` on `<html>` for Arabic, `dir="ltr"` for English.
+- Use logical CSS properties: `ms-*`, `me-*`, `ps-*`, `pe-*`, `start`, `end`.
+- Never hardcode left/right for layout — use logical properties.
+- All user-facing strings live in `src/messages/{locale}.json`.
+- Locale prefix required: `/ar/...` and `/en/...`.
+- Language switcher must preserve current page path.

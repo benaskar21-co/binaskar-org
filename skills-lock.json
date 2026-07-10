@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-design": {
+      "source": "vercel-labs/agent-eval",
+      "sourceType": "github",
+      "skillPath": "packages/playground/.agents/skills/frontend-design/SKILL.md",
+      "computedHash": "537c1df9d0c694ecf9139a911f9ad0bd111a7ebc173a55457568459e543fe75b"
+    },
+    "namecheap": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/namecheap/SKILL.md",
+      "computedHash": "fa90fadac800df7ece43f1f7422b2284239bb5e8d54f8b4d01b86e4ebe96234d"
+    },
+    "nextjs": {
+      "source": "jackspace/claudeskillz",
+      "sourceType": "github",
+      "skillPath": "skills/nextjs/SKILL.md",
+      "computedHash": "81192337347b3a9ad80f9174d2ac3015174a5390fcdbe953b92762711a3f3569"
+    },
+    "react-expert": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "skillPath": "skills/react-expert/SKILL.md",
+      "computedHash": "498e8247c701522e0a63496a439680a409dafe67c3d8d7d5e4902db0e6222252"
+    }
+  }
+}

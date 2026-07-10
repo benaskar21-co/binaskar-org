@@ -1,0 +1,17 @@
+---
+description: UX/UI and accessibility standards
+globs: src/components/**/*
+alwaysApply: false
+---
+
+# UX/UI Standards
+
+- WCAG 2.1 AA: contrast, focus rings, keyboard navigation.
+- Respect `prefers-reduced-motion` for animations.
+- Semantic HTML: `header`, `nav`, `main`, `section`, `footer`.
+- Focus visible on all interactive elements (gold `--accent` ring).
+- Theme: dark luxury-tech. Surfaces via `--base` / `--surface` / `--surface-2`, borders via `--border`.
+- Accent color: gold `--accent` (#e6b657); deep blue `brand-*` scale for depth.
+- Display fonts: `Fraunces` (en) / `El Messiri` (ar) via `--font-display`; body `DM Sans` / `IBM Plex Sans Arabic`.
+- Scroll reveals use the `Reveal` component (auto-disabled under reduced motion).
+- Avoid generic AI aesthetics — distinctive typography and layout.

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: binaskar-org
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /ar
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://binaskar.org
+      - key: CONTACT_EMAIL
+        value: abdullah@binaskar.org
+      - key: RESEND_API_KEY
+        sync: false
