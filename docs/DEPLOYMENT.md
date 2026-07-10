@@ -19,10 +19,29 @@
 
 ### متغيرات البيئة
 
+**الخيار الموصى به — PrivateEmail (SMTP):**
+
 | المتغير | الوصف |
 |---------|-------|
-| `RESEND_API_KEY` | مفتاح Resend لإرسال البريد (Secret) |
-| `CONTACT_EMAIL` | `abdullah@binaskar.org` |
+| `SMTP_HOST` | `mail.privateemail.com` |
+| `SMTP_PORT` | `465` (SSL) أو `587` (STARTTLS) |
+| `SMTP_SECURE` | `true` للمنفذ 465، `false` للمنفذ 587 |
+| `SMTP_USER` | البريد الكامل، مثلاً `abdullah@binaskar.org` |
+| `SMTP_PASS` | كلمة مرور صندوق PrivateEmail (Secret) |
+| `SMTP_FROM_NAME` | `Bin Askar Technology` (اختياري) |
+| `CONTACT_EMAIL` | `abdullah@binaskar.org` — مستلم رسائل النموذج |
+
+> **مهم:** عنوان `from` يجب أن يطابق `SMTP_USER` (قيد PrivateEmail).
+
+**بديل اختياري — Resend** (يُستخدم فقط إذا لم تُضبط SMTP):
+
+| المتغير | الوصف |
+|---------|-------|
+| `RESEND_API_KEY` | مفتاح Resend |
+| `RESEND_FROM` | عنوان المرسل المعتمد في Resend |
+
+| المتغير | الوصف |
+|---------|-------|
 | `NEXT_PUBLIC_SITE_URL` | `https://binaskar.org` |
 | `NODE_VERSION` | `20.18.0` (اختياري — مُعرّف في `render.yaml`) |
 

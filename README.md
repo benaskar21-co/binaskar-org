@@ -17,7 +17,7 @@ npm run test
 npm run test:e2e
 ```
 
-Copy `.env.example` to `.env.local` and set `RESEND_API_KEY`, `CONTACT_EMAIL`, and `NEXT_PUBLIC_SITE_URL`.
+Copy `.env.example` to `.env.local` and configure PrivateEmail SMTP (`SMTP_USER`, `SMTP_PASS`) plus `CONTACT_EMAIL` and `NEXT_PUBLIC_SITE_URL`.
 
 ## Deploy
 
