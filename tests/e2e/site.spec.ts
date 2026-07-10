@@ -39,7 +39,7 @@ test.describe("English single page", () => {
     await page.goto("/en#services");
     await page
       .getByLabel("Language switcher")
-      .getByRole("link", { name: "ar", exact: true })
+      .getByRole("button", { name: "ar", exact: true })
       .click();
     await expect(page).toHaveURL(/\/ar#services/);
   });

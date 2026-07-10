@@ -23,5 +23,5 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
 
   const activeSection = hash.replace("#", "") || "home";
 
-  return <Header locale={locale} activeSection={activeSection} hash={hash} />;
+  return <Header locale={locale} activeSection={activeSection} />;
 }

@@ -97,6 +97,7 @@ export function Footer({ locale }: FooterProps) {
           </p>
           <Link
             href={`/${locale}/privacy`}
+            prefetch={false}
             className="transition hover:text-white"
           >
             {messages.nav.privacy}

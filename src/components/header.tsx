@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 type HeaderProps = {
   locale: Locale;
   activeSection?: string;
-  hash?: string;
 };
 
 const navItems = [
@@ -22,11 +21,9 @@ const navItems = [
 export function Header({
   locale,
   activeSection = "home",
-  hash = "",
 }: HeaderProps) {
   const messages = getMessages(locale);
   const siteName = locale === "ar" ? siteConfig.nameAr : siteConfig.name;
-  const hashSuffix = hash || "";
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-base/70 backdrop-blur-xl">
@@ -77,7 +74,7 @@ export function Header({
           </nav>
 
           <div className="flex items-center gap-2">
-            <LanguageSwitcher locale={locale} hash={hashSuffix} />
+            <LanguageSwitcher locale={locale} />
             <AnchorLink
               href={sectionHref(locale, sections.contact)}
               className="hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[#1a1204] transition hover:bg-accent-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:inline-flex"
