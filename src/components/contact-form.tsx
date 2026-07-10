@@ -1,8 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 
-import { submitContactForm } from "@/actions/contact";
+import { validateContactInput } from "@/lib/contact/validate-contact";
 import type { Locale } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
 import type { ContactFormState } from "@/lib/validation/contact";
@@ -15,17 +15,103 @@ const labelClass = "block text-sm font-medium text-brand-50";
 const fieldClass =
   "mt-1 w-full rounded-xl border bg-base/60 px-4 py-3 text-sm text-white placeholder:text-muted outline-none transition focus:border-accent/60 focus:ring-2 focus:ring-accent/25";
 
+type FormValues = {
+  name: string;
+  email: string;
+  company: string;
+  message: string;
+};
+
+const emptyValues: FormValues = {
+  name: "",
+  email: "",
+  company: "",
+  message: "",
+};
+
 type ContactFormProps = {
   locale: Locale;
 };
 
+type FormField = keyof FormValues;
+
 export function ContactForm({ locale }: ContactFormProps) {
   const messages = getMessages(locale);
-  const boundAction = submitContactForm.bind(null, locale);
-  const [state, formAction, isPending] = useActionState(
-    boundAction,
-    initialState
-  );
+  const [values, setValues] = useState<FormValues>(emptyValues);
+  const [state, setState] = useState<ContactFormState>(initialState);
+  const [isPending, setIsPending] = useState(false);
+
+  function handleFieldChange(field: FormField) {
+    return (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const value = event.target.value;
+      setValues((current) => ({ ...current, [field]: value }));
+
+      setState((current) => {
+        const hasFieldError = Boolean(current.fieldErrors?.[field]);
+        const hasGeneralError = Boolean(current.error);
+
+        if (!hasFieldError && !hasGeneralError) {
+          return current;
+        }
+
+        const nextFieldErrors = current.fieldErrors
+          ? { ...current.fieldErrors, [field]: undefined }
+          : undefined;
+
+        const cleanedFieldErrors = nextFieldErrors
+          ? Object.fromEntries(
+              Object.entries(nextFieldErrors).filter(([, message]) => message)
+            )
+          : undefined;
+
+        return {
+          success: false,
+          fieldErrors:
+            cleanedFieldErrors && Object.keys(cleanedFieldErrors).length > 0
+              ? cleanedFieldErrors
+              : undefined,
+          error: undefined,
+        };
+      });
+    };
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const validation = validateContactInput(locale, {
+      ...values,
+      website: "",
+    });
+
+    if (!validation.ok) {
+      setState({ success: false, fieldErrors: validation.fieldErrors });
+      return;
+    }
+
+    setIsPending(true);
+
+    const formData = new FormData();
+    formData.set("locale", locale);
+    formData.set("name", values.name);
+    formData.set("email", values.email);
+    formData.set("company", values.company);
+    formData.set("message", values.message);
+    formData.set("website", "");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: formData,
+      });
+      const result = (await response.json()) as ContactFormState;
+      setState(result);
+    } catch {
+      setState({ success: false, error: messages.contact.form.error });
+    } finally {
+      setIsPending(false);
+    }
+  }
 
   if (state.success) {
     return (
@@ -39,7 +125,7 @@ export function ContactForm({ locale }: ContactFormProps) {
   }
 
   return (
-    <form action={formAction} className="relative space-y-5" noValidate>
+    <form onSubmit={handleSubmit} className="relative space-y-5" noValidate>
       <input
         name="website"
         type="text"
@@ -59,6 +145,8 @@ export function ContactForm({ locale }: ContactFormProps) {
           type="text"
           required
           autoComplete="name"
+          value={values.name}
+          onChange={handleFieldChange("name")}
           aria-invalid={!!state.fieldErrors?.name}
           aria-describedby={state.fieldErrors?.name ? "name-error" : undefined}
           className={cn(
@@ -83,6 +171,8 @@ export function ContactForm({ locale }: ContactFormProps) {
           type="email"
           required
           autoComplete="email"
+          value={values.email}
+          onChange={handleFieldChange("email")}
           aria-invalid={!!state.fieldErrors?.email}
           aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
           className={cn(
@@ -106,6 +196,8 @@ export function ContactForm({ locale }: ContactFormProps) {
           name="company"
           type="text"
           autoComplete="organization"
+          value={values.company}
+          onChange={handleFieldChange("company")}
           className={cn(fieldClass, "border-border")}
         />
       </div>
@@ -119,6 +211,8 @@ export function ContactForm({ locale }: ContactFormProps) {
           name="message"
           required
           rows={5}
+          value={values.message}
+          onChange={handleFieldChange("message")}
           aria-invalid={!!state.fieldErrors?.message}
           aria-describedby={
             state.fieldErrors?.message ? "message-error" : undefined

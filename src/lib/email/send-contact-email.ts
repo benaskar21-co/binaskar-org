@@ -8,6 +8,8 @@ export type ContactEmailPayload = {
   message: string;
 };
 
+const SMTP_TIMEOUT_MS = 12_000;
+
 function buildEmailBody({ name, email, company, message }: ContactEmailPayload) {
   return [
     `Name: ${name}`,
@@ -38,6 +40,9 @@ function getSmtpConfig() {
     port,
     secure,
     auth: { user, pass },
+    connectionTimeout: SMTP_TIMEOUT_MS,
+    greetingTimeout: SMTP_TIMEOUT_MS,
+    socketTimeout: SMTP_TIMEOUT_MS,
   };
 }
 
@@ -100,25 +105,29 @@ export async function sendContactEmail(
   payload: ContactEmailPayload
 ): Promise<{ sent: boolean; provider?: "smtp" | "resend" | "dev" }> {
   const to = process.env.CONTACT_EMAIL ?? "abdullah@binaskar.org";
+  const smtpConfigured = Boolean(getSmtpConfig());
 
-  if (getSmtpConfig()) {
-    const result = await sendViaPrivateEmail(to, payload);
-    if (result.ok) {
+  if (smtpConfigured) {
+    const smtpResult = await sendViaPrivateEmail(to, payload);
+    if (smtpResult.ok) {
       return { sent: true, provider: "smtp" };
     }
-    console.error("PrivateEmail SMTP error:", result.error);
-    return { sent: false };
+    console.error("PrivateEmail SMTP error:", smtpResult.error);
   }
 
   if (process.env.RESEND_API_KEY) {
-    const result = await sendViaResend(to, payload);
-    if (result.ok) {
+    const resendResult = await sendViaResend(to, payload);
+    if (resendResult.ok) {
       return { sent: true, provider: "resend" };
     }
-    console.error("Resend error:", result.error);
+    console.error("Resend error:", resendResult.error);
     return { sent: false };
   }
 
-  console.info("Contact form submission (dev mode):", payload);
-  return { sent: true, provider: "dev" };
+  if (!smtpConfigured) {
+    console.info("Contact form submission (dev mode):", payload);
+    return { sent: true, provider: "dev" };
+  }
+
+  return { sent: false };
 }

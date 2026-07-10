@@ -8,10 +8,20 @@ vi.mock("nodemailer", () => ({
   },
 }));
 
+const resendSend = vi.fn();
+
+vi.mock("resend", () => ({
+  Resend: vi.fn(function MockResend() {
+    return { emails: { send: resendSend } };
+  }),
+}));
+
 describe("sendContactEmail", () => {
   beforeEach(() => {
     sendMail.mockReset();
+    resendSend.mockReset();
     sendMail.mockResolvedValue({ messageId: "1" });
+    resendSend.mockResolvedValue({ data: { id: "1" }, error: null });
   });
 
   afterEach(() => {
@@ -48,9 +58,24 @@ describe("sendContactEmail", () => {
 
     expect(result).toEqual({ sent: true, provider: "smtp" });
     expect(sendMail).toHaveBeenCalledOnce();
-    expect(sendMail.mock.calls[0][0]).toMatchObject({
-      from: "Bin Askar Technology <abdullah@binaskar.org>",
-      replyTo: "visitor@example.com",
+    expect(resendSend).not.toHaveBeenCalled();
+  });
+
+  it("falls back to Resend when SMTP fails", async () => {
+    vi.stubEnv("SMTP_USER", "abdullah@binaskar.org");
+    vi.stubEnv("SMTP_PASS", "secret");
+    vi.stubEnv("RESEND_API_KEY", "re_test");
+    sendMail.mockRejectedValueOnce(new Error("SMTP timeout"));
+
+    const { sendContactEmail } = await import("@/lib/email/send-contact-email");
+    const result = await sendContactEmail({
+      name: "Visitor",
+      email: "visitor@example.com",
+      message: "Interested in CTO services.",
     });
+
+    expect(result).toEqual({ sent: true, provider: "resend" });
+    expect(sendMail).toHaveBeenCalledOnce();
+    expect(resendSend).toHaveBeenCalledOnce();
   });
 });

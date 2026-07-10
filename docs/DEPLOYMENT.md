@@ -33,12 +33,16 @@
 
 > **مهم:** عنوان `from` يجب أن يطابق `SMTP_USER` (قيد PrivateEmail).
 
-**بديل اختياري — Resend** (يُستخدم فقط إذا لم تُضبط SMTP):
+> **Render Free:** يحجب منافذ SMTP (`465`/`587`). على الخطة المجانية استخدم **Resend** أدناه، أو رقِّ الخدمة إلى خطة مدفوعة لاستخدام PrivateEmail SMTP.
+
+**بديل موصى به على Render Free — Resend** (يُستخدم تلقائياً إذا فشل SMTP):
 
 | المتغير | الوصف |
 |---------|-------|
-| `RESEND_API_KEY` | مفتاح Resend |
-| `RESEND_FROM` | عنوان المرسل المعتمد في Resend |
+| `RESEND_API_KEY` | مفتاح Resend (Secret) |
+| `RESEND_FROM` | بعد التحقق من النطاق: `Bin Askar Technology <abdullah@binaskar.org>` |
+
+نموذج التواصل يرسل إلى `POST /api/contact` (وليس `/ar`).
 
 | المتغير | الوصف |
 |---------|-------|

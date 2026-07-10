@@ -26,3 +26,7 @@ services:
         sync: false
       - key: SMTP_FROM_NAME
         value: Bin Askar Technology
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM
+        value: Bin Askar Technology <abdullah@binaskar.org>
