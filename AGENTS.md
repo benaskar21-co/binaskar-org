@@ -54,6 +54,23 @@ npx skills ls
 ./scripts/skills.sh find react
 ```
 
+## Skill: ui-ux-pro-max (`.cursor/skills/ui-ux-pro-max/`)
+
+محرك ذكاء تصميمي (67 نمطاً، 161 نوع منتج، لوحات ألوان، اقترانات خطوط، إرشادات UX). **استخدمه قبل أي عمل UI/UX جديد أو إعادة تصميم.**
+
+- **نظام التصميم المعتمد للموقع:** `design-system/bin-askar-technology/MASTER.md` — هو **مصدر الحقيقة** للألوان/الخطوط/المسافات. عند بناء صفحة، تحقق أولاً من `design-system/bin-askar-technology/pages/[page].md`؛ إن وُجد فقواعده تتجاوز MASTER.
+- **النمط:** Trust & Authority (استشارات B2B) — تباين WCAG AAA، Light + Dark.
+- **تجنّب (anti-patterns):** تصاميم مرحة، تدرّجات AI بنفسجية/وردية، إخفاء الاعتمادات، إيموجي كأيقونات.
+
+```bash
+# توليد/تحديث نظام تصميم
+python3 .cursor/skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system -p "Bin Askar Technology" --persist
+# بحث ضمن مجال محدد (style/color/typography/ux/landing…)
+python3 .cursor/skills/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <domain>
+```
+
+> **Python 3 مطلوب** لتشغيل سكربت البحث (مكتبة قياسية فقط، بلا شبكة).
+
 ## النشر
 
 - **Vercel:** معاينة + إنتاج

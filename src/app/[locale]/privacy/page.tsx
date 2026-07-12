@@ -26,13 +26,15 @@ export default async function PrivacyPage({ params }: PageProps) {
     <section className="py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <span
-          className="inline-block h-1 w-12 rounded-full bg-gradient-to-r from-accent to-transparent"
+          className="inline-block h-1 w-10 rounded-full bg-accent"
           aria-hidden="true"
         />
-        <h1 className="mt-5 font-display text-4xl font-semibold text-white">
+        <h1 className="mt-4 font-display text-4xl font-semibold text-primary">
           {messages.privacy.title}
         </h1>
-        <p className="mt-2 text-sm text-muted">{messages.privacy.updated}</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {messages.privacy.updated}
+        </p>
 
         <div className="mt-10 space-y-8">
           {sectionKeys.map((key) => {
@@ -40,12 +42,12 @@ export default async function PrivacyPage({ params }: PageProps) {
             return (
               <article
                 key={key}
-                className="rounded-2xl border border-border bg-surface/60 p-6"
+                className="rounded-xl border border-border bg-surface p-6 shadow-sm"
               >
-                <h2 className="font-display text-xl font-semibold text-accent-strong">
+                <h2 className="font-display text-xl font-semibold text-primary">
                   {section.title}
                 </h2>
-                <p className="mt-3 leading-relaxed text-brand-100/80">
+                <p className="mt-3 leading-relaxed text-secondary">
                   {section.content}
                 </p>
               </article>

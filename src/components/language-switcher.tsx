@@ -19,7 +19,7 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
 
   return (
     <div
-      className="flex rounded-full border border-border bg-surface/70 p-0.5 backdrop-blur"
+      className="flex rounded-sm border border-white/20 bg-white/[0.04] p-0.5"
       role="group"
       aria-label="Language switcher"
     >
@@ -28,10 +28,10 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
           key={loc}
           type="button"
           onClick={() => switchLocale(loc)}
-          className={`rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wide transition ${
+          className={`cursor-pointer rounded-md px-2.5 py-1 text-xs font-semibold uppercase tracking-wide transition duration-200 ${
             loc === locale
-              ? "bg-accent text-[#1a1204]"
-              : "text-brand-100/70 hover:bg-surface-2 hover:text-white"
+              ? "bg-accent text-primary"
+              : "text-white/70 hover:bg-white/10 hover:text-white"
           }`}
           aria-current={loc === locale ? "true" : undefined}
           aria-pressed={loc === locale}

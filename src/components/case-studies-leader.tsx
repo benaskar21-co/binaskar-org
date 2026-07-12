@@ -20,10 +20,10 @@ export function CaseStudiesSection({ locale }: { locale: Locale }) {
   return (
     <section
       id={sections.caseStudies}
-      className="scroll-mt-24 bg-base py-24"
+      className="scroll-mt-24 bg-surface py-24 sm:py-32"
       aria-labelledby="case-studies-heading"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="section-shell">
         <Reveal>
           <SectionHeader
             id="case-studies-heading"
@@ -31,7 +31,7 @@ export function CaseStudiesSection({ locale }: { locale: Locale }) {
             subtitle={messages.caseStudies.subtitle}
           />
         </Reveal>
-        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+        <div className="mt-16 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
           {caseStudyKeys.map((key, index) => {
             const study = messages.caseStudies.items[key];
             const outcomes = Object.values(study.outcomes);
@@ -41,34 +41,38 @@ export function CaseStudiesSection({ locale }: { locale: Locale }) {
                 as="article"
                 key={key}
                 delay={index * 90}
-                className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-gradient-to-b from-surface-2/80 to-surface p-8 shadow-[0_30px_70px_-40px_rgba(0,0,0,0.85)] transition duration-300 hover:border-accent/40"
+                className="group relative flex min-h-[34rem] flex-col overflow-hidden bg-background p-8 transition duration-300 hover:bg-surface sm:p-12"
               >
-                <span
-                  className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  aria-hidden="true"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, transparent, rgba(230,182,87,0.7), transparent)",
-                  }}
-                />
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                <span className="pointer-events-none absolute -end-4 -top-10 font-display text-[11rem] font-medium leading-none text-primary/[0.045] transition-transform duration-500 group-hover:translate-y-3" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
                   {study.sector}
                 </p>
-                <h3 className="mt-2 font-display text-2xl font-semibold text-white">
+                <h3 className="relative mt-4 max-w-lg font-display text-4xl font-medium tracking-[-0.05em] text-primary sm:text-5xl">
                   {study.title}
                 </h3>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-brand-100/75">
+                <p className="relative mt-6 flex-1 max-w-lg text-base leading-7 text-secondary">
                   {study.description}
                 </p>
-                <ul className="mt-6 space-y-2">
+                <ul className="relative mt-8 space-y-3 border-s border-border ps-4">
                   {outcomes.map((outcome) => (
                     <li
                       key={outcome}
-                      className="flex items-start gap-2 text-sm text-brand-100/85"
+                      className="flex items-start gap-2 text-sm text-secondary"
                     >
-                      <span className="text-accent" aria-hidden="true">
-                        ✓
-                      </span>
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 111.42-1.42l2.79 2.79 6.79-6.79a1 1 0 011.42 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
                       {outcome}
                     </li>
                   ))}
@@ -77,7 +81,7 @@ export function CaseStudiesSection({ locale }: { locale: Locale }) {
                   href={caseStudyLinks[key]}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-accent-strong transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  className="relative mt-8 inline-flex w-fit cursor-pointer items-center gap-2 text-sm font-semibold text-accent transition duration-200 hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
                   <span>{messages.caseStudies.viewProject}</span>
                   <DirectionalArrow locale={locale} />
@@ -98,45 +102,40 @@ export function LeaderSection({ locale }: { locale: Locale }) {
   return (
     <section
       id={sections.leader}
-      className="scroll-mt-24 bg-surface py-24"
+      className="scroll-mt-24 bg-primary py-24 text-white sm:py-32"
       aria-labelledby="leader-heading"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal className="relative grid gap-10 overflow-hidden rounded-3xl border border-border bg-surface-2/60 p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-12">
-          <div
-            className="pointer-events-none absolute -start-10 -top-10 h-48 w-48 rounded-full bg-accent/10 blur-3xl"
-            aria-hidden="true"
-          />
-          <div className="relative">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
+      <div className="section-shell">
+        <Reveal className="grid gap-12 border-y border-white/15 py-12 lg:grid-cols-[0.8fr_1.2fr] lg:py-16">
+          <div>
+            <p className="eyebrow text-accent">
               {messages.leader.title}
             </p>
             <h2
               id="leader-heading"
-              className="mt-3 font-display text-3xl font-semibold text-white"
+              className="mt-5 font-display text-4xl font-medium text-white sm:text-5xl"
             >
               {messages.leader.name}
             </h2>
-            <p className="mt-1 text-brand-100/70">{messages.leader.role}</p>
+            <p className="mt-2 text-slate-300">{messages.leader.role}</p>
             <a
               href="https://www.linkedin.com/in/abdullah-bin-askar"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent-strong transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="mt-6 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-accent transition duration-200 hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <span>{messages.leader.linkedin}</span>
               <DirectionalArrow locale={locale} />
             </a>
           </div>
-          <div className="relative">
-            <p className="leading-relaxed text-brand-100/80">
-              {messages.leader.bio}
-            </p>
+          <div className="relative flex items-center">
+            <span className="pointer-events-none absolute -end-3 -top-16 font-display text-[14rem] font-medium leading-none text-white/[0.04]" aria-hidden="true">AB</span>
+            <p className="max-w-2xl text-lg leading-8 text-slate-200">{messages.leader.bio}</p>
             <ul className="mt-6 flex flex-wrap gap-2">
               {credentials.map((cred) => (
                 <li
                   key={cred}
-                  className="rounded-full border border-border bg-base/60 px-3 py-1 text-xs font-medium text-brand-100/85"
+                  className="border border-white/20 px-3 py-1.5 text-xs font-medium text-slate-200"
                 >
                   {cred}
                 </li>

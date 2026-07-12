@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 
 const initialState: ContactFormState = { success: false };
 
-const labelClass = "block text-sm font-medium text-brand-50";
+const labelClass = "block text-xs font-bold uppercase tracking-[0.14em] text-primary";
 
 const fieldClass =
-  "mt-1 w-full rounded-xl border bg-base/60 px-4 py-3 text-sm text-white placeholder:text-muted outline-none transition focus:border-accent/60 focus:ring-2 focus:ring-accent/25";
+  "mt-2 w-full rounded-sm border bg-surface px-4 py-3.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition duration-200 focus:border-ring focus:ring-2 focus:ring-ring/20";
 
 type FormValues = {
   name: string;
@@ -117,7 +117,7 @@ export function ContactForm({ locale }: ContactFormProps) {
     return (
       <div
         role="status"
-        className="rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6 text-emerald-200"
+        className="border border-emerald-700/20 bg-emerald-50 p-6 text-emerald-900"
       >
         {messages.contact.form.success}
       </div>
@@ -151,11 +151,11 @@ export function ContactForm({ locale }: ContactFormProps) {
           aria-describedby={state.fieldErrors?.name ? "name-error" : undefined}
           className={cn(
             fieldClass,
-            state.fieldErrors?.name ? "border-red-400/70" : "border-border"
+            state.fieldErrors?.name ? "border-destructive" : "border-border"
           )}
         />
         {state.fieldErrors?.name ? (
-          <p id="name-error" className="mt-1 text-sm text-red-300" role="alert">
+          <p id="name-error" className="mt-1 text-sm text-destructive" role="alert">
             {state.fieldErrors.name}
           </p>
         ) : null}
@@ -177,11 +177,11 @@ export function ContactForm({ locale }: ContactFormProps) {
           aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
           className={cn(
             fieldClass,
-            state.fieldErrors?.email ? "border-red-400/70" : "border-border"
+            state.fieldErrors?.email ? "border-destructive" : "border-border"
           )}
         />
         {state.fieldErrors?.email ? (
-          <p id="email-error" className="mt-1 text-sm text-red-300" role="alert">
+          <p id="email-error" className="mt-1 text-sm text-destructive" role="alert">
             {state.fieldErrors.email}
           </p>
         ) : null}
@@ -220,18 +220,18 @@ export function ContactForm({ locale }: ContactFormProps) {
           className={cn(
             fieldClass,
             "resize-y",
-            state.fieldErrors?.message ? "border-red-400/70" : "border-border"
+            state.fieldErrors?.message ? "border-destructive" : "border-border"
           )}
         />
         {state.fieldErrors?.message ? (
-          <p id="message-error" className="mt-1 text-sm text-red-300" role="alert">
+          <p id="message-error" className="mt-1 text-sm text-destructive" role="alert">
             {state.fieldErrors.message}
           </p>
         ) : null}
       </div>
 
       {state.error ? (
-        <p className="text-sm text-red-300" role="alert">
+        <p className="text-sm text-destructive" role="alert">
           {state.error}
         </p>
       ) : null}
@@ -239,7 +239,7 @@ export function ContactForm({ locale }: ContactFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#1a1204] shadow-[0_16px_36px_-14px_var(--glow)] transition hover:bg-accent-strong disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:w-auto"
+        className="w-full cursor-pointer rounded-sm bg-primary px-7 py-3.5 text-sm font-semibold text-white transition duration-200 hover:bg-accent hover:text-primary disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:w-auto"
       >
         {isPending ? messages.contact.form.sending : messages.contact.form.submit}
       </button>

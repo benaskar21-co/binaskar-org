@@ -12,43 +12,44 @@ export function MethodologySection({ locale }: { locale: Locale }) {
   return (
     <section
       id={sections.methodology}
-      className="relative scroll-mt-24 overflow-hidden bg-base py-24 text-white"
+      className="grain relative scroll-mt-24 overflow-hidden bg-primary py-24 text-white sm:py-32"
       aria-labelledby="methodology-heading"
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-60"
+        className="pointer-events-none absolute inset-0 opacity-40"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "radial-gradient(50% 40% at 8% 0%, rgba(230,168,83,0.12), transparent 45%), radial-gradient(60% 60% at 92% 100%, rgba(47,116,196,0.22), transparent 55%)",
+            "radial-gradient(55% 55% at 100% 0%, rgba(184,121,43,0.25), transparent 60%)",
         }}
       />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="section-shell relative">
         <Reveal>
           <SectionHeader
             id="methodology-heading"
             title={messages.methodology.title}
             subtitle={messages.methodology.subtitle}
+            variant="dark"
           />
         </Reveal>
-        <ol className="relative mt-14 grid gap-5 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 xl:gap-6">
+        <ol className="mt-16 grid border-s border-white/15 sm:grid-cols-2 xl:grid-cols-4">
           {stepKeys.map((key, index) => {
             const step = messages.methodology.steps[key];
             const stepNumber = String(index + 1).padStart(2, "0");
 
             return (
               <Reveal as="li" key={key} delay={index * 90}>
-                <article className="flex min-h-[11.5rem] h-full flex-col rounded-2xl border border-border bg-surface-2/70 p-5 shadow-[0_24px_50px_-30px_rgba(0,0,0,0.9)] backdrop-blur-sm transition duration-300 hover:border-accent/40 hover:bg-surface-2 sm:min-h-[12.5rem] sm:p-6">
+                <article className="flex min-h-[19rem] h-full flex-col border-e border-b border-white/15 bg-white/[0.025] p-6 transition duration-300 hover:bg-white/[0.08] sm:p-8">
                   <span
-                    className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-accent/40 bg-base text-sm font-bold tabular-nums text-accent-strong"
+                    className="inline-flex h-11 w-11 items-center justify-center border border-accent text-sm font-bold tabular-nums text-accent"
                     aria-hidden="true"
                   >
                     {stepNumber}
                   </span>
-                  <h3 className="mt-4 font-display text-lg font-semibold leading-snug text-white sm:text-xl">
+                  <h3 className="mt-auto pt-10 font-display text-2xl font-medium leading-snug text-white sm:text-3xl">
                     {step.title}
                   </h3>
-                  <p className="mt-2.5 flex-1 text-start text-sm leading-relaxed text-brand-100/80 sm:text-[0.9375rem]">
+                  <p className="mt-3 text-base leading-7 text-slate-300">
                     {step.description}
                   </p>
                 </article>
@@ -68,10 +69,10 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
   return (
     <section
       id={sections.experience}
-      className="scroll-mt-24 bg-surface py-24"
+      className="scroll-mt-24 bg-background py-24 sm:py-32"
       aria-labelledby="experience-heading"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="section-shell">
         <Reveal>
           <SectionHeader
             id="experience-heading"
@@ -79,19 +80,27 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
             subtitle={messages.experience.subtitle}
           />
         </Reveal>
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2">
+        <ul className="mt-16 grid border-y border-border sm:grid-cols-2">
           {highlights.map((item, index) => (
             <Reveal
               as="li"
               key={item}
               delay={index * 60}
-              className="flex items-start gap-3 rounded-xl border border-border bg-surface-2/50 p-5 transition hover:border-accent/30"
+              className="group flex min-h-44 items-start gap-5 border-e border-b border-border bg-surface p-7 transition duration-300 hover:bg-background sm:p-9"
             >
-              <span
-                className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_10px_var(--glow)]"
+              <svg
+                className="mt-1 h-5 w-5 shrink-0 text-accent transition-transform duration-300 group-hover:translate-x-1"
+                viewBox="0 0 20 20"
+                fill="currentColor"
                 aria-hidden="true"
-              />
-              <span className="text-brand-100/85">{item}</span>
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.42 0l-3.5-3.5a1 1 0 111.42-1.42l2.79 2.79 6.79-6.79a1 1 0 011.42 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span className="font-display text-xl font-medium leading-snug text-primary sm:text-2xl">{item}</span>
             </Reveal>
           ))}
         </ul>

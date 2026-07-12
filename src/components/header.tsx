@@ -1,14 +1,16 @@
 import { AnchorLink } from "@/components/anchor-link";
+import { BrandLockup } from "@/components/brand-mark";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNav } from "@/components/mobile-nav";
 import { sectionHref, sections } from "@/lib/sections";
-import { siteConfig, type Locale } from "@/lib/i18n/config";
+import { type Locale } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
 import { cn } from "@/lib/utils";
 
 type HeaderProps = {
   locale: Locale;
   activeSection?: string;
+  hash?: string;
 };
 
 const navItems = [
@@ -18,26 +20,18 @@ const navItems = [
   { key: "about" as const, section: sections.about },
 ] as const;
 
-export function Header({
-  locale,
-  activeSection = "home",
-}: HeaderProps) {
+export function Header({ locale, activeSection = "home" }: HeaderProps) {
   const messages = getMessages(locale);
-  const siteName = locale === "ar" ? siteConfig.nameAr : siteConfig.name;
-
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-base/70 backdrop-blur-xl">
-      <div className="relative mx-auto max-w-6xl px-4 py-4 sm:px-6">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-primary text-white">
+      <div className="section-shell relative py-4">
         <div className="flex items-center justify-between gap-4">
           <AnchorLink
             href={sectionHref(locale, sections.home)}
-            className="group flex flex-col leading-tight"
-            aria-label={siteName}
+            className="group flex items-center gap-3 leading-tight"
+            aria-label={locale === "ar" ? "بن عسكر للتقنية" : "Bin Askar Technology"}
           >
-            <span className="font-display text-lg font-semibold tracking-tight text-white transition-colors group-hover:text-accent-strong">
-              {siteName}
-            </span>
-            <span className="text-xs text-muted">{messages.meta.tagline}</span>
+            <BrandLockup locale={locale} />
           </AnchorLink>
 
           <nav
@@ -54,17 +48,17 @@ export function Header({
                   key={item.key}
                   href={href}
                   className={cn(
-                    "relative rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                    "relative cursor-pointer px-3 py-2 text-sm font-medium transition-colors duration-200",
                     isActive
-                      ? "text-white"
-                      : "text-brand-100/70 hover:text-white"
+                      ? "text-accent"
+                      : "text-white/70 hover:text-white"
                   )}
                   aria-current={isActive ? "true" : undefined}
                 >
                   {label}
                   {isActive ? (
                     <span
-                      className="absolute inset-x-3 -bottom-px h-px bg-gradient-to-r from-transparent via-accent to-transparent"
+                      className="absolute inset-x-3 -bottom-px h-px bg-accent"
                       aria-hidden="true"
                     />
                   ) : null}
@@ -77,7 +71,7 @@ export function Header({
             <LanguageSwitcher locale={locale} />
             <AnchorLink
               href={sectionHref(locale, sections.contact)}
-              className="hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[#1a1204] transition hover:bg-accent-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:inline-flex"
+              className="hidden min-h-10 cursor-pointer items-center rounded-sm bg-accent px-5 py-2 text-sm font-semibold text-primary transition duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:inline-flex"
             >
               {messages.nav.contact}
             </AnchorLink>

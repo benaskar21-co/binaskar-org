@@ -1,4 +1,5 @@
 import { AnchorLink } from "@/components/anchor-link";
+import { BrandMark } from "@/components/brand-mark";
 import { sectionHref, sections } from "@/lib/sections";
 import type { Locale } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
@@ -12,70 +13,59 @@ export function Hero({ locale }: HeroProps) {
   const sectors = Object.values(messages.experience.sectors);
 
   return (
-    <section
-      id={sections.home}
-      className="relative scroll-mt-24 overflow-hidden bg-base"
-    >
-      {/* Layered atmosphere: gradient mesh + gold glow orb + faint grid. */}
+    <section id={sections.home} className="grain relative scroll-mt-24 overflow-hidden bg-primary text-white">
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "radial-gradient(120% 80% at 15% 10%, rgba(47,116,196,0.28), transparent 55%), radial-gradient(90% 70% at 95% 0%, rgba(230,182,87,0.16), transparent 50%)",
+            "radial-gradient(50% 70% at 92% 12%, rgba(184,121,43,0.28), transparent 62%)",
         }}
       />
       <div
-        className="pointer-events-none absolute -top-24 start-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full opacity-60 blur-[120px]"
-        aria-hidden="true"
-        style={{ background: "radial-gradient(circle, rgba(230,182,87,0.22), transparent 60%)" }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0 opacity-[0.5]"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(148,187,240,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(148,187,240,0.6) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-          maskImage:
-            "radial-gradient(70% 60% at 50% 20%, black, transparent 80%)",
+            "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+          maskImage: "radial-gradient(70% 65% at 65% 20%, black, transparent 78%)",
         }}
       />
 
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-32">
-        <div className="space-y-7">
+      <div className="section-shell relative grid min-h-[calc(100svh-76px)] gap-16 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-28">
+        <div className="max-w-4xl space-y-8">
           <p
-            className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.28em] text-accent-strong backdrop-blur"
+            className="eyebrow text-accent"
             style={{ animation: "rise-in 0.6s cubic-bezier(0.16,1,0.3,1) both" }}
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
             {messages.hero.eyebrow}
           </p>
           <h1
-            className="font-display text-4xl font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl"
+            className="max-w-4xl font-display text-[clamp(3.2rem,8vw,7.8rem)] font-medium leading-[0.9] tracking-[-0.06em] text-white"
             style={{ animation: "rise-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.08s both" }}
           >
             {messages.hero.title}
           </h1>
           <p
-            className="max-w-xl text-lg leading-relaxed text-brand-100/85"
+            className="max-w-2xl text-lg leading-8 text-white/70 sm:text-xl"
             style={{ animation: "rise-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.16s both" }}
           >
             {messages.hero.subtitle}
           </p>
           <div
-            className="flex flex-wrap gap-3 pt-3"
+            className="flex flex-wrap gap-3 pt-2"
             style={{ animation: "rise-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.24s both" }}
           >
             <AnchorLink
               href={sectionHref(locale, sections.contact)}
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[#1a1204] shadow-[0_0_0_1px_rgba(230,182,87,0.4),0_18px_40px_-12px_var(--glow)] transition hover:bg-accent-strong hover:shadow-[0_0_0_1px_rgba(230,182,87,0.6),0_22px_50px_-10px_var(--glow)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="inline-flex min-h-12 cursor-pointer items-center rounded-sm bg-accent px-7 py-3 text-sm font-semibold text-primary transition duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               {messages.hero.ctaPrimary}
             </AnchorLink>
             <AnchorLink
               href={sectionHref(locale, sections.services)}
-              className="inline-flex items-center rounded-full border border-border-strong bg-surface/60 px-6 py-3 text-sm font-semibold text-brand-50 backdrop-blur transition hover:border-accent/50 hover:bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="inline-flex min-h-12 cursor-pointer items-center border-b border-white/40 px-2 py-3 text-sm font-semibold text-white transition duration-200 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               {messages.hero.ctaSecondary}
             </AnchorLink>
@@ -86,31 +76,27 @@ export function Hero({ locale }: HeroProps) {
           className="relative hidden lg:block"
           style={{ animation: "rise-in 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}
         >
-          <div
-            className="absolute -end-8 top-6 h-56 w-56 rounded-full bg-accent/20 blur-3xl"
-            aria-hidden="true"
-          />
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-b from-surface-2 to-surface p-8 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)]">
-            <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-px"
-              aria-hidden="true"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, rgba(230,182,87,0.7), transparent)",
-              }}
-            />
-            <div className="space-y-4">
+          <div className="relative min-h-[28rem] border border-white/15 bg-white/[0.035] p-8 shadow-2xl backdrop-blur-sm">
+            <div className="hero-orbit pointer-events-none absolute -end-8 -top-8 h-28 w-28 rounded-full border border-accent/50" aria-hidden="true" />
+            <div className="flex h-full flex-col justify-between gap-12">
+              <div className="flex items-start justify-between border-b border-white/15 pb-6">
+                <BrandMark className="h-20 w-[5.6rem]" title={messages.meta.siteName} />
+                <span className="text-end text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white/50">{messages.contact.location}</span>
+              </div>
+              <div className="space-y-0">
               {sectors.map((sector, i) => (
                 <div
                   key={sector}
-                  className="flex items-center gap-4 border-b border-border pb-4 last:border-0 last:pb-0"
+                  className="group flex items-center gap-4 border-b border-white/15 py-5 first:pt-0 last:border-0"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/40 bg-base text-sm font-bold tabular-nums text-accent-strong">
+                  <span className="text-xs font-bold tabular-nums text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-medium text-brand-50">{sector}</span>
+                  <span className="font-display text-lg font-medium text-white transition-colors group-hover:text-accent">{sector}</span>
                 </div>
               ))}
+              </div>
+              <span className="text-xs uppercase tracking-[0.18em] text-white/50">{messages.meta.tagline}</span>
             </div>
           </div>
         </div>

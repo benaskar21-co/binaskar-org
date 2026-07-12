@@ -3,6 +3,9 @@ import { NextResponse } from "next/server";
 import { processContactSubmission } from "@/lib/contact/submit-contact";
 import { defaultLocale, isValidLocale } from "@/lib/i18n/config";
 
+// Nodemailer requires the Node.js runtime; keep this route off the Edge runtime.
+export const runtime = "nodejs";
+
 export async function POST(request: Request) {
   const formData = await request.formData();
   const localeValue = String(formData.get("locale") ?? defaultLocale);

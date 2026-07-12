@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Installed AI skills (ui-ux-pro-max) ship their own scripts.
+    ".cursor/skills/**",
+    "design-system/**",
   ]),
 ]);
 

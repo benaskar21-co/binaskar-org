@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
 import {
   IBM_Plex_Sans_Arabic,
-  El_Messiri,
-  Fraunces,
-  DM_Sans,
+  Lexend,
+  Source_Sans_3,
 } from "next/font/google";
 
 import { Footer } from "@/components/footer";
@@ -18,8 +17,9 @@ import { buildMetadata } from "@/lib/seo";
 
 import "../globals.css";
 
-const bodyFont = DM_Sans({
+const bodyFont = Source_Sans_3({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
@@ -31,18 +31,10 @@ const arabicFont = IBM_Plex_Sans_Arabic({
   display: "swap",
 });
 
-const displayFont = Fraunces({
+const displayFont = Lexend({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-display-latin",
-  display: "swap",
-});
-
-const arabicDisplayFont = El_Messiri({
-  subsets: ["arabic", "latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-display-ar",
   display: "swap",
 });
 
@@ -74,9 +66,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   const locale = localeParam as Locale;
   const dir = localeDirections[locale];
-  const fontClass = `${bodyFont.variable} ${arabicFont.variable} ${displayFont.variable} ${arabicDisplayFont.variable}`;
+  const fontClass = `${bodyFont.variable} ${arabicFont.variable} ${displayFont.variable}`;
   const displayVar =
-    locale === "ar" ? "var(--font-display-ar)" : "var(--font-display-latin)";
+    locale === "ar"
+      ? "var(--font-arabic), var(--font-display-latin)"
+      : "var(--font-display-latin)";
   const bodyFamily =
     locale === "ar"
       ? "var(--font-arabic), system-ui, sans-serif"

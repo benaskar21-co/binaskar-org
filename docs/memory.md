@@ -5,7 +5,7 @@
 - موقع شركة استشارية تقنية ثنائي اللغة (ar/en)
 - العلامة: **Bin Askar Technology | بن عسكر للتقنية**
 - القائد: عبدالله بن عسكر — CTO ومستشار تقني
-- الاستضافة المستهدفة: Vercel + Namecheap DNS
+- الاستضافة: Render أو Vercel + Namecheap DNS (اختيار المنصة لم يُحسم)
 
 ## قرارات تقنية
 
@@ -14,17 +14,22 @@
 | Framework | Next.js 16 App Router | SEO، Server Actions، i18n |
 | Styling | Tailwind CSS v4 | سرعة التطوير، RTL |
 | i18n | Custom `[locale]` + JSON | خفيف، تحكم كامل بـ RTL |
-| Email | Resend (اختياري) | بسيط مع Vercel |
+| Email | PrivateEmail SMTP (primary) + Resend HTTPS fallback | PrivateEmail works on a paid Render service; Render Free blocks SMTP ports |
 | الاختبارات | Vitest + Playwright | وحدة + e2e |
 | الهوية البصرية | داكن فخم/تقني (Dark luxury-tech) | تمييز، إحساس Premium |
 
-## نظام التصميم (UI)
+## نظام التصميم (UI) — Trust & Authority
 
-- **الثيم:** داكن — خلفية أساس `--base` (#050b14) وطبقات `--surface`/`--surface-2`، حدود `--border`.
-- **لون التمييز:** ذهبي `--accent` (#e6b657) + مقياس `brand-*` أزرق عميق للعمق.
-- **الخطوط:** عناوين `Fraunces` (en) و`El Messiri` (ar) عبر `--font-display`؛ النص `DM Sans` / `IBM Plex Sans Arabic`.
-- **الحركة:** كشف عند التمرير بمكوّن `Reveal` (يُعطّل تلقائيًا مع `prefers-reduced-motion`) — بدون مكتبات حركة خارجية.
-- **الوصولية:** تباين AA على الخلفيات الداكنة، حلقات تركيز ذهبية واضحة.
+مُولّد بمهارة `ui-ux-pro-max`، مصدر الحقيقة: `design-system/bin-askar-technology/MASTER.md`.
+
+- **النمط:** Trust & Authority (استشارات B2B) — لوحة احترافية فاتحة.
+- **الألوان:** primary أخضر حبري #14231E، accent ذهبي #B8792B، خلفية ورقية #F3EFE7، وأسطح #FFFDF8.
+- **الاتجاه:** Editorial Founder Profile — ملف شخصي جريء يقود إلى خدمات الشركة ودراسات الحالة ثم التواصل.
+- **الشعار:** monogram هندسي BA يربط بين القيادة التقنية (B) والحركة الصاعدة/المعمارية (A)، بصيغة SVG في `src/components/brand-mark.tsx`.
+- **الخطوط:** `Lexend` (عناوين لاتينية) + `Source Sans 3` (نص لاتيني)؛ `IBM Plex Sans Arabic` للعربية.
+- **الحركة:** كشف عند التمرير بمكوّن `Reveal` (يحترم `prefers-reduced-motion`)، انتقالات 150-300ms، ظلال ناعمة.
+- **الوصولية:** WCAG AA+ ، تباين ≥ 4.5:1، حلقات focus مرئية، أيقونات SVG.
+- **تجنّب:** تصاميم مرحة، تدرّجات AI بنفسجية/وردية، إخفاء الاعتمادات، إيموجي كأيقونات.
 - **ثبات المحتوى:** إعادة التصميم لم تغيّر أي نص في `messages/ar.json` و`en.json`.
 
 ## محتوى حساس — لا تنشر

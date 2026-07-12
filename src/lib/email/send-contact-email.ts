@@ -124,9 +124,13 @@ export async function sendContactEmail(
     return { sent: false };
   }
 
-  if (!smtpConfigured) {
+  if (!smtpConfigured && process.env.NODE_ENV !== "production") {
     console.info("Contact form submission (dev mode):", payload);
     return { sent: true, provider: "dev" };
+  }
+
+  if (!smtpConfigured) {
+    console.error("Contact email is not configured: set SMTP credentials or RESEND_API_KEY");
   }
 
   return { sent: false };

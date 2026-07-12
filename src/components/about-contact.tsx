@@ -13,10 +13,10 @@ export function AboutSection({ locale }: { locale: Locale }) {
   return (
     <section
       id={sections.about}
-      className="scroll-mt-24 border-y border-border bg-base py-24"
+      className="scroll-mt-24 border-y border-border bg-surface py-24 sm:py-32"
       aria-labelledby="about-heading"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="section-shell">
         <Reveal>
           <SectionHeader
             id="about-heading"
@@ -25,22 +25,22 @@ export function AboutSection({ locale }: { locale: Locale }) {
           />
         </Reveal>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-8">
+        <div className="mt-16 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="space-y-px bg-border">
             <Reveal
               as="article"
-              className="rounded-2xl border border-border bg-surface-2/60 p-6"
+              className="bg-background p-8 sm:p-10"
             >
-              <h3 className="font-display text-xl font-semibold text-white">
+              <h3 className="font-display text-xl font-semibold text-primary">
                 {messages.about.mission.title}
               </h3>
-              <p className="mt-3 leading-relaxed text-brand-100/80">
+              <p className="mt-3 leading-relaxed text-secondary">
                 {messages.about.mission.description}
               </p>
             </Reveal>
 
-            <article>
-              <h3 className="font-display text-xl font-semibold text-white">
+            <article className="bg-background p-8 sm:p-10">
+              <h3 className="font-display text-2xl font-medium text-primary">
                 {messages.about.whoWeServe.title}
               </h3>
               <ul className="mt-4 space-y-3">
@@ -49,17 +49,17 @@ export function AboutSection({ locale }: { locale: Locale }) {
                     as="li"
                     key={key}
                     delay={index * 60}
-                    className="flex items-start gap-3 rounded-xl border border-border bg-surface/60 p-4 transition hover:border-accent/30"
+                    className="group flex items-start gap-4 border-t border-border py-5 first:border-t-0"
                   >
                     <span
-                      className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_10px_var(--glow)]"
+                      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150"
                       aria-hidden="true"
                     />
                     <div>
-                      <p className="font-medium text-white">
+                      <p className="font-medium text-primary">
                         {messages.about.whoWeServe.items[key].title}
                       </p>
-                      <p className="mt-1 text-sm text-brand-100/70">
+                      <p className="mt-1 text-sm text-secondary">
                         {messages.about.whoWeServe.items[key].description}
                       </p>
                     </div>
@@ -69,8 +69,8 @@ export function AboutSection({ locale }: { locale: Locale }) {
             </article>
           </div>
 
-          <div>
-            <h3 className="font-display text-xl font-semibold text-white">
+          <div className="bg-surface p-8 sm:p-10">
+            <h3 className="font-display text-2xl font-medium text-primary">
               {messages.about.values.title}
             </h3>
             <div className="mt-4 grid gap-4">
@@ -81,12 +81,12 @@ export function AboutSection({ locale }: { locale: Locale }) {
                     as="article"
                     key={key}
                     delay={index * 70}
-                    className="rounded-2xl border border-border bg-gradient-to-b from-surface-2/70 to-surface p-5 transition hover:border-accent/30"
+                    className="border-t border-border py-6 first:border-t-0"
                   >
-                    <h4 className="font-display text-lg font-semibold text-accent-strong">
+                    <h4 className="font-display text-lg font-semibold text-primary">
                       {value.title}
                     </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-brand-100/75">
+                    <p className="mt-2 text-sm leading-relaxed text-secondary">
                       {value.description}
                     </p>
                   </Reveal>
@@ -106,62 +106,63 @@ export function ContactSection({ locale }: { locale: Locale }) {
   return (
     <section
       id={sections.contact}
-      className="relative scroll-mt-24 overflow-hidden bg-surface py-24"
+      className="grain relative scroll-mt-24 overflow-hidden bg-accent py-24 sm:py-32"
       aria-labelledby="contact-heading"
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-70"
+        className="pointer-events-none absolute inset-0 opacity-40"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "radial-gradient(55% 50% at 100% 0%, rgba(230,182,87,0.12), transparent 55%), radial-gradient(55% 50% at 0% 100%, rgba(47,116,196,0.2), transparent 55%)",
+            "radial-gradient(55% 55% at 0% 100%, rgba(20,35,30,0.26), transparent 60%)",
         }}
       />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="section-shell relative">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span
-            className="mx-auto inline-block h-1 w-12 rounded-full bg-gradient-to-r from-accent to-transparent"
-            aria-hidden="true"
-          />
+          <span className="eyebrow justify-center text-primary" aria-hidden="true" />
           <h2
             id="contact-heading"
-            className="mt-5 font-display text-3xl font-semibold text-white sm:text-4xl"
+            className="mt-5 font-display text-4xl font-medium tracking-[-0.05em] text-primary sm:text-6xl"
           >
             {messages.cta.title}
           </h2>
-          <p className="mt-4 text-brand-100/80">{messages.cta.subtitle}</p>
+          <p className="mt-5 text-lg leading-8 text-primary/70">{messages.cta.subtitle}</p>
         </Reveal>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="text-white">
-            <h3 className="font-display text-2xl font-semibold">
+        <div className="mt-16 grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="text-primary">
+            <h3 className="font-display text-3xl font-medium">
               {messages.contact.title}
             </h3>
-            <p className="mt-3 text-brand-100/80">{messages.contact.subtitle}</p>
-            <p className="mt-6 text-sm text-muted">{messages.contact.location}</p>
+            <p className="mt-4 max-w-md text-lg leading-8 text-primary/70">{messages.contact.subtitle}</p>
+            <p className="mt-8 text-sm text-primary/60">
+              {messages.contact.location}
+            </p>
             <div className="mt-8 space-y-3">
-              <p className="text-sm text-muted">{messages.contact.emailLabel}</p>
+              <p className="text-sm text-primary/60">
+                {messages.contact.emailLabel}
+              </p>
               <a
                 href={`mailto:${siteConfig.contactEmail}`}
-                className="inline-flex text-lg font-semibold text-accent-strong underline decoration-accent/50 underline-offset-4 transition hover:decoration-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="inline-flex cursor-pointer text-lg font-semibold text-primary underline decoration-primary/40 decoration-2 underline-offset-4 transition hover:decoration-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 {siteConfig.contactEmail}
               </a>
             </div>
-            <p className="mt-6 text-sm text-muted">
+            <p className="mt-6 text-sm text-primary/60">
               {messages.contact.alternative}{" "}
               <a
                 href={siteConfig.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-brand-50 underline underline-offset-2 hover:text-white"
+                className="cursor-pointer font-medium text-primary underline underline-offset-2 hover:text-primary/70"
               >
                 LinkedIn
               </a>
             </p>
           </div>
 
-          <div className="rounded-3xl border border-border bg-surface-2/70 p-8 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)] backdrop-blur">
+          <div className="border border-primary/15 bg-surface p-7 shadow-xl sm:p-10">
             <ContactForm locale={locale} />
           </div>
         </div>

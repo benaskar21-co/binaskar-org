@@ -30,18 +30,20 @@ export function MobileNav({ locale, activeSection = "home" }: MobileNavProps) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-surface/70 text-brand-50 backdrop-blur transition hover:border-accent/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-sm border border-white/20 bg-white/[0.04] text-white transition duration-200 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         aria-expanded={open}
         aria-controls="mobile-nav-panel"
         aria-label={open ? "Close menu" : "Open menu"}
       >
-        <span className="text-lg leading-none">{open ? "✕" : "☰"}</span>
+        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+        </svg>
       </button>
 
       {open ? (
         <nav
           id="mobile-nav-panel"
-          className="absolute inset-x-0 top-full z-50 border-b border-border bg-base/95 px-4 py-3 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl"
+          className="absolute inset-x-0 top-full z-50 border-b border-white/10 bg-primary px-4 py-3 shadow-lg"
           aria-label="Mobile navigation"
         >
           <ul className="space-y-1">
@@ -55,10 +57,10 @@ export function MobileNav({ locale, activeSection = "home" }: MobileNavProps) {
                     href={sectionHref(locale, item.section)}
                     onNavigate={() => setOpen(false)}
                     className={cn(
-                      "block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                      "block cursor-pointer rounded-md px-3 py-2.5 text-sm font-medium transition-colors duration-200",
                       isActive
-                        ? "bg-surface-2 text-white"
-                        : "text-brand-100/70 hover:bg-surface hover:text-white"
+                        ? "bg-accent text-primary"
+                        : "text-white/70 hover:bg-white/10 hover:text-white"
                     )}
                   >
                     {label}

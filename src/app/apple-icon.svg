@@ -1,29 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
-  <rect width="180" height="180" rx="40" fill="#0a1420"/>
-  <rect
-    x="4"
-    y="4"
-    width="172"
-    height="172"
-    rx="36"
-    stroke="#e6b657"
-    stroke-opacity="0.35"
-    stroke-width="3"
-  />
-  <path
-    d="M90 40 L140 90 L90 140 L40 90 Z"
-    stroke="#e6b657"
-    stroke-width="9"
-    stroke-linejoin="round"
-    fill="none"
-  />
-  <path
-    d="M90 62 L118 90 L90 118 L62 90 Z"
-    fill="#e6b657"
-    fill-opacity="0.22"
-    stroke="#e6b657"
-    stroke-width="6.5"
-    stroke-linejoin="round"
-  />
-  <circle cx="90" cy="90" r="10" fill="#e6b657"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 160" fill="none">
+  <rect x="3" y="3" width="174" height="154" rx="38" fill="#14231E"/>
+  <path d="M35 126V34h32c21 0 32 9 32 25 0 10-6 17-16 21 13 3 20 11 20 23 0 17-12 26-36 26H35Zm18-54h13c10 0 15-4 15-10 0-6-5-9-15-9H53v19Zm0 37h15c10 0 15-4 15-11 0-7-5-10-15-10H53v21Z" fill="#B8792B"/>
+  <path d="m99 126 26-92h19l27 92h-20l-5-19h-27l-5 19H99Zm28-36h15l-7-29-8 29Z" fill="#FFFDF8"/>
 </svg>
