@@ -27,10 +27,10 @@ export default async function HomePage({ params }: PageProps) {
     <>
       <HashScrollHandler />
       <Hero locale={locale} />
-      <ServicesSection locale={locale} />
-      <MethodologySection locale={locale} />
       <ExperienceSection locale={locale} />
+      <ServicesSection locale={locale} />
       <CaseStudiesSection locale={locale} />
+      <MethodologySection locale={locale} />
       <AboutSection locale={locale} />
       <LeaderSection locale={locale} />
       <ContactSection locale={locale} />

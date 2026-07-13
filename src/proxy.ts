@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { defaultLocale, isValidLocale } from "@/lib/i18n/config";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (

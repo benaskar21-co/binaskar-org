@@ -16,87 +16,58 @@ export function Footer({ locale }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary text-slate-300">
-      <div className="section-shell py-16 sm:py-20">
-        <div className="grid gap-8 md:grid-cols-3">
+    <footer className="border-t border-white/10 bg-primary-deep text-white/65">
+      <div className="section-shell py-14 sm:py-20">
+        <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <BrandLockup locale={locale} />
-            <p className="mt-2 text-sm text-slate-400">{messages.meta.tagline}</p>
-            <a
-              href={`mailto:${siteConfig.contactEmail}`}
-              className="mt-4 inline-block cursor-pointer text-sm text-slate-300 transition duration-200 hover:text-white"
-            >
-              {siteConfig.contactEmail}
-            </a>
+            <p className="mt-8 max-w-3xl font-display text-3xl font-medium leading-tight tracking-[-0.04em] text-white sm:text-4xl">
+              {messages.meta.tagline}
+            </p>
+            <p className="mt-5 text-sm text-white/60">{messages.footer.built}</p>
           </div>
 
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-400">
-              {messages.nav.home}
-            </p>
-            <ul className="mt-3 space-y-2 text-sm">
+          <nav aria-label={messages.nav.footerLabel}>
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm font-semibold sm:flex sm:flex-wrap sm:justify-end">
               <li>
-                <AnchorLink
-                  href={sectionHref(locale, sections.services)}
-                  className="cursor-pointer transition duration-200 hover:text-white"
-                >
+                <AnchorLink href={sectionHref(locale, sections.services)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
                   {messages.nav.services}
                 </AnchorLink>
               </li>
               <li>
-                <AnchorLink
-                  href={sectionHref(locale, sections.caseStudies)}
-                  className="cursor-pointer transition duration-200 hover:text-white"
-                >
+                <AnchorLink href={sectionHref(locale, sections.caseStudies)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
                   {messages.nav.caseStudies}
                 </AnchorLink>
               </li>
               <li>
-                <AnchorLink
-                  href={sectionHref(locale, sections.about)}
-                  className="cursor-pointer transition duration-200 hover:text-white"
-                >
+                <AnchorLink href={sectionHref(locale, sections.about)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
                   {messages.nav.about}
                 </AnchorLink>
               </li>
               <li>
-                <AnchorLink
-                  href={sectionHref(locale, sections.contact)}
-                  className="cursor-pointer transition duration-200 hover:text-white"
-                >
+                <AnchorLink href={sectionHref(locale, sections.contact)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
                   {messages.nav.contact}
                 </AnchorLink>
               </li>
             </ul>
-          </div>
-
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-400">
-              {messages.leader.linkedin}
-            </p>
-            <a
-              href={siteConfig.linkedIn}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-block cursor-pointer text-sm transition duration-200 hover:text-white"
-            >
-              LinkedIn
-            </a>
-            <p className="mt-4 text-xs text-slate-500">{messages.footer.built}</p>
-          </div>
+          </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-5 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {siteName}. {messages.footer.rights}
           </p>
-          <Link
-            href={`/${locale}/privacy`}
-            prefetch={false}
-            className="cursor-pointer transition duration-200 hover:text-white"
-          >
-            {messages.nav.privacy}
-          </Link>
+          <div className="flex flex-wrap items-center gap-5">
+            <a href={`mailto:${siteConfig.contactEmail}`} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-white">
+              {siteConfig.contactEmail}
+            </a>
+            <a href={siteConfig.linkedIn} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-white">
+              LinkedIn
+            </a>
+            <Link href={`/${locale}/privacy`} prefetch={false} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-white">
+              {messages.nav.privacy}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -56,7 +56,7 @@ export function BrandLockup({ locale, compact = false }: BrandLockupProps) {
           <span className="font-display text-base font-medium tracking-[-0.03em] text-white">
             {name}
           </span>
-          <span className="text-[0.65rem] text-white/50">
+          <span className="text-[0.65rem] text-white/65">
             Bin Askar Technology
           </span>
         </span>

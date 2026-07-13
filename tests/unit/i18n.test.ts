@@ -22,7 +22,7 @@ describe("i18n config", () => {
 describe("t() translation helper", () => {
   it("returns Arabic hero title", () => {
     const title = t("ar", "hero.title");
-    expect(title).toContain("رؤية");
+    expect(title).toContain("تقنية");
   });
 
   it("returns English hero title", () => {

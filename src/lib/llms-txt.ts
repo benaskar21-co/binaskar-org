@@ -5,9 +5,9 @@ export function buildLlmsTxt(): string {
 
   return `# ${name}
 
-> Technology consultancy led by Abdullah Bin Askar (CTO) — strategy, solution architecture, applied AI, and digital product engineering from Riyadh, Saudi Arabia.
+> Founder-led technology advisory and leadership practice — clearer decisions, stronger digital products, and delivery capability from Riyadh, Saudi Arabia.
 
-${name} (بن عسكر للتقنية) helps enterprises, startups, and government organizations turn technology vision into reliable digital products. The site is bilingual (Arabic default, English available). Primary contact: ${contactEmail}.
+${name} (بن عسكر للتقنية) works with enterprises, founders, and public-sector programs when the challenge sits in technology direction, architecture, or delivery. Engagements stay close to execution and transfer ownership to the internal team. The site is bilingual (Arabic default, English available). Primary contact: ${contactEmail}.
 
 ## Main Pages
 
@@ -18,9 +18,9 @@ ${name} (بن عسكر للتقنية) helps enterprises, startups, and governme
 
 ## Services
 
-- [Services](${url}/en#services): CTO as a Service, digital transformation, solution architecture, applied AI (RAG, agents), and digital product engineering.
-- [Methodology](${url}/en#methodology): Discover → Design → Build → Scale delivery process.
-- [Experience](${url}/en#experience): 10+ years across telecom, government, fintech, and startups.
+- [Services](${url}/en#services): CTO as a Service, technology strategy, solution architecture, production-minded applied AI, and digital product engineering.
+- [Methodology](${url}/en#methodology): Understand → Decide → Deliver → Enable, with a usable output at every stage.
+- [Experience](${url}/en#experience): More than a decade across telecom, government, digital products and payments, and startups.
 - [About](${url}/en#about): Mission, clients served, and company values.
 - [Contact](${url}/en#contact): Inquiry form and official email ${contactEmail}.
 
@@ -31,7 +31,7 @@ ${name} (بن عسكر للتقنية) helps enterprises, startups, and governme
 
 ## Leadership
 
-- [About the Leader](${url}/en#leader): ${leader} — Founder & Technical Leader; PSPO, PSM I/II, CQRS & Event Sourcing.
+- [About the Leader](${url}/en#leader): ${leader} — Founder & Technology Advisor; PSPO, PSM I/II, CQRS & Event Sourcing.
 - [LinkedIn](${linkedIn}): Professional profile of ${leader}.
 
 ## Optional

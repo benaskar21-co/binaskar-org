@@ -7,7 +7,7 @@
 ---
 
 **Project:** Bin Askar Technology
-**Generated:** 2026-07-12 — refined for founder-led personal + company profile
+**Generated:** 2026-07-13 — redesigned as a founder-led technology advisory practice
 **Category:** B2B Service
 **Design Dials:** Variance 8/10 (Editorial / Asymmetric) | Motion 5/10 (Standard) | Density 3/10 (Spacious)
 
@@ -46,7 +46,7 @@
 
 ### Spacing Variables
 
-*Density: 4/10 — Standard*
+*Density: 3/10 — Spacious*
 
 | Token | Value | Usage |
 |-------|-------|-------|
@@ -76,27 +76,26 @@
 ```css
 /* Primary Button */
 .btn-primary {
-  background: #0369A1;
-  color: white;
+  background: #B8792B;
+  color: #14231E;
   padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
+  border-radius: 2px;
+  font-weight: 700;
+  transition: color 200ms ease, background-color 200ms ease;
   cursor: pointer;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  background: #FFFDF8;
 }
 
 /* Secondary Button */
 .btn-secondary {
   background: transparent;
-  color: #0F172A;
-  border: 2px solid #0F172A;
+  color: #14231E;
+  border-bottom: 1px solid #14231E;
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 0;
   font-weight: 600;
   transition: all 200ms ease;
   cursor: pointer;
@@ -107,17 +106,17 @@
 
 ```css
 .card {
-  background: #F8FAFC;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: all 200ms ease;
-  cursor: pointer;
+  background: #FFFDF8;
+  border: 1px solid #D6CEC0;
+  border-radius: 0;
+  padding: 32px;
+  box-shadow: none;
+  transition: background-color 200ms ease, border-color 200ms ease;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  background: #F0DFC5;
+  border-color: #B8792B;
 }
 ```
 
@@ -126,16 +125,16 @@
 ```css
 .input {
   padding: 12px 16px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
+  border: 1px solid #D6CEC0;
+  border-radius: 2px;
   font-size: 16px;
   transition: border-color 200ms ease;
 }
 
 .input:focus {
-  border-color: #0F172A;
+  border-color: #B8792B;
   outline: none;
-  box-shadow: 0 0 0 3px #0F172A20;
+  box-shadow: 0 0 0 3px #B8792B20;
 }
 ```
 
@@ -161,37 +160,31 @@
 
 ## Style Guidelines
 
-**Style:** Trust & Authority
+**Style:** Trust & Authority + Founder-led Editorial Advisory
 
-**Keywords:** Certificates/badges displayed, expert credentials, case studies with metrics, before/after comparisons, industry recognition, security badges
+**Keywords:** decisive, editorial, founder-led, architecture, field notes, real products, quiet authority, spacious, asymmetric
 
 **Best For:** Healthcare/medical landing pages, financial services, enterprise software, premium/luxury products, legal services
 
-**Key Effects:** Badge hover effects, metric pulse animations, certificate carousel, smooth stat reveal
+**Key Effects:** thin editorial rules, restrained reveal motion, large numeric markers, paper/ink contrast, precise hover color shifts
 
 ### Page Pattern
 
 **Pattern Name:** Trust & Authority + Conversion
 
-- **Conversion Strategy:** Security badges. Case studies. Transparent pricing. Low-friction form.
-- **CTA Placement:** Contact Sales / Get Quote (primary) + Nav
-- **Section Order:** 1. Hero (mission/credibility), 2. Proof (logos, certs, stats), 3. Solution overview, 4. Clear CTA path
+- **Conversion Strategy:** Name the decision problem, show where the practice fits, prove through real products, make the first conversation low-friction.
+- **CTA Placement:** Hero + navigation + final contact section.
+- **Section Order:** 1. Hero (decision + proof), 2. Fit signals, 3. Services, 4. Case studies, 5. Operating model, 6. Practice + leadership, 7. Contact.
 
 ---
 
 ## Motion
 
-**Page Transition** (Standard) — Trigger: route change | Duration: 400-600ms | Easing: `power2.inOut`
+**Reveal motion** — Trigger: first viewport entry | Duration: 700ms | Easing: `cubic-bezier(0.16, 1, 0.3, 1)`
 
-```js
-const tl = gsap.timeline(); tl.to('.transition-overlay', { yPercent: 0, duration: 0.4, ease: 'power2.inOut' }).call(navigate).to('.transition-overlay', { yPercent: -100, duration: 0.4, ease: 'power2.inOut', delay: 0.1 });
-```
-
-**Framework notes:** Keep the overlay element mounted at the layout root (outside the page component) so it survives the route swap
-
-- ✅ Show a lightweight loading indicator if the destination route's data fetch outlasts the overlay
-- ❌ Don't tie the overlay's reveal directly to data-fetch completion without a max-wait timeout; a slow API stalls the whole transition
-- ⚡ Prefer CSS transform (yPercent) over top/left to keep the overlay animation on the compositor thread
+- Use opacity + translateY only, with 60–90ms stagger for related items.
+- Keep hover/focus transitions between 150–300ms and avoid layout-shifting transforms.
+- `prefers-reduced-motion` must disable all decorative motion and smooth scrolling.
 
 ---
 

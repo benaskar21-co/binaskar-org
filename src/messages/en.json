@@ -1,76 +1,118 @@
 {
   "meta": {
     "siteName": "Bin Askar Technology",
-    "tagline": "Technology consulting & digital leadership from Riyadh",
-    "description": "Bin Askar Technology — a tech consultancy led by a CTO with 10+ years building digital products, solution architecture, applied AI, and digital transformation."
+    "tagline": "Technology leadership that turns complexity into decisions and delivery",
+    "description": "Bin Askar Technology is a Riyadh-based technology advisory and leadership practice helping organizations and digital products make clearer decisions and build for growth."
   },
   "nav": {
     "home": "Home",
     "services": "Services",
-    "caseStudies": "Case Studies",
+    "caseStudies": "Work",
     "about": "About",
-    "contact": "Contact",
+    "contact": "Start a conversation",
     "privacy": "Privacy Policy",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "mainLabel": "Main navigation",
+    "mobileLabel": "Mobile navigation",
+    "footerLabel": "Footer navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "languageSwitcher": "Language switcher"
   },
   "hero": {
-    "eyebrow": "Bin Askar Technology",
-    "title": "Turning technology vision into digital products that deliver",
-    "subtitle": "A technology consultancy led by Abdullah Bin Askar, a CTO with over a decade of experience across telecom, government, and digital products.",
-    "ctaPrimary": "Book a consultation",
-    "ctaSecondary": "Explore our services"
+    "eyebrow": "Technology advisory & leadership · Riyadh",
+    "title": "Clearer technology decisions. Stronger digital products.",
+    "subtitle": "We lead strategy, architecture, and delivery when technology becomes a critical business decision — not just another software project.",
+    "ctaPrimary": "Discuss the challenge",
+    "ctaSecondary": "Explore how we work",
+    "proof": {
+      "experience": {
+        "value": "10+",
+        "label": "Years across leadership and delivery"
+      },
+      "sectors": {
+        "value": "04",
+        "label": "Sectors with hands-on experience"
+      },
+      "mode": {
+        "value": "01",
+        "label": "Partner from decision to delivery"
+      }
+    },
+    "brief": {
+      "label": "Engagement brief",
+      "title": "Turn complexity into a path your team can execute and own.",
+      "items": {
+        "direction": "Technology direction tied to business goals",
+        "architecture": "Architecture designed for reality and growth",
+        "delivery": "Disciplined delivery with knowledge transfer"
+      },
+      "footer": "Executive leadership · Engineering depth"
+    }
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "From strategy to delivery — one technical partner for your digital journey.",
+    "eyebrow": "Where we engage",
+    "title": "Technology leadership at moments of change.",
+    "subtitle": "We do not sell a list of technologies. We choose the intervention that removes the nearest obstacle between your decision and the outcome.",
     "items": {
       "cto": {
         "title": "CTO as a Service",
-        "description": "Executive technology leadership: vision, architecture, engineering teams, and delivery aligned with business goals."
+        "description": "Executive technology leadership when the role is missing, or during a growth stage that needs independent judgment and clearer governance for teams and delivery.",
+        "deliverable": "Vision · Team · Governance"
       },
       "strategy": {
         "title": "Strategy & Digital Transformation",
-        "description": "Technology roadmaps, legacy modernization, and measurable digital transformation initiatives."
+        "description": "Turn competing priorities into a practical roadmap, ordered by business impact, risk, and the organization’s ability to execute.",
+        "deliverable": "Priorities · Roadmap · Measurement"
       },
       "architecture": {
         "title": "Solution Architecture",
-        "description": "Scalable platform design: microservices, DDD, CQRS, and enterprise integrations."
+        "description": "Design scalable platforms and integrations, with documented decisions that balance quality, speed, and operating cost.",
+        "deliverable": "Architecture · Integration · Standards"
       },
       "ai": {
         "title": "Applied AI",
-        "description": "RAG, intelligent agents, evaluation & quality, and production-safe AI integration into your products."
+        "description": "Move AI use cases from demo to production through model selection, RAG and agents, evaluation, governance, and quality controls.",
+        "deliverable": "Use case · Evaluation · Operations"
       },
       "product": {
         "title": "Digital Product Engineering",
-        "description": "From idea to launch: product discovery, engineering, development, and CI/CD for digital products."
+        "description": "Establish a product from discovery to launch, or recover a stalled one with clearer scope, fit-for-purpose architecture, and a dependable delivery rhythm.",
+        "deliverable": "Discovery · Build · Launch"
       }
     }
   },
   "methodology": {
-    "title": "Our Methodology",
-    "subtitle": "A clear process connecting strategy to execution.",
+    "eyebrow": "Operating model",
+    "title": "From ambiguity to internal capability.",
+    "subtitle": "Every stage ends with a decision or asset your team can use — not a presentation that lives on its own.",
     "steps": {
       "discover": {
-        "title": "Discover",
-        "description": "Understand the business, stakeholders, and technical/operational constraints."
+        "title": "Understand",
+        "description": "We unpack the business context, decision makers, current system, and real constraints before proposing a solution.",
+        "output": "Shared diagnosis"
       },
       "design": {
-        "title": "Design",
-        "description": "Architecture, roadmap, and prototypes that reduce risk early."
+        "title": "Decide",
+        "description": "We turn options into decisions: architecture, priorities, scope, and success criteria understood by everyone.",
+        "output": "Decision and roadmap"
       },
       "build": {
-        "title": "Build",
-        "description": "Iterative development with clear engineering standards and regular releases."
+        "title": "Deliver",
+        "description": "We build in verifiable increments, with clear engineering standards and continuous transparency around risk and progress.",
+        "output": "Usable value"
       },
       "scale": {
-        "title": "Scale",
-        "description": "Monitoring, optimization, and knowledge transfer to your internal teams."
+        "title": "Enable",
+        "description": "We stabilize operations and observability, then transfer knowledge and ownership so the team continues with confidence.",
+        "output": "Sustainable capability"
       }
     }
   },
   "experience": {
-    "title": "Leadership Experience",
-    "subtitle": "A decade of technology leadership across diverse sectors.",
+    "eyebrow": "When we fit best",
+    "title": "When adding developers is not enough.",
+    "subtitle": "We engage when the problem sits in the decision, architecture, or delivery model — and someone needs to connect all three to business goals.",
     "sectors": {
       "telecom": "Telecommunications",
       "government": "Government & Public Sector",
@@ -78,116 +120,136 @@
       "startups": "Startups"
     },
     "highlights": {
-      "teams": "Leading cross-functional engineering teams",
-      "platforms": "Delivering enterprise-scale platforms",
-      "standards": "Engineering standards and Agile at scale",
-      "founder": "Technical founder of real market products"
+      "direction": {
+        "title": "Technology investment lacks one direction",
+        "description": "Many initiatives, but no shared priority or roadmap connecting them to a business result."
+      },
+      "delivery": {
+        "title": "An important product is stalled in delivery",
+        "description": "Constant scope changes, a business-technology gap, or releases that cannot be predicted."
+      },
+      "architecture": {
+        "title": "The platform has outgrown its architecture",
+        "description": "Complexity, operating cost, and change risk rise as users and integrations grow."
+      },
+      "ai": {
+        "title": "An AI opportunity has no safe path to production",
+        "description": "Promising prototypes still need a clear use case, evaluation, governance, and operations."
+      }
     }
   },
   "caseStudies": {
-    "title": "Case Studies",
-    "subtitle": "Real products with direct technical leadership.",
-    "viewProject": "Visit project",
+    "eyebrow": "Work in the market",
+    "title": "Real products. Real decisions.",
+    "subtitle": "Examples of products where technology leadership was directly involved — from business model to architecture and delivery.",
+    "viewProject": "Visit the product",
+    "caseLabel": "Case",
+    "challengeLabel": "Context",
+    "impactLabel": "Scope of work",
     "items": {
       "minnha": {
         "title": "Minnha — منحة",
         "sector": "Education & University Admissions",
-        "description": "University admissions and scholarship platform: technical vision, payment integrations, and strategic pivot from donations to admissions services.",
+        "description": "Repositioning a digital product from a donations model to university admissions and scholarship services, while building the technology path that enabled the shift.",
         "outcomes": {
-          "one": "Integrated admissions & scholarship platform",
-          "two": "Secure payment integrations",
-          "three": "Successful business model transformation"
+          "one": "Integrated admissions and scholarship platform",
+          "two": "Reliable payments and service journeys",
+          "three": "Product alignment with the new business model"
         }
       },
       "hido": {
         "title": "Hido — هايدو",
         "sector": "Local Digital Tourism",
-        "description": "Local tourism platform connecting visitors with authentic experiences hosted by Saudi communities: booking, interactive map, and trusted experiences.",
+        "description": "A product connecting visitors with authentic experiences hosted by local communities, bringing booking, discovery, and maps into one journey.",
         "outcomes": {
-          "one": "Booking & local experience platform",
-          "two": "Scalable cloud-native architecture",
-          "three": "User growth since launch"
+          "one": "Local experience booking and management",
+          "two": "Interactive map and location-based discovery",
+          "three": "Cloud architecture designed for product growth"
         }
       }
     }
   },
   "leader": {
-    "title": "About the Leader",
+    "eyebrow": "Leadership",
+    "title": "The decision stays close to delivery.",
     "name": "Abdullah Bin Askar",
-    "role": "Founder & Technical Leader",
-    "bio": "Technology leader with 10+ years building enterprise solutions across telecom, government, and digital products. Combines executive leadership with hands-on expertise in Java/Spring Boot, Angular, and modern architecture.",
+    "role": "Founder & Technology Advisor",
+    "bio": "A technology leader with more than a decade across enterprise solutions and digital products in telecom, government, and startups. He combines the perspective of a CTO with hands-on engineering, from team design and governance to architecture and launch.",
+    "quote": "The best technology decision is not the most complex. It is the clearest for the team and the closest to measurable impact.",
     "credentials": {
       "pspo": "Professional Scrum Product Owner I",
       "psm": "Professional Scrum Master I & II",
       "cqrs": "CQRS, Domain Events & Event Sourcing"
     },
-    "linkedin": "Connect on LinkedIn"
+    "linkedin": "Professional profile on LinkedIn"
   },
   "cta": {
-    "title": "Ready to start your technology journey?",
-    "subtitle": "Let's discuss how we can support your vision — from strategy to delivery.",
-    "button": "Get in touch"
+    "eyebrow": "Start with the problem",
+    "title": "A critical technology decision should not stay ambiguous.",
+    "subtitle": "Share the context, what your team is trying to achieve, and where progress stops today."
   },
   "contact": {
-    "title": "Contact Us",
-    "subtitle": "Tell us about your project or inquiry. We'll respond as soon as possible.",
+    "title": "Tell us where the path is blocked.",
+    "subtitle": "A focused first conversation to understand the challenge and determine whether we are the right partner.",
+    "expectation": "We review the context carefully and reply with a clear next step — not a generic sales pitch.",
     "form": {
       "name": "Name",
-      "email": "Email",
-      "company": "Company (optional)",
-      "message": "Your message",
-      "submit": "Send",
+      "email": "Work email",
+      "company": "Organization or company (optional)",
+      "message": "What decision or challenge are you working through?",
+      "submit": "Send the context",
       "sending": "Sending...",
-      "success": "Thank you! Your message has been received and we'll be in touch soon.",
-      "error": "Something went wrong. Please try again.",
+      "success": "We received your message. We will review the context and get back to you soon.",
+      "error": "We could not send the message. Please try again or use the email address.",
       "validation": {
         "nameRequired": "Name is required",
         "emailInvalid": "Invalid email address",
         "messageMin": "Message must be at least 10 characters"
       }
     },
-    "alternative": "Or connect via",
-    "emailLabel": "Official email",
+    "alternative": "Alternative channel",
+    "emailLabel": "Professional email",
     "location": "Riyadh, Saudi Arabia"
   },
   "about": {
-    "title": "About Us",
-    "intro": "A technology partner combining executive CTO vision with hands-on engineering — from Riyadh to enterprises and digital products across the Kingdom and region.",
+    "eyebrow": "About the practice",
+    "title": "An independent technology practice. An owner’s mindset.",
+    "intro": "Bin Askar Technology is a Riyadh-based technology advisory and leadership practice. We work closely with decision makers and teams, and stay close to delivery until direction becomes reality.",
     "mission": {
-      "title": "Our Mission",
-      "description": "We help organizations and startups turn technology vision into reliable digital products — from discovery and design to build and scale, led by a CTO with field experience across telecom, government, and digital products."
+      "title": "The central idea",
+      "description": "Reduce the distance between an executive decision and engineering reality: clarify what should be built, why, and in what order — then help the team deliver and own it."
     },
     "whoWeServe": {
-      "title": "Who We Serve",
+      "title": "Who we serve",
       "items": {
         "enterprise": {
-          "title": "Enterprises & Large Organizations",
-          "description": "Legacy modernization, solution architecture, and digital transformation with enterprise-grade standards."
+          "title": "Enterprises & large organizations",
+          "description": "When legacy systems, integrations, and governance meet a genuine need for change."
         },
         "startups": {
-          "title": "Startups",
-          "description": "CTO as a Service from idea to launch — architecture, teams, and fast releases."
+          "title": "Founders & startups",
+          "description": "When a product needs mature technology leadership before or while building the internal team."
         },
         "government": {
-          "title": "Government Sector",
-          "description": "Technology consulting, digital portals, and service programs with high delivery quality."
+          "title": "Public-sector programs",
+          "description": "When service quality, reliability, and delivery clarity are requirements, not enhancements."
         }
       }
     },
     "values": {
-      "title": "Our Values",
+      "title": "How we work",
       "items": {
         "clarity": {
-          "title": "Clarity",
-          "description": "Transparent technical decisions tied to business goals."
+          "title": "Start with clarity",
+          "description": "Name the problem as it is and separate assumptions from facts before they become cost."
         },
         "craft": {
-          "title": "Craft",
-          "description": "High engineering standards from design to production."
+          "title": "Build with care",
+          "description": "Quality is a daily decision in architecture, code, and operations — not a final phase."
         },
         "partnership": {
-          "title": "Partnership",
-          "description": "We work alongside your internal teams — transferring knowledge and building capability for lasting impact after the project ends."
+          "title": "Transfer ownership",
+          "description": "Work with the team, document decisions, and transfer knowledge so the impact remains after the engagement."
         }
       }
     }
@@ -216,6 +278,6 @@
   },
   "footer": {
     "rights": "All rights reserved.",
-    "built": "Built in Riyadh"
+    "built": "Independent Saudi technology practice · Riyadh"
   }
 }

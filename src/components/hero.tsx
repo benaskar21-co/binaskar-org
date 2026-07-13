@@ -1,8 +1,9 @@
 import { AnchorLink } from "@/components/anchor-link";
 import { BrandMark } from "@/components/brand-mark";
-import { sectionHref, sections } from "@/lib/sections";
+import { DirectionalArrow } from "@/components/directional-arrow";
 import type { Locale } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
+import { sectionHref, sections } from "@/lib/sections";
 
 type HeroProps = {
   locale: Locale;
@@ -10,95 +11,129 @@ type HeroProps = {
 
 export function Hero({ locale }: HeroProps) {
   const messages = getMessages(locale);
-  const sectors = Object.values(messages.experience.sectors);
+  const proofItems = Object.values(messages.hero.proof);
+  const briefItems = Object.values(messages.hero.brief.items);
 
   return (
-    <section id={sections.home} className="grain relative scroll-mt-24 overflow-hidden bg-primary text-white">
+    <section
+      id={sections.home}
+      className="grain relative scroll-mt-24 overflow-hidden bg-primary text-white"
+    >
+      <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute -end-40 -top-56 h-[38rem] w-[38rem] rounded-full border border-accent/25"
         aria-hidden="true"
-        style={{
-          backgroundImage:
-            "radial-gradient(50% 70% at 92% 12%, rgba(184,121,43,0.28), transparent 62%)",
-        }}
       />
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        className="pointer-events-none absolute -end-20 -top-36 h-[24rem] w-[24rem] rounded-full border border-white/10"
         aria-hidden="true"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-          maskImage: "radial-gradient(70% 65% at 65% 20%, black, transparent 78%)",
-        }}
       />
 
-      <div className="section-shell relative grid min-h-[calc(100svh-76px)] gap-16 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-28">
-        <div className="max-w-4xl space-y-8">
-          <p
-            className="eyebrow text-accent"
-            style={{ animation: "rise-in 0.6s cubic-bezier(0.16,1,0.3,1) both" }}
-          >
+      <div className="section-shell relative z-10 grid min-h-[calc(100svh-72px)] gap-14 py-16 lg:grid-cols-[1.08fr_0.72fr] lg:items-center lg:gap-20 lg:py-24">
+        <div className="max-w-5xl">
+          <p className="eyebrow hero-enter text-accent">
             {messages.hero.eyebrow}
           </p>
           <h1
-            className="max-w-4xl font-display text-[clamp(3.2rem,8vw,7.8rem)] font-medium leading-[0.9] tracking-[-0.06em] text-white"
-            style={{ animation: "rise-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.08s both" }}
+            className="hero-enter mt-7 max-w-[13ch] font-display text-[clamp(3.25rem,7.5vw,7.25rem)] font-medium leading-[0.94] tracking-[-0.065em] text-white"
+            style={{ animationDelay: "80ms" }}
           >
             {messages.hero.title}
           </h1>
           <p
-            className="max-w-2xl text-lg leading-8 text-white/70 sm:text-xl"
-            style={{ animation: "rise-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.16s both" }}
+            className="hero-enter mt-8 max-w-2xl text-lg leading-8 text-white/68 sm:text-xl sm:leading-9"
+            style={{ animationDelay: "160ms" }}
           >
             {messages.hero.subtitle}
           </p>
           <div
-            className="flex flex-wrap gap-3 pt-2"
-            style={{ animation: "rise-in 0.7s cubic-bezier(0.16,1,0.3,1) 0.24s both" }}
+            className="hero-enter mt-9 flex flex-wrap items-center gap-4"
+            style={{ animationDelay: "240ms" }}
           >
             <AnchorLink
               href={sectionHref(locale, sections.contact)}
-              className="inline-flex min-h-12 cursor-pointer items-center rounded-sm bg-accent px-7 py-3 text-sm font-semibold text-primary transition duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="group inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-sm bg-accent px-6 py-3 text-sm font-bold text-primary transition-colors duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              {messages.hero.ctaPrimary}
+              <span>{messages.hero.ctaPrimary}</span>
+              <DirectionalArrow
+                locale={locale}
+                className="transition-transform duration-200 group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
+              />
             </AnchorLink>
             <AnchorLink
-              href={sectionHref(locale, sections.services)}
-              className="inline-flex min-h-12 cursor-pointer items-center border-b border-white/40 px-2 py-3 text-sm font-semibold text-white transition duration-200 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              href={sectionHref(locale, sections.methodology)}
+              className="inline-flex min-h-12 cursor-pointer items-center border-b border-white/35 px-1 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
               {messages.hero.ctaSecondary}
             </AnchorLink>
           </div>
+
+          <dl
+            className="hero-enter mt-14 grid max-w-3xl border-y border-white/14 sm:grid-cols-3"
+            style={{ animationDelay: "320ms" }}
+          >
+            {proofItems.map((item) => (
+              <div
+                key={item.label}
+                className="grid grid-cols-[4rem_1fr] items-center gap-3 border-b border-white/14 py-4 last:border-b-0 sm:block sm:border-b-0 sm:border-e sm:px-5 sm:first:ps-0 sm:last:border-e-0"
+              >
+                <dt className="text-xs leading-5 text-white/62 sm:mt-2 sm:max-w-[11rem]">
+                  {item.label}
+                </dt>
+                <dd className="-order-1 font-display text-2xl font-medium tabular-nums text-accent sm:order-none">
+                  {item.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         <div
-          className="relative hidden lg:block"
-          style={{ animation: "rise-in 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both" }}
+          className="hero-enter relative lg:ps-6"
+          style={{ animationDelay: "260ms" }}
         >
-          <div className="relative min-h-[28rem] border border-white/15 bg-white/[0.035] p-8 shadow-2xl backdrop-blur-sm">
-            <div className="hero-orbit pointer-events-none absolute -end-8 -top-8 h-28 w-28 rounded-full border border-accent/50" aria-hidden="true" />
-            <div className="flex h-full flex-col justify-between gap-12">
-              <div className="flex items-start justify-between border-b border-white/15 pb-6">
-                <BrandMark className="h-20 w-[5.6rem]" title={messages.meta.siteName} />
-                <span className="text-end text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white/50">{messages.contact.location}</span>
-              </div>
-              <div className="space-y-0">
-              {sectors.map((sector, i) => (
-                <div
-                  key={sector}
-                  className="group flex items-center gap-4 border-b border-white/15 py-5 first:pt-0 last:border-0"
+          <div className="relative border border-white/16 bg-white/[0.045] p-5 shadow-2xl backdrop-blur-sm sm:p-8">
+            <span
+              className="absolute -end-2 -top-10 font-display text-[8rem] font-medium leading-none text-white/[0.035]"
+              aria-hidden="true"
+            >
+              01
+            </span>
+            <div className="flex items-center justify-between border-b border-white/14 pb-5">
+              <p className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-accent">
+                {messages.hero.brief.label}
+              </p>
+              <BrandMark
+                className="h-11 w-12"
+                variant="light"
+                title={messages.meta.siteName}
+              />
+            </div>
+            <p className="mt-9 max-w-md font-display text-3xl font-medium leading-[1.15] tracking-[-0.05em] text-white sm:text-4xl">
+              {messages.hero.brief.title}
+            </p>
+            <ul className="mt-10 border-t border-white/14">
+              {briefItems.map((item, index) => (
+                <li
+                  key={item}
+                  className="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-white/14 py-4 text-sm leading-6 text-white/74"
                 >
-                  <span className="text-xs font-bold tabular-nums text-accent">
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="font-bold tabular-nums text-accent" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-display text-lg font-medium text-white transition-colors group-hover:text-accent">{sector}</span>
-                </div>
+                  <span>{item}</span>
+                </li>
               ))}
-              </div>
-              <span className="text-xs uppercase tracking-[0.18em] text-white/50">{messages.meta.tagline}</span>
+            </ul>
+            <div className="mt-7 flex items-center gap-3 text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-white/60">
+              <span className="h-px flex-1 bg-white/14" aria-hidden="true" />
+              <span>{messages.hero.brief.footer}</span>
             </div>
           </div>
+          <div
+            className="absolute -bottom-4 -end-4 h-full w-full border border-accent/25"
+            aria-hidden="true"
+          />
         </div>
       </div>
     </section>

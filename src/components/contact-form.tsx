@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 
 const initialState: ContactFormState = { success: false };
 
-const labelClass = "block text-xs font-bold uppercase tracking-[0.14em] text-primary";
+const labelClass = "block text-sm font-semibold text-primary";
 
 const fieldClass =
-  "mt-2 w-full rounded-sm border bg-surface px-4 py-3.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition duration-200 focus:border-ring focus:ring-2 focus:ring-ring/20";
+  "mt-2 w-full rounded-sm border bg-background/70 px-4 py-3.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition duration-200 focus:border-ring focus:bg-surface focus:ring-2 focus:ring-ring/20";
 
 type FormValues = {
   name: string;
@@ -125,7 +125,7 @@ export function ContactForm({ locale }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="relative space-y-5" noValidate>
+    <form onSubmit={handleSubmit} className="relative" noValidate>
       <input
         name="website"
         type="text"
@@ -135,59 +135,61 @@ export function ContactForm({ locale }: ContactFormProps) {
         className="pointer-events-none absolute h-px w-px overflow-hidden opacity-0"
       />
 
-      <div>
-        <label htmlFor="name" className={labelClass}>
-          {messages.contact.form.name}
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          autoComplete="name"
-          value={values.name}
-          onChange={handleFieldChange("name")}
-          aria-invalid={!!state.fieldErrors?.name}
-          aria-describedby={state.fieldErrors?.name ? "name-error" : undefined}
-          className={cn(
-            fieldClass,
-            state.fieldErrors?.name ? "border-destructive" : "border-border"
-          )}
-        />
-        {state.fieldErrors?.name ? (
-          <p id="name-error" className="mt-1 text-sm text-destructive" role="alert">
-            {state.fieldErrors.name}
-          </p>
-        ) : null}
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="name" className={labelClass}>
+            {messages.contact.form.name}
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            value={values.name}
+            onChange={handleFieldChange("name")}
+            aria-invalid={!!state.fieldErrors?.name}
+            aria-describedby={state.fieldErrors?.name ? "name-error" : undefined}
+            className={cn(
+              fieldClass,
+              state.fieldErrors?.name ? "border-destructive" : "border-border"
+            )}
+          />
+          {state.fieldErrors?.name ? (
+            <p id="name-error" className="mt-1 text-sm text-destructive" role="alert">
+              {state.fieldErrors.name}
+            </p>
+          ) : null}
+        </div>
+
+        <div>
+          <label htmlFor="email" className={labelClass}>
+            {messages.contact.form.email}
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            value={values.email}
+            onChange={handleFieldChange("email")}
+            aria-invalid={!!state.fieldErrors?.email}
+            aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
+            className={cn(
+              fieldClass,
+              state.fieldErrors?.email ? "border-destructive" : "border-border"
+            )}
+          />
+          {state.fieldErrors?.email ? (
+            <p id="email-error" className="mt-1 text-sm text-destructive" role="alert">
+              {state.fieldErrors.email}
+            </p>
+          ) : null}
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="email" className={labelClass}>
-          {messages.contact.form.email}
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          value={values.email}
-          onChange={handleFieldChange("email")}
-          aria-invalid={!!state.fieldErrors?.email}
-          aria-describedby={state.fieldErrors?.email ? "email-error" : undefined}
-          className={cn(
-            fieldClass,
-            state.fieldErrors?.email ? "border-destructive" : "border-border"
-          )}
-        />
-        {state.fieldErrors?.email ? (
-          <p id="email-error" className="mt-1 text-sm text-destructive" role="alert">
-            {state.fieldErrors.email}
-          </p>
-        ) : null}
-      </div>
-
-      <div>
+      <div className="mt-6">
         <label htmlFor="company" className={labelClass}>
           {messages.contact.form.company}
         </label>
@@ -202,7 +204,7 @@ export function ContactForm({ locale }: ContactFormProps) {
         />
       </div>
 
-      <div>
+      <div className="mt-6">
         <label htmlFor="message" className={labelClass}>
           {messages.contact.form.message}
         </label>
@@ -210,7 +212,7 @@ export function ContactForm({ locale }: ContactFormProps) {
           id="message"
           name="message"
           required
-          rows={5}
+          rows={6}
           value={values.message}
           onChange={handleFieldChange("message")}
           aria-invalid={!!state.fieldErrors?.message}
@@ -231,7 +233,7 @@ export function ContactForm({ locale }: ContactFormProps) {
       </div>
 
       {state.error ? (
-        <p className="text-sm text-destructive" role="alert">
+        <p className="mt-4 text-sm text-destructive" role="alert">
           {state.error}
         </p>
       ) : null}
@@ -239,8 +241,14 @@ export function ContactForm({ locale }: ContactFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full cursor-pointer rounded-sm bg-primary px-7 py-3.5 text-sm font-semibold text-white transition duration-200 hover:bg-accent hover:text-primary disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:w-auto"
+        className="mt-7 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-3 rounded-sm bg-primary px-7 py-3.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-accent hover:text-primary disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:w-auto"
       >
+        {isPending ? (
+          <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.25" strokeWidth="2" />
+            <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        ) : null}
         {isPending ? messages.contact.form.sending : messages.contact.form.submit}
       </button>
     </form>

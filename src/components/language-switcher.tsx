@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { locales, type Locale } from "@/lib/i18n/config";
+import { getMessages } from "@/lib/i18n/get-messages";
 
 type LanguageSwitcherProps = {
   locale: Locale;
@@ -10,6 +11,7 @@ type LanguageSwitcherProps = {
 
 export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
   const router = useRouter();
+  const messages = getMessages(locale);
 
   function switchLocale(target: Locale) {
     if (target === locale) return;
@@ -21,7 +23,7 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
     <div
       className="flex rounded-sm border border-white/20 bg-white/[0.04] p-0.5"
       role="group"
-      aria-label="Language switcher"
+      aria-label={messages.nav.languageSwitcher}
     >
       {locales.map((loc) => (
         <button

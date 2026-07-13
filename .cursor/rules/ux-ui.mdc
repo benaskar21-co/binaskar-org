@@ -9,9 +9,10 @@ alwaysApply: false
 المصدر: مهارة `ui-ux-pro-max` + نظام التصميم `design-system/bin-askar-technology/MASTER.md`.
 
 ## النمط: Trust & Authority (استشارات B2B)
-- لوحة احترافية فاتحة: كحلي `--color-primary` (#0F172A)، أزرق ثقة للـ CTA `--color-accent` (#0369A1)، خلفية `--color-background` (#F8FAFC).
+- لوحة تحريرية احترافية: أخضر حبري `--color-primary` (#14231E)، ذهبي نحاسي للـ CTA `--color-accent` (#B8792B)، خلفية ورقية `--color-background` (#F3EFE7)، وسطح `--color-surface` (#FFFDF8).
 - خطوط: `Lexend` (عناوين لاتينية) + `Source Sans 3` (نص لاتيني)؛ `IBM Plex Sans Arabic` للعربية.
-- تأثيرات: ظلال ناعمة، انتقالات 150-300ms، كشف إحصاءات سلس، تمييز الاعتمادات/الشهادات.
+- الاتجاه: Founder-led Editorial Advisory — قرار تقني واضح، إثبات عبر العمل الحقيقي، تكوين غير متناظر ومساحات واسعة.
+- تأثيرات: حدود تحريرية، ظلال ناعمة، انتقالات 150-300ms، وكشف تدريجي يحترم reduced-motion.
 
 ## قواعد إلزامية
 - WCAG 2.1 AA على الأقل: تباين نص ≥ 4.5:1، حلقات focus مرئية، تنقّل لوحة المفاتيح.

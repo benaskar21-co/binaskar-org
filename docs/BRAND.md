@@ -25,3 +25,11 @@ The identity is **Technical Authority with a Human Signature**. The monogram joi
 ## Voice and composition
 
 Use confident, concise, editorial layouts. Lead with the founder’s judgment, show the work through case studies, then make contact easy. The visual language should feel measured and premium—not playful, glossy, or startup-generic.
+
+## Messaging direction
+
+- Lead with the client decision and its business consequence, not a list of technologies.
+- Position the company as a founder-led technology advisory practice that stays close to delivery.
+- Describe every service through the situation it resolves and the output the client can own.
+- Prefer concrete language: direction, architecture, delivery, governance, evaluation, and knowledge transfer.
+- Avoid generic “digital journey” language, inflated transformation claims, and unsupported performance metrics.
