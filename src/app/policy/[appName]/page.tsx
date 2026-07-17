@@ -152,14 +152,6 @@ export default async function AppPolicyPage({ params }: PageProps) {
                   </dd>
                 </div>
                 <div className="flex items-center justify-between gap-6 border-b border-border py-4">
-                  <dt className="text-muted-foreground">الحزمة / Package</dt>
-                  <dd>
-                    <bdi dir="ltr" className="font-mono text-xs font-semibold text-primary sm:text-sm">
-                      {policy.packageName}
-                    </bdi>
-                  </dd>
-                </div>
-                <div className="flex items-center justify-between gap-6 border-b border-border py-4">
                   <dt className="text-muted-foreground">التحديث / Updated</dt>
                   <dd className="text-end font-semibold text-primary">
                     <span className="block">{policy.effectiveDateAr.replace("آخر تحديث: ", "")}</span>
