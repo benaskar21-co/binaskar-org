@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { appPolicySlugs } from "@/lib/app-policies";
 import { locales, siteConfig } from "@/lib/i18n/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -20,5 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }));
 
-  return [...homePages, ...privacyPages];
+  const appPolicyPages = appPolicySlugs.map((slug) => ({
+    url: `${baseUrl}/policy/${slug}`,
+    lastModified: now,
+    changeFrequency: "yearly" as const,
+    priority: 0.5,
+  }));
+
+  return [...homePages, ...privacyPages, ...appPolicyPages];
 }
