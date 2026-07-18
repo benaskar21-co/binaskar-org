@@ -14,18 +14,11 @@ services:
         value: https://binaskar.org
       - key: CONTACT_EMAIL
         value: abdullah@binaskar.org
-      - key: SMTP_HOST
-        value: mail.privateemail.com
-      - key: SMTP_PORT
-        value: "465"
-      - key: SMTP_SECURE
-        value: "true"
-      - key: SMTP_USER
-        value: abdullah@binaskar.org
-      - key: SMTP_PASS
-        sync: false
-      - key: SMTP_FROM_NAME
-        value: Bin Askar Technology
+      # Render free blocks outbound SMTP ports, so use Resend (HTTPS) as the provider here.
+      - key: EMAIL_PROVIDER
+        value: resend
+      - key: EMAIL_FROM
+        value: Bin Askar Technology <abdullah@binaskar.org>
       - key: RESEND_API_KEY
         sync: false
       - key: RESEND_FROM
