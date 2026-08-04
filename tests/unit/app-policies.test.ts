@@ -16,4 +16,8 @@ describe("app privacy policies", () => {
     const policy = getAppPolicy("ektifai");
     expect(policy?.sections.some((section) => section.id === "account-deletion")).toBe(true);
   });
+
+  it("publishes the care support email for customers", () => {
+    expect(getAppPolicy("ektifai")?.supportEmail).toBe("care@binaskar.org");
+  });
 });

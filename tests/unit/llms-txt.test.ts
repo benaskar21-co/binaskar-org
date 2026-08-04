@@ -12,7 +12,7 @@ describe("buildLlmsTxt", () => {
     const content = buildLlmsTxt();
     expect(content).toContain("/ar");
     expect(content).toContain("/en");
-    expect(content).toContain("abdullah@binaskar.org");
+    expect(content).toContain("care@binaskar.org");
     expect(content).toContain("minnha.sa");
     expect(content).toContain("hido.app");
   });

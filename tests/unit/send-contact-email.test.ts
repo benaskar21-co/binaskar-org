@@ -45,7 +45,7 @@ describe("sendContactEmail", () => {
   });
 
   it("prefers Resend in auto mode even when SMTP is also configured", async () => {
-    vi.stubEnv("SMTP_USER", "abdullah@binaskar.org");
+    vi.stubEnv("SMTP_USER", "care@binaskar.org");
     vi.stubEnv("SMTP_PASS", "secret");
     vi.stubEnv("RESEND_API_KEY", "re_test");
 
@@ -62,7 +62,7 @@ describe("sendContactEmail", () => {
   });
 
   it("falls back to SMTP when Resend fails", async () => {
-    vi.stubEnv("SMTP_USER", "abdullah@binaskar.org");
+    vi.stubEnv("SMTP_USER", "care@binaskar.org");
     vi.stubEnv("SMTP_PASS", "secret");
     vi.stubEnv("RESEND_API_KEY", "re_test");
     resendSend.mockResolvedValueOnce({ data: null, error: { message: "Resend down" } });

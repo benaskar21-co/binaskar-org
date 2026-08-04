@@ -22,7 +22,7 @@ export const siteConfig = {
   nameAr: "بن عسكر للتقنية",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://binaskar.org",
   linkedIn: "https://www.linkedin.com/in/abdullah-bin-askar",
-  contactEmail: "abdullah@binaskar.org",
+  contactEmail: "care@binaskar.org",
   leader: "Abdullah Bin Askar",
   leaderAr: "عبدالله بن عسكر",
 };

@@ -26,7 +26,7 @@ function buildEmailBody({ name, email, company, message }: ContactEmailPayload) 
 export async function sendContactEmail(
   payload: ContactEmailPayload
 ): Promise<{ sent: boolean; provider?: string }> {
-  const to = process.env.CONTACT_EMAIL ?? "abdullah@binaskar.org";
+  const to = process.env.CONTACT_EMAIL ?? "care@binaskar.org";
 
   const result = await sendEmail({
     to,

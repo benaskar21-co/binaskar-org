@@ -26,10 +26,10 @@
 | `SMTP_HOST` | `mail.privateemail.com` |
 | `SMTP_PORT` | `465` (SSL) أو `587` (STARTTLS) |
 | `SMTP_SECURE` | `true` للمنفذ 465، `false` للمنفذ 587 |
-| `SMTP_USER` | البريد الكامل، مثلاً `abdullah@binaskar.org` |
+| `SMTP_USER` | البريد الكامل، مثلاً `care@binaskar.org` |
 | `SMTP_PASS` | كلمة مرور صندوق PrivateEmail (Secret) |
 | `SMTP_FROM_NAME` | `Bin Askar Technology` (اختياري) |
-| `CONTACT_EMAIL` | `abdullah@binaskar.org` — مستلم رسائل النموذج |
+| `CONTACT_EMAIL` | `care@binaskar.org` — مستلم رسائل النموذج |
 
 > **مهم:** عنوان `from` يجب أن يطابق `SMTP_USER` (قيد PrivateEmail).
 
@@ -40,7 +40,7 @@
 | المتغير | الوصف |
 |---------|-------|
 | `RESEND_API_KEY` | مفتاح Resend (Secret) |
-| `RESEND_FROM` | بعد التحقق من النطاق: `Bin Askar Technology <abdullah@binaskar.org>` |
+| `RESEND_FROM` | بعد التحقق من النطاق: `Bin Askar Technology <care@binaskar.org>` |
 
 نموذج التواصل يرسل إلى `POST /api/contact` (وليس `/ar`).
 

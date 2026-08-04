@@ -32,9 +32,9 @@ const ektifaiPolicy: AppPolicy = {
   developerAr: "بن عسكر للتقنية",
   developerEn: "Bin Askar Technology",
   packageName: "org.binaskar.ektifai",
-  supportEmail: "abdullah@binaskar.org",
-  effectiveDateAr: "آخر تحديث: 17 يوليو 2026",
-  effectiveDateEn: "Last updated: July 17, 2026",
+  supportEmail: "care@binaskar.org",
+  effectiveDateAr: "آخر تحديث: 4 أغسطس 2026",
+  effectiveDateEn: "Last updated: August 4, 2026",
   summaryAr:
     "توضح هذه السياسة كيف يتعامل تطبيق اكتفائي مع بيانات الحساب والميزانية والمصروفات ورسائل المعاملات البنكية. نعالج الحد الأدنى اللازم لتقديم الخدمة، ولا نبيع بياناتك الشخصية.",
   summaryEn:

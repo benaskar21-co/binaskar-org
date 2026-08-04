@@ -13,13 +13,13 @@ services:
       - key: NEXT_PUBLIC_SITE_URL
         value: https://binaskar.org
       - key: CONTACT_EMAIL
-        value: abdullah@binaskar.org
+        value: care@binaskar.org
       # Render free blocks outbound SMTP ports, so use Resend (HTTPS) as the provider here.
       - key: EMAIL_PROVIDER
         value: resend
       - key: EMAIL_FROM
-        value: Bin Askar Technology <abdullah@binaskar.org>
+        value: Bin Askar Technology <care@binaskar.org>
       - key: RESEND_API_KEY
         sync: false
       - key: RESEND_FROM
-        value: Bin Askar Technology <abdullah@binaskar.org>
+        value: Bin Askar Technology <care@binaskar.org>
