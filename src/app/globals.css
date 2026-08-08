@@ -3,27 +3,29 @@
 :root {
   color-scheme: light;
 
-  --primary: #14231e;
-  --primary-deep: #0d1814;
-  --primary-foreground: #fffaf0;
-  --secondary: #53635c;
-  --accent: #b8792b;
-  --accent-hover: #8e591c;
-  --accent-soft: #f0dfc5;
-  --background: #f3efe7;
-  --surface: #fffdf8;
-  --surface-muted: #ebe5da;
-  --foreground: #14231e;
-  --muted: #e8e1d5;
-  --muted-foreground: #5e6d66;
-  --border: #d6cec0;
-  --border-strong: #a99d8b;
-  --ring: #b8792b;
+  /* Identity v4 — "Royal Violet". Flat colors only; gradients are banned. */
+  --primary: #1a1226;
+  --primary-deep: #120c1b;
+  --primary-foreground: #f4f1fa;
+  --secondary: #5a5168;
+  --accent: #5b2ebc;
+  --accent-hover: #4a25a0;
+  --accent-soft: #eeeaf4;
+  --accent-bright: #a886f0; /* accent for text/marks on dark surfaces (6.3:1 on primary) */
+  --background: #fbfafd;
+  --surface: #ffffff;
+  --surface-muted: #f2eff7;
+  --foreground: #1a1226;
+  --muted: #eeeaf4;
+  --muted-foreground: #5a5168;
+  --border: #e0daea;
+  --border-strong: #c4b9d6;
+  --ring: #5b2ebc;
   --destructive: #b42318;
 
-  --shadow-sm: 0 1px 2px rgba(20, 35, 30, 0.06);
-  --shadow-md: 0 18px 45px -28px rgba(20, 35, 30, 0.32);
-  --shadow-lg: 0 32px 80px -38px rgba(13, 24, 20, 0.42);
+  --shadow-sm: 0 1px 2px rgba(26, 18, 38, 0.06);
+  --shadow-md: 0 18px 45px -28px rgba(26, 18, 38, 0.28);
+  --shadow-lg: 0 32px 80px -38px rgba(18, 12, 27, 0.38);
 }
 
 @theme inline {
@@ -34,6 +36,7 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-bright: var(--accent-bright);
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
@@ -78,19 +81,15 @@ body {
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-image:
-    radial-gradient(circle at 96% -4%, rgba(184, 121, 43, 0.1), transparent 26rem),
-    linear-gradient(rgba(20, 35, 30, 0.018) 1px, transparent 1px);
-  background-size: auto, 100% 8px;
 }
 
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.03em;
 }
 
 html[dir="rtl"] .font-display {
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .section-shell {
@@ -118,10 +117,50 @@ html[dir="rtl"] .font-display {
   animation: trace 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* On dark (plum) surfaces the base accent fails contrast — use the bright tint. */
+.eyebrow-dark {
+  color: var(--accent-bright);
+}
+
+/* Display type scale.
+   Arabic is optically larger than Latin at the same font-size and needs taller
+   leading, so RTL gets its own clamp — not just a line-height tweak. Use these
+   classes on large font-display headings instead of text-[clamp()]/leading-*. */
+.hero-title {
+  font-size: clamp(2.9rem, 6.4vw, 6rem);
+  line-height: 1.04;
+}
+
+html[dir="rtl"] .hero-title {
+  font-size: clamp(2.35rem, 4.9vw, 4.5rem);
+  line-height: 1.32;
+}
+
+.section-title {
+  font-size: clamp(2.4rem, 4.8vw, 4.25rem);
+  line-height: 1.06;
+}
+
+html[dir="rtl"] .section-title {
+  font-size: clamp(2rem, 3.8vw, 3.35rem);
+  line-height: 1.34;
+}
+
+/* Large display paragraphs (brief card, mission statement, case titles).
+   Line-height only — font-size stays with the utility class on the element,
+   since an em value here would resolve against the parent, not the heading. */
+.display-copy {
+  line-height: 1.18;
+}
+
+html[dir="rtl"] .display-copy {
+  line-height: 1.5;
+}
+
 .hero-grid {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    linear-gradient(to right, rgba(168, 134, 240, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 134, 240, 0.07) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: linear-gradient(to bottom, black 10%, transparent 88%);
 }

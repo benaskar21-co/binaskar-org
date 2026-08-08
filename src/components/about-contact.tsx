@@ -1,3 +1,4 @@
+import { BrandMark } from "@/components/brand-mark";
 import { ContactForm } from "@/components/contact-form";
 import { DirectionalArrow } from "@/components/directional-arrow";
 import { Reveal } from "@/components/reveal";
@@ -30,20 +31,20 @@ export function AboutSection({ locale }: { locale: Locale }) {
         <div className="mt-16 grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
           <Reveal
             as="article"
-            className="relative flex min-h-[28rem] flex-col overflow-hidden border border-border bg-accent-soft p-7 sm:p-10 lg:p-12"
+            className="relative flex min-h-[28rem] flex-col overflow-hidden rounded-xl border border-border bg-accent-soft p-7 sm:p-10 lg:p-12"
           >
             <span className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-accent-hover">
               01 / {messages.about.mission.title}
             </span>
-            <p className="mt-auto max-w-3xl pt-20 font-display text-[clamp(2.3rem,4.5vw,4.4rem)] font-medium leading-[1.08] tracking-[-0.05em] text-primary">
+            <p className="display-copy mt-auto max-w-3xl pt-16 font-display text-[clamp(1.75rem,3vw,2.85rem)] font-medium text-primary">
               {messages.about.mission.description}
             </p>
-            <span className="pointer-events-none absolute -bottom-16 -end-5 font-display text-[13rem] font-medium leading-none text-primary/[0.035]" aria-hidden="true">
-              BA
+            <span className="pointer-events-none absolute -bottom-10 -end-8 opacity-[0.05]" aria-hidden="true">
+              <BrandMark className="h-72 w-72" title="" />
             </span>
           </Reveal>
 
-          <Reveal as="article" delay={80} className="border border-border bg-background p-7 sm:p-10 lg:p-12">
+          <Reveal as="article" delay={80} className="rounded-xl border border-border bg-background p-7 sm:p-10 lg:p-12">
             <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-accent-hover">
               02 / {messages.about.whoWeServe.title}
             </p>
@@ -71,9 +72,9 @@ export function AboutSection({ locale }: { locale: Locale }) {
           </Reveal>
         </div>
 
-        <div className="mt-4 border border-border bg-primary text-white">
+        <div className="mt-4 overflow-hidden rounded-xl border border-border bg-primary text-white">
           <div className="border-b border-white/14 px-7 py-5 sm:px-10">
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-accent">
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-accent-bright">
               03 / {messages.about.values.title}
             </p>
           </div>
@@ -87,7 +88,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
                   delay={index * 65}
                   className="border-b border-white/14 p-7 last:border-b-0 md:border-b-0 md:border-e md:last:border-e-0 sm:p-9"
                 >
-                  <span className="font-display text-xl font-medium tabular-nums text-accent" aria-hidden="true">
+                  <span className="font-display text-xl font-medium tabular-nums text-accent-bright" aria-hidden="true">
                     0{index + 1}
                   </span>
                   <h3 className="mt-8 font-display text-2xl font-medium text-white">
@@ -127,18 +128,18 @@ export function ContactSection({ locale }: { locale: Locale }) {
           />
         </Reveal>
 
-        <div className="mt-16 grid overflow-hidden border border-white/16 bg-white/[0.025] lg:grid-cols-[0.72fr_1.28fr]">
+        <div className="mt-16 grid overflow-hidden rounded-xl border border-white/16 bg-white/[0.025] lg:grid-cols-[0.72fr_1.28fr]">
           <Reveal className="flex flex-col border-b border-white/16 p-7 lg:border-b-0 lg:border-e sm:p-10 lg:p-12">
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-accent">
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-accent-bright">
               {messages.contact.location}
             </p>
-            <h3 className="mt-6 max-w-md font-display text-3xl font-medium leading-tight tracking-[-0.045em] text-white sm:text-4xl">
+            <h3 className="display-copy mt-6 max-w-md font-display text-3xl font-medium text-white sm:text-4xl">
               {messages.contact.title}
             </h3>
             <p className="mt-5 max-w-md text-base leading-7 text-white/60">
               {messages.contact.subtitle}
             </p>
-            <p className="mt-7 max-w-md border-s border-accent ps-4 text-sm leading-6 text-white/65">
+            <p className="mt-7 max-w-md border-s-2 border-accent-bright ps-4 text-sm leading-6 text-white/65">
               {messages.contact.expectation}
             </p>
 
@@ -148,7 +149,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
               </p>
               <a
                 href={`mailto:${siteConfig.contactEmail}`}
-                className="mt-2 inline-flex min-h-11 cursor-pointer items-center text-lg font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors duration-200 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="mt-2 inline-flex min-h-11 cursor-pointer items-center text-lg font-semibold text-white underline decoration-white/25 underline-offset-4 transition-colors duration-200 hover:text-accent-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 {siteConfig.contactEmail}
               </a>
@@ -156,7 +157,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
                 href={siteConfig.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-5 flex min-h-11 w-fit cursor-pointer items-center gap-2 text-sm font-semibold text-white/60 transition-colors duration-200 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="group mt-5 flex min-h-11 w-fit cursor-pointer items-center gap-2 text-sm font-semibold text-white/60 transition-colors duration-200 hover:text-accent-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 <span>{messages.contact.alternative} · LinkedIn</span>
                 <DirectionalArrow locale={locale} />

@@ -47,7 +47,7 @@ export function MobileNav({ locale, activeSection = "home" }: MobileNavProps) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-sm border border-white/20 bg-white/[0.04] text-white transition-colors duration-200 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg border border-white/20 bg-white/[0.04] text-white transition-colors duration-200 hover:border-accent-bright hover:text-accent-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
         aria-expanded={open}
         aria-controls="mobile-nav-panel"
         aria-label={open ? messages.nav.closeMenu : messages.nav.openMenu}
@@ -74,9 +74,9 @@ export function MobileNav({ locale, activeSection = "home" }: MobileNavProps) {
                     href={sectionHref(locale, item.section)}
                     onNavigate={() => setOpen(false)}
                     className={cn(
-                      "flex min-h-12 cursor-pointer items-center rounded-sm px-4 py-3 text-base font-medium transition-colors duration-200",
+                      "flex min-h-12 cursor-pointer items-center rounded-lg px-4 py-3 text-base font-medium transition-colors duration-200",
                       isActive
-                        ? "bg-accent text-primary"
+                        ? "bg-accent text-white"
                         : "text-white/70 hover:bg-white/10 hover:text-white"
                     )}
                   >

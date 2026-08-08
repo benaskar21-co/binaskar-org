@@ -4,38 +4,60 @@ import { siteConfig } from "@/lib/i18n/config";
 type BrandMarkProps = {
   className?: string;
   title?: string;
+  /**
+   * "dark"  — dark (ink) dots for LIGHT surfaces (default).
+   * "light" — light dots for DARK surfaces.
+   */
   variant?: "dark" | "light";
 };
 
-/** The Bin Askar monogram: B + A joined as one architectural, upward mark. */
+/**
+ * «النظام من الضجيج» — Order from Noise.
+ * Scattered dots resolve, column by column, into an ordered grid;
+ * the final column is Royal Violet. Colors come from design tokens.
+ * Keep geometry in sync with src/app/icon.svg and apple-icon.svg.
+ */
 export function BrandMark({
   className = "h-10 w-10",
   title = "Bin Askar Technology",
   variant = "dark",
 }: BrandMarkProps) {
-  const ink = variant === "dark" ? "#14231E" : "#FFFDF8";
-  const brass = "#B8792B";
+  const ink = variant === "dark" ? "var(--foreground)" : "var(--primary-foreground)";
+  const violet = variant === "dark" ? "var(--accent)" : "var(--accent-bright)";
 
   return (
     <svg
       className={className}
-      viewBox="0 0 72 64"
+      viewBox="0 0 64 64"
       fill="none"
       role="img"
       aria-label={title}
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>{title}</title>
-      <rect x="1" y="1" width="70" height="62" rx="15" fill={ink} />
-      <path
-        d="M14 50V14h12.5c8.2 0 12.8 3.5 12.8 9.7 0 4-2.2 6.8-6.5 8.1 5.1 1.1 7.8 4.2 7.8 8.9 0 6.5-4.9 10.3-14.2 10.3H14Zm7.3-21.2h5c3.8 0 5.8-1.4 5.8-4.1 0-2.5-2-3.8-5.8-3.8h-5v7.9Zm0 14.7h6c4.1 0 6.1-1.4 6.1-4.3 0-2.8-2-4.2-6.1-4.2h-6v8.5Z"
-        fill={brass}
-      />
-      <path
-        d="m39 50 10.3-36h7.4L67 50h-7.6l-2-7.6H48.2L46.1 50H39Zm11-14h5.8l-2.9-11.2L50 36Z"
-        fill={variant === "dark" ? "#FFFDF8" : brass}
-      />
-      <path d="M39 50h7.1" stroke={brass} strokeWidth="1.5" strokeLinecap="round" />
+      {/* noise — jittered, faded */}
+      <circle cx="8.8" cy="13.6" r="2.8" fill={ink} opacity="0.35" />
+      <circle cx="7" cy="27.3" r="2.4" fill={ink} opacity="0.35" />
+      <circle cx="6.9" cy="38.1" r="1.9" fill={ink} opacity="0.35" />
+      <circle cx="9.5" cy="46" r="1.9" fill={ink} opacity="0.35" />
+      <circle cx="20.6" cy="17.5" r="2" fill={ink} opacity="0.55" />
+      <circle cx="19.7" cy="27.6" r="3.3" fill={ink} opacity="0.55" />
+      <circle cx="21.4" cy="37.5" r="3.4" fill={ink} opacity="0.55" />
+      <circle cx="18.9" cy="50.7" r="2.3" fill={ink} opacity="0.55" />
+      <circle cx="31.2" cy="15.1" r="2.3" fill={ink} opacity="0.75" />
+      <circle cx="32.7" cy="26.3" r="2.7" fill={ink} opacity="0.75" />
+      <circle cx="32.3" cy="37.7" r="2.7" fill={ink} opacity="0.75" />
+      <circle cx="31" cy="48" r="2.1" fill={ink} opacity="0.75" />
+      {/* order — aligned */}
+      <circle cx="43" cy="16" r="3.2" fill={ink} />
+      <circle cx="43" cy="27" r="3.2" fill={ink} />
+      <circle cx="43" cy="38" r="3.2" fill={ink} />
+      <circle cx="43" cy="49" r="3.2" fill={ink} />
+      {/* resolved — Royal Violet */}
+      <circle cx="54" cy="16" r="3.4" fill={violet} />
+      <circle cx="54" cy="27" r="3.4" fill={violet} />
+      <circle cx="54" cy="38" r="3.4" fill={violet} />
+      <circle cx="54" cy="49" r="3.4" fill={violet} />
     </svg>
   );
 }
@@ -43,20 +65,38 @@ export function BrandMark({
 type BrandLockupProps = {
   locale: Locale;
   compact?: boolean;
+  /** Surface the lockup sits on; controls mark and text colors. */
+  variant?: "dark" | "light";
 };
 
-export function BrandLockup({ locale, compact = false }: BrandLockupProps) {
+export function BrandLockup({
+  locale,
+  compact = false,
+  variant = "dark",
+}: BrandLockupProps) {
   const name = locale === "ar" ? siteConfig.nameAr : siteConfig.name;
+  const onDark = variant === "dark";
 
   return (
     <span className="flex items-center gap-3">
-      <BrandMark className="h-9 w-10 shrink-0" />
+      <BrandMark
+        className="h-9 w-10 shrink-0"
+        variant={onDark ? "light" : "dark"}
+      />
       {!compact ? (
         <span className="flex flex-col leading-tight">
-          <span className="font-display text-base font-medium tracking-[-0.03em] text-white">
+          <span
+            className={`font-display text-base font-medium ${
+              onDark ? "text-primary-foreground" : "text-foreground"
+            }`}
+          >
             {name}
           </span>
-          <span className="text-[0.65rem] text-white/65">
+          <span
+            className={`text-[0.65rem] ${
+              onDark ? "text-primary-foreground/65" : "text-secondary"
+            }`}
+          >
             Bin Askar Technology
           </span>
         </span>

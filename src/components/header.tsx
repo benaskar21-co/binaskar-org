@@ -30,7 +30,7 @@ export function Header({ locale, activeSection = "home" }: HeaderProps) {
         : activeSection;
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-primary/95 text-white shadow-sm backdrop-blur-md">
-      <span className="absolute inset-x-0 top-0 h-px bg-accent/70" aria-hidden="true" />
+      <span className="absolute inset-x-0 top-0 h-px bg-accent-bright/50" aria-hidden="true" />
       <div className="section-shell relative py-3.5">
         <div className="flex items-center justify-between gap-4">
           <AnchorLink
@@ -57,7 +57,7 @@ export function Header({ locale, activeSection = "home" }: HeaderProps) {
                   className={cn(
                     "relative min-h-11 cursor-pointer px-3 py-3 text-sm font-medium transition-colors duration-200",
                     isActive
-                      ? "text-accent"
+                      ? "text-accent-bright"
                       : "text-white/70 hover:text-white"
                   )}
                   aria-current={isActive ? "true" : undefined}
@@ -65,7 +65,7 @@ export function Header({ locale, activeSection = "home" }: HeaderProps) {
                   {label}
                   {isActive ? (
                     <span
-                      className="absolute inset-x-3 -bottom-px h-px bg-accent"
+                      className="absolute inset-x-3 -bottom-px h-px bg-accent-bright"
                       aria-hidden="true"
                     />
                   ) : null}
@@ -78,7 +78,7 @@ export function Header({ locale, activeSection = "home" }: HeaderProps) {
             <LanguageSwitcher locale={locale} />
             <AnchorLink
               href={sectionHref(locale, sections.contact)}
-              className="hidden min-h-11 cursor-pointer items-center rounded-sm bg-accent px-5 py-2 text-sm font-bold text-primary transition-colors duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white xl:inline-flex"
+              className="hidden min-h-11 cursor-pointer items-center rounded-lg border border-white/15 bg-accent px-5 py-2 text-sm font-bold text-white transition-colors duration-200 hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white xl:inline-flex"
             >
               {messages.nav.contact}
             </AnchorLink>

@@ -21,7 +21,7 @@ export function Footer({ locale }: FooterProps) {
         <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <BrandLockup locale={locale} />
-            <p className="mt-8 max-w-3xl font-display text-3xl font-medium leading-tight tracking-[-0.04em] text-white sm:text-4xl">
+            <p className="display-copy mt-8 max-w-3xl font-display text-3xl font-medium text-white sm:text-4xl">
               {messages.meta.tagline}
             </p>
             <p className="mt-5 text-sm text-white/60">{messages.footer.built}</p>
@@ -30,22 +30,22 @@ export function Footer({ locale }: FooterProps) {
           <nav aria-label={messages.nav.footerLabel}>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm font-semibold sm:flex sm:flex-wrap sm:justify-end">
               <li>
-                <AnchorLink href={sectionHref(locale, sections.services)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
+                <AnchorLink href={sectionHref(locale, sections.services)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent-bright">
                   {messages.nav.services}
                 </AnchorLink>
               </li>
               <li>
-                <AnchorLink href={sectionHref(locale, sections.caseStudies)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
+                <AnchorLink href={sectionHref(locale, sections.caseStudies)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent-bright">
                   {messages.nav.caseStudies}
                 </AnchorLink>
               </li>
               <li>
-                <AnchorLink href={sectionHref(locale, sections.about)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
+                <AnchorLink href={sectionHref(locale, sections.about)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent-bright">
                   {messages.nav.about}
                 </AnchorLink>
               </li>
               <li>
-                <AnchorLink href={sectionHref(locale, sections.contact)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent">
+                <AnchorLink href={sectionHref(locale, sections.contact)} className="inline-flex min-h-11 cursor-pointer items-center transition-colors duration-200 hover:text-accent-bright">
                   {messages.nav.contact}
                 </AnchorLink>
               </li>

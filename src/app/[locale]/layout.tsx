@@ -1,9 +1,5 @@
 import { notFound } from "next/navigation";
-import {
-  IBM_Plex_Sans_Arabic,
-  Lexend,
-  Source_Sans_3,
-} from "next/font/google";
+import { Readex_Pro, Sora } from "next/font/google";
 
 import { Footer } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
@@ -17,24 +13,17 @@ import { buildMetadata } from "@/lib/seo";
 
 import "../globals.css";
 
-const bodyFont = Source_Sans_3({
+// Identity v4 "Royal Violet": Sora carries both Latin body and display;
+// Readex Pro carries Arabic. Both load as single variable-font files.
+const bodyFont = Sora({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
 
-const arabicFont = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
+const arabicFont = Readex_Pro({
+  subsets: ["arabic", "latin"],
   variable: "--font-arabic",
-  display: "swap",
-});
-
-const displayFont = Lexend({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-display-latin",
   display: "swap",
 });
 
@@ -66,11 +55,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   const locale = localeParam as Locale;
   const dir = localeDirections[locale];
-  const fontClass = `${bodyFont.variable} ${arabicFont.variable} ${displayFont.variable}`;
+  const fontClass = `${bodyFont.variable} ${arabicFont.variable}`;
   const displayVar =
-    locale === "ar"
-      ? "var(--font-arabic), var(--font-display-latin)"
-      : "var(--font-display-latin)";
+    locale === "ar" ? "var(--font-arabic), var(--font-body)" : "var(--font-body)";
   const bodyFamily =
     locale === "ar"
       ? "var(--font-arabic), system-ui, sans-serif"

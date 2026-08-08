@@ -13,7 +13,7 @@ const initialState: ContactFormState = { success: false };
 const labelClass = "block text-sm font-semibold text-primary";
 
 const fieldClass =
-  "mt-2 w-full rounded-sm border bg-background/70 px-4 py-3.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition duration-200 focus:border-ring focus:bg-surface focus:ring-2 focus:ring-ring/20";
+  "mt-2 w-full rounded-lg border bg-background/70 px-4 py-3.5 text-base text-foreground placeholder:text-muted-foreground outline-none transition duration-200 focus:border-ring focus:bg-surface focus:ring-2 focus:ring-ring/20";
 
 type FormValues = {
   name: string;
@@ -117,7 +117,7 @@ export function ContactForm({ locale }: ContactFormProps) {
     return (
       <div
         role="status"
-        className="border border-emerald-700/20 bg-emerald-50 p-6 text-emerald-900"
+        className="rounded-lg border border-emerald-700/20 bg-emerald-50 p-6 text-emerald-900"
       >
         {messages.contact.form.success}
       </div>
@@ -241,7 +241,7 @@ export function ContactForm({ locale }: ContactFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-7 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-3 rounded-sm bg-primary px-7 py-3.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-accent hover:text-primary disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:w-auto"
+        className="mt-7 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-3 rounded-lg bg-accent px-7 py-3.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:w-auto"
       >
         {isPending ? (
           <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">

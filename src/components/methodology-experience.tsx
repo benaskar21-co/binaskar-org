@@ -28,7 +28,7 @@ export function MethodologySection({ locale }: { locale: Locale }) {
           />
         </Reveal>
 
-        <ol className="relative mt-16 grid border-s border-white/16 sm:grid-cols-2 xl:grid-cols-4">
+        <ol className="relative mt-16 grid overflow-hidden rounded-xl border border-white/16 sm:grid-cols-2 xl:grid-cols-4">
           {stepKeys.map((key, index) => {
             const step = messages.methodology.steps[key];
             const stepNumber = String(index + 1).padStart(2, "0");
@@ -42,19 +42,19 @@ export function MethodologySection({ locale }: { locale: Locale }) {
               >
                 <article className="group flex h-full min-h-[19rem] flex-col border-e border-b border-white/16 bg-white/[0.025] p-6 transition-colors duration-300 hover:bg-white/[0.075] sm:min-h-[24rem] sm:p-8">
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-4xl font-medium tabular-nums text-accent">
+                    <span className="font-display text-4xl font-medium tabular-nums text-accent-bright">
                       {stepNumber}
                     </span>
-                    <span className="h-2.5 w-2.5 rounded-full border border-accent transition-colors duration-300 group-hover:bg-accent" aria-hidden="true" />
+                    <span className="h-2.5 w-2.5 rounded-full border border-accent-bright transition-colors duration-300 group-hover:bg-accent-bright" aria-hidden="true" />
                   </div>
                   <div className="mt-auto pt-16">
-                    <h3 className="font-display text-3xl font-medium tracking-[-0.045em] text-white">
+                    <h3 className="display-copy font-display text-3xl font-medium text-white">
                       {step.title}
                     </h3>
                     <p className="mt-4 text-base leading-7 text-white/60">
                       {step.description}
                     </p>
-                    <p className="mt-7 border-t border-white/14 pt-4 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-accent">
+                    <p className="mt-7 border-t border-white/14 pt-4 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-accent-bright">
                       {step.output}
                     </p>
                   </div>
@@ -85,7 +85,7 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
               <p className="eyebrow">{messages.experience.eyebrow}</p>
               <h2
                 id="experience-heading"
-                className="mt-5 max-w-xl font-display text-[clamp(2.8rem,5.4vw,5rem)] font-medium leading-[1.02] tracking-[-0.055em] text-primary"
+                className="section-title mt-5 max-w-xl font-display font-medium text-primary"
               >
                 {messages.experience.title}
               </h2>
@@ -94,7 +94,7 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
               </p>
               <ul className="mt-9 flex flex-wrap gap-2" aria-label={locale === "ar" ? "قطاعات الخبرة" : "Experience sectors"}>
                 {sectors.map((sector) => (
-                  <li key={sector} className="border border-border bg-surface px-3 py-2 text-xs font-semibold text-secondary">
+                  <li key={sector} className="rounded-md border border-border bg-surface px-3 py-2 text-xs font-semibold text-secondary">
                     {sector}
                   </li>
                 ))}

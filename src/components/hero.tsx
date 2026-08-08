@@ -21,21 +21,19 @@ export function Hero({ locale }: HeroProps) {
     >
       <div className="hero-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
-        className="pointer-events-none absolute -end-40 -top-56 h-[38rem] w-[38rem] rounded-full border border-accent/25"
+        className="pointer-events-none absolute -end-24 -top-16 opacity-[0.07]"
         aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -end-20 -top-36 h-[24rem] w-[24rem] rounded-full border border-white/10"
-        aria-hidden="true"
-      />
+      >
+        <BrandMark className="h-[34rem] w-[34rem]" variant="light" title="" />
+      </div>
 
       <div className="section-shell relative z-10 grid min-h-[calc(100svh-72px)] gap-14 py-16 lg:grid-cols-[1.08fr_0.72fr] lg:items-center lg:gap-20 lg:py-24">
         <div className="max-w-5xl">
-          <p className="eyebrow hero-enter text-accent">
+          <p className="eyebrow eyebrow-dark hero-enter">
             {messages.hero.eyebrow}
           </p>
           <h1
-            className="hero-enter mt-7 max-w-[13ch] font-display text-[clamp(3.25rem,7.5vw,7.25rem)] font-medium leading-[0.94] tracking-[-0.065em] text-white"
+            className="hero-enter hero-title mt-7 max-w-[15ch] font-display font-medium text-white"
             style={{ animationDelay: "80ms" }}
           >
             {messages.hero.title}
@@ -52,7 +50,7 @@ export function Hero({ locale }: HeroProps) {
           >
             <AnchorLink
               href={sectionHref(locale, sections.contact)}
-              className="group inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-sm bg-accent px-6 py-3 text-sm font-bold text-primary transition-colors duration-200 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="group inline-flex min-h-12 cursor-pointer items-center gap-3 rounded-lg bg-accent px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
               <span>{messages.hero.ctaPrimary}</span>
               <DirectionalArrow
@@ -62,7 +60,7 @@ export function Hero({ locale }: HeroProps) {
             </AnchorLink>
             <AnchorLink
               href={sectionHref(locale, sections.methodology)}
-              className="inline-flex min-h-12 cursor-pointer items-center border-b border-white/35 px-1 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="inline-flex min-h-12 cursor-pointer items-center border-b border-white/35 px-1 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:border-accent-bright hover:text-accent-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
               {messages.hero.ctaSecondary}
             </AnchorLink>
@@ -80,7 +78,7 @@ export function Hero({ locale }: HeroProps) {
                 <dt className="text-xs leading-5 text-white/62 sm:mt-2 sm:max-w-[11rem]">
                   {item.label}
                 </dt>
-                <dd className="-order-1 font-display text-2xl font-medium tabular-nums text-accent sm:order-none">
+                <dd className="-order-1 font-display text-2xl font-medium tabular-nums text-accent-bright sm:order-none">
                   {item.value}
                 </dd>
               </div>
@@ -92,7 +90,7 @@ export function Hero({ locale }: HeroProps) {
           className="hero-enter relative lg:ps-6"
           style={{ animationDelay: "260ms" }}
         >
-          <div className="relative border border-white/16 bg-white/[0.045] p-5 shadow-2xl backdrop-blur-sm sm:p-8">
+          <div className="relative rounded-2xl border border-white/14 bg-white/[0.045] p-5 shadow-2xl backdrop-blur-sm sm:p-8">
             <span
               className="absolute -end-2 -top-10 font-display text-[8rem] font-medium leading-none text-white/[0.035]"
               aria-hidden="true"
@@ -100,7 +98,7 @@ export function Hero({ locale }: HeroProps) {
               01
             </span>
             <div className="flex items-center justify-between border-b border-white/14 pb-5">
-              <p className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-accent">
+              <p className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-accent-bright">
                 {messages.hero.brief.label}
               </p>
               <BrandMark
@@ -109,7 +107,7 @@ export function Hero({ locale }: HeroProps) {
                 title={messages.meta.siteName}
               />
             </div>
-            <p className="mt-9 max-w-md font-display text-3xl font-medium leading-[1.15] tracking-[-0.05em] text-white sm:text-4xl">
+            <p className="display-copy mt-9 max-w-md font-display text-3xl font-medium text-white sm:text-4xl">
               {messages.hero.brief.title}
             </p>
             <ul className="mt-10 border-t border-white/14">
@@ -118,7 +116,7 @@ export function Hero({ locale }: HeroProps) {
                   key={item}
                   className="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-white/14 py-4 text-sm leading-6 text-white/74"
                 >
-                  <span className="font-bold tabular-nums text-accent" aria-hidden="true">
+                  <span className="font-bold tabular-nums text-accent-bright" aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span>{item}</span>
@@ -131,7 +129,7 @@ export function Hero({ locale }: HeroProps) {
             </div>
           </div>
           <div
-            className="absolute -bottom-4 -end-4 h-full w-full border border-accent/25"
+            className="absolute -bottom-4 -end-4 h-full w-full rounded-2xl border border-accent-bright/25"
             aria-hidden="true"
           />
         </div>

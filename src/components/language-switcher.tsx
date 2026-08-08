@@ -21,7 +21,7 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
 
   return (
     <div
-      className="flex rounded-sm border border-white/20 bg-white/[0.04] p-0.5"
+      className="flex rounded-lg border border-white/20 bg-white/[0.04] p-0.5"
       role="group"
       aria-label={messages.nav.languageSwitcher}
     >
@@ -32,7 +32,7 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
           onClick={() => switchLocale(loc)}
           className={`cursor-pointer rounded-md px-2.5 py-1 text-xs font-semibold uppercase tracking-wide transition duration-200 ${
             loc === locale
-              ? "bg-accent text-primary"
+              ? "bg-accent text-white"
               : "text-white/70 hover:bg-white/10 hover:text-white"
           }`}
           aria-current={loc === locale ? "true" : undefined}

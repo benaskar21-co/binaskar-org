@@ -26,11 +26,11 @@ export function SectionHeader({
     return (
       <div className="mx-auto max-w-3xl text-center">
         {eyebrow ? (
-          <p className="eyebrow justify-center">{eyebrow}</p>
+          <p className={`eyebrow justify-center ${isDark ? "eyebrow-dark" : ""}`}>{eyebrow}</p>
         ) : null}
         <h2
           id={id}
-          className={`mt-5 font-display text-[clamp(2.75rem,5.5vw,5.25rem)] font-medium leading-[1.02] tracking-[-0.055em] ${
+          className={`section-title mt-5 font-display font-medium ${
             isDark ? "text-white" : "text-primary"
           }`}
         >
@@ -48,10 +48,12 @@ export function SectionHeader({
   return (
     <div className="grid gap-7 lg:grid-cols-[1.08fr_0.72fr] lg:items-end lg:gap-16">
       <div>
-        {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+        {eyebrow ? (
+          <p className={`eyebrow ${isDark ? "eyebrow-dark" : ""}`}>{eyebrow}</p>
+        ) : null}
         <h2
           id={id}
-          className={`mt-5 max-w-4xl font-display text-[clamp(2.75rem,5.5vw,5.25rem)] font-medium leading-[1.02] tracking-[-0.055em] ${
+          className={`section-title mt-5 max-w-4xl font-display font-medium ${
             isDark ? "text-white" : "text-primary"
           }`}
         >
@@ -73,12 +75,15 @@ type ServicesSectionProps = {
 
 const serviceKeys = ["cto", "strategy", "architecture", "ai", "product"] as const;
 
+// Bento: two wide cards on the first row, three on the second. Deliberately no
+// row-span — a tall featured card left ~54% of its own height empty in Arabic,
+// where the copy is shorter than the English it was tuned for.
 const serviceClasses = [
-  "lg:col-span-7 lg:row-span-2 lg:min-h-[34rem]",
+  "lg:col-span-7",
   "lg:col-span-5",
-  "lg:col-span-5",
-  "lg:col-span-6",
-  "lg:col-span-6",
+  "lg:col-span-4",
+  "lg:col-span-4",
+  "lg:col-span-4",
 ] as const;
 
 function ServiceGlyph({ index }: { index: number }) {
@@ -135,21 +140,21 @@ export function ServicesSection({ locale }: ServicesSectionProps) {
                 as="article"
                 key={key}
                 delay={index * 70}
-                className={`group relative flex min-h-[21rem] flex-col overflow-hidden border border-border bg-background p-7 transition-colors duration-300 hover:bg-accent-soft sm:p-9 ${serviceClasses[index]}`}
+                className={`group relative flex min-h-[21rem] flex-col overflow-hidden rounded-xl border border-border bg-background p-7 transition-colors duration-300 hover:bg-accent-soft sm:p-9 ${serviceClasses[index]}`}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="inline-flex h-11 w-11 items-center justify-center border border-border-strong text-accent transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-primary">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border-strong text-accent transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
                     <ServiceGlyph index={index} />
                   </span>
                   <span className="text-xs font-bold tabular-nums tracking-[0.14em] text-secondary/60">
                     / {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <div className={featured ? "mt-auto pt-20" : "mt-auto pt-12"}>
-                  <h3 className={`max-w-xl font-display font-medium leading-[1.08] tracking-[-0.045em] text-primary ${featured ? "text-4xl sm:text-5xl" : "text-3xl"}`}>
+                <div className={featured ? "mt-auto pt-14" : "mt-auto pt-10"}>
+                  <h3 className={`display-copy max-w-xl font-display font-medium text-primary ${featured ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl"}`}>
                     {item.title}
                   </h3>
-                  <p className={`mt-5 max-w-xl leading-7 text-secondary ${featured ? "text-lg" : "text-base"}`}>
+                  <p className={`mt-4 max-w-xl leading-7 text-secondary ${featured ? "text-lg" : "text-base"}`}>
                     {item.description}
                   </p>
                   <p className="mt-7 border-t border-border pt-4 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-accent-hover">

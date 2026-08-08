@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BrandMark } from "@/components/brand-mark";
 import { DirectionalArrow } from "@/components/directional-arrow";
 import { Reveal } from "@/components/reveal";
 import { SectionHeader } from "@/components/sections";
@@ -32,7 +33,7 @@ function CaseVisual({
       <div
         className={`pointer-events-none absolute inset-0 ${dark ? "hero-grid opacity-70" : "opacity-35"}`}
         style={dark ? undefined : {
-          backgroundImage: "linear-gradient(to right, rgba(20,35,30,.16) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,35,30,.16) 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(to right, rgba(26,18,38,.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,18,38,.14) 1px, transparent 1px)",
           backgroundSize: "56px 56px",
         }}
         aria-hidden="true"
@@ -40,20 +41,20 @@ function CaseVisual({
       <span className={`absolute -end-8 -top-14 font-display text-[12rem] font-medium leading-none ${dark ? "text-white/[0.045]" : "text-primary/[0.055]"}`} aria-hidden="true">
         0{index + 1}
       </span>
-      <div className="relative z-10 flex w-full flex-col justify-between border border-current/20 p-6 sm:p-8">
+      <div className="relative z-10 flex w-full flex-col justify-between rounded-lg border border-current/20 p-6 sm:p-8">
         <div className="flex items-start justify-between gap-4">
           <span className="text-[0.65rem] font-bold uppercase tracking-[0.16em] opacity-60">
             {label} / 0{index + 1}
           </span>
-          <span className="h-3 w-3 rounded-full bg-accent" aria-hidden="true" />
+          <span className={`h-3 w-3 rounded-full ${dark ? "bg-accent-bright" : "bg-accent"}`} aria-hidden="true" />
         </div>
         <div>
           <div className="mb-6 grid grid-cols-3 gap-2" aria-hidden="true">
-            <span className="h-1 bg-current opacity-20" />
-            <span className="h-1 bg-accent" />
-            <span className="h-1 bg-current opacity-20" />
+            <span className="h-1 rounded-full bg-current opacity-20" />
+            <span className={`h-1 rounded-full ${dark ? "bg-accent-bright" : "bg-accent"}`} />
+            <span className="h-1 rounded-full bg-current opacity-20" />
           </div>
-          <p className="font-display text-4xl font-medium leading-none tracking-[-0.055em] sm:text-6xl">
+          <p className="display-copy font-display text-4xl font-medium sm:text-6xl">
             {title}
           </p>
           <p className="mt-5 max-w-sm text-sm leading-6 opacity-62">{sector}</p>
@@ -92,7 +93,7 @@ export function CaseStudiesSection({ locale }: { locale: Locale }) {
                 as="article"
                 key={key}
                 delay={index * 80}
-                className="grid overflow-hidden border border-border bg-background lg:grid-cols-[0.82fr_1.18fr]"
+                className="grid overflow-hidden rounded-xl border border-border bg-background lg:grid-cols-[0.82fr_1.18fr]"
               >
                 <div className={index === 1 ? "lg:order-2" : undefined}>
                   <CaseVisual
@@ -106,7 +107,7 @@ export function CaseStudiesSection({ locale }: { locale: Locale }) {
                   <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-accent-hover">
                     {messages.caseStudies.challengeLabel}
                   </p>
-                  <h3 className="mt-4 font-display text-3xl font-medium tracking-[-0.045em] text-primary sm:text-4xl">
+                  <h3 className="display-copy mt-4 font-display text-3xl font-medium text-primary sm:text-4xl">
                     {study.title}
                   </h3>
                   <p className="mt-6 max-w-2xl text-lg leading-8 text-secondary">
@@ -162,18 +163,22 @@ export function LeaderSection({ locale }: { locale: Locale }) {
       aria-labelledby="leader-heading"
     >
       <div className="section-shell">
-        <Reveal className="grid overflow-hidden border border-border bg-surface lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="grain relative flex min-h-[25rem] overflow-hidden bg-primary p-8 text-white sm:p-12">
+        <Reveal className="grid overflow-hidden rounded-xl border border-border bg-surface lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="grain relative flex min-h-[25rem] items-center justify-center overflow-hidden bg-primary p-8 text-white sm:p-12">
             <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
-            <span className="relative z-10 mt-auto font-display text-[clamp(7rem,18vw,14rem)] font-medium leading-[0.68] tracking-[-0.09em] text-accent" aria-hidden="true">
-              AB
-            </span>
+            <div className="relative z-10" aria-hidden="true">
+              <BrandMark
+                className="h-[clamp(12rem,22vw,17rem)] w-[clamp(12rem,22vw,17rem)]"
+                variant="light"
+                title=""
+              />
+            </div>
           </div>
           <div className="p-7 sm:p-11 lg:p-16">
             <p className="eyebrow">{messages.leader.eyebrow}</p>
             <h2
               id="leader-heading"
-              className="mt-5 max-w-3xl font-display text-[clamp(2.7rem,5vw,4.8rem)] font-medium leading-[1.02] tracking-[-0.055em] text-primary"
+              className="section-title mt-5 max-w-3xl font-display font-medium text-primary"
             >
               {messages.leader.title}
             </h2>
@@ -204,7 +209,7 @@ export function LeaderSection({ locale }: { locale: Locale }) {
                 </p>
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {credentials.map((credential) => (
-                    <li key={credential} className="border border-border bg-background px-3 py-2 text-xs font-semibold text-secondary">
+                    <li key={credential} className="rounded-md border border-border bg-background px-3 py-2 text-xs font-semibold text-secondary">
                       {credential}
                     </li>
                   ))}

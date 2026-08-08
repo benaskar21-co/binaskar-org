@@ -1,5 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 64" fill="none">
-  <rect x="1" y="1" width="70" height="62" rx="15" fill="#14231E"/>
-  <path d="M14 50V14h12.5c8.2 0 12.8 3.5 12.8 9.7 0 4-2.2 6.8-6.5 8.1 5.1 1.1 7.8 4.2 7.8 8.9 0 6.5-4.9 10.3-14.2 10.3H14Zm7.3-21.2h5c3.8 0 5.8-1.4 5.8-4.1 0-2.5-2-3.8-5.8-3.8h-5v7.9Zm0 14.7h6c4.1 0 6.1-1.4 6.1-4.3 0-2.8-2-4.2-6.1-4.2h-6v8.5Z" fill="#B8792B"/>
-  <path d="m39 50 10.3-36h7.4L67 50h-7.6l-2-7.6H48.2L46.1 50H39Zm11-14h5.8l-2.9-11.2L50 36Z" fill="#FFFDF8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Order from Noise — simplified 3-column favicon derivative of the BrandMark.
+       Adapts to browser theme via prefers-color-scheme. -->
+  <style>
+    .ink { fill: #1a1226; }
+    .violet { fill: #5b2ebc; }
+    @media (prefers-color-scheme: dark) {
+      .ink { fill: #f4f1fa; }
+      .violet { fill: #a886f0; }
+    }
+  </style>
+  <circle class="ink" cx="10.5" cy="12" r="4.4" opacity="0.4"/>
+  <circle class="ink" cx="8" cy="30.5" r="5.6" opacity="0.4"/>
+  <circle class="ink" cx="11" cy="49" r="3.8" opacity="0.4"/>
+  <circle class="ink" cx="30" cy="11" r="5" opacity="0.75"/>
+  <circle class="ink" cx="31.5" cy="31" r="5" opacity="0.75"/>
+  <circle class="ink" cx="30.5" cy="51" r="5" opacity="0.75"/>
+  <circle class="violet" cx="52" cy="11" r="5.6"/>
+  <circle class="violet" cx="52" cy="31" r="5.6"/>
+  <circle class="violet" cx="52" cy="51" r="5.6"/>
 </svg>

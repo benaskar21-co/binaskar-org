@@ -1,11 +1,24 @@
 {
   "version": 1,
   "skills": {
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "computedHash": "225b53fce53d627d3a1e94bfea84060ccdbf11a58a2d5cf11eefef89d598020e"
+    },
     "frontend-design": {
       "source": "vercel-labs/agent-eval",
       "sourceType": "github",
       "skillPath": "packages/playground/.agents/skills/frontend-design/SKILL.md",
       "computedHash": "537c1df9d0c694ecf9139a911f9ad0bd111a7ebc173a55457568459e543fe75b"
+    },
+    "high-end-visual-design": {
+      "source": "leonxlnx/taste-skill",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "skills/soft-skill/SKILL.md",
+      "computedHash": "7db385e4c5370e5a7fca9704a1361b056e4504ea6a03924bb86f33a4f00b5c73"
     },
     "namecheap": {
       "source": "github/awesome-copilot",
@@ -17,13 +30,26 @@
       "source": "jackspace/claudeskillz",
       "sourceType": "github",
       "skillPath": "skills/nextjs/SKILL.md",
-      "computedHash": "81192337347b3a9ad80f9174d2ac3015174a5390fcdbe953b92762711a3f3569"
+      "computedHash": "4aff02e456acd33b63fabf08f306893d3eb1b55e842eb6fa109781184e6c507c"
     },
     "react-expert": {
       "source": "jeffallan/claude-skills",
       "sourceType": "github",
       "skillPath": "skills/react-expert/SKILL.md",
-      "computedHash": "498e8247c701522e0a63496a439680a409dafe67c3d8d7d5e4902db0e6222252"
+      "computedHash": "2407711c20e6f87df29bc349340a9d5b1118a24eea67a9653957961e66f150ee"
+    },
+    "ux-writing": {
+      "source": "slb2248/ai-ux-skills",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "skills/ux-writing/SKILL.md",
+      "computedHash": "823f968ab26f95d37d74003c241d5b597f730a6312bca5a4df9548b9d716b37c"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "computedHash": "a8a8b0d07b744173079b25d26c6a189a0b5e7ddd80444ce92055b974dab7352b"
     }
   }
 }

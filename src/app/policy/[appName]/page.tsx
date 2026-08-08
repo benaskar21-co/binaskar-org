@@ -132,7 +132,7 @@ export default async function AppPolicyPage({ params }: PageProps) {
             <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
               <div>
                 <p className="eyebrow">{policy.appNameAr} · {policy.appNameEn}</p>
-                <h1 className="mt-6 max-w-4xl font-display text-[clamp(2.8rem,7vw,6.5rem)] font-semibold leading-[0.98] text-primary">
+                <h1 className="hero-title mt-6 max-w-4xl font-display font-semibold text-primary">
                   سياسة الخصوصية
                   <span
                     lang="en"

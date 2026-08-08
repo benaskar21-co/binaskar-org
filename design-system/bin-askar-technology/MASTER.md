@@ -7,9 +7,9 @@
 ---
 
 **Project:** Bin Askar Technology
-**Generated:** 2026-07-13 — redesigned as a founder-led technology advisory practice
-**Category:** B2B Service
-**Design Dials:** Variance 8/10 (Editorial / Asymmetric) | Motion 5/10 (Standard) | Density 3/10 (Spacious)
+**Generated:** 2026-08-09 (identity v4 — "Royal Violet", user-approved from curated candidates)
+**Category:** Premium Technology Advisory (B2B, founder-led)
+**Design Dials:** Variance 6/10 (Balanced / Modern) | Motion 5/10 (Standard) | Density 3/10 (Spacious)
 
 ---
 
@@ -19,30 +19,36 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#14231E` | `--color-primary` |
-| On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#53635C` | `--color-secondary` |
-| Accent/CTA | `#B8792B` | `--color-accent` |
-| Background | `#F3EFE7` | `--color-background` |
-| Foreground | `#14231E` | `--color-foreground` |
-| Muted | `#E8E1D5` | `--color-muted` |
-| Border | `#D6CEC0` | `--color-border` |
-| Destructive | `#DC2626` | `--color-destructive` |
-| Ring | `#0F172A` | `--color-ring` |
+| Primary (Plum Black) | `#1A1226` | `--color-primary` |
+| Primary Deep | `#120C1B` | `--color-primary-deep` |
+| On Primary | `#F4F1FA` | `--color-primary-foreground` |
+| Secondary (Graphite Mauve) | `#5A5168` | `--color-secondary` |
+| Accent/CTA (Royal Violet) | `#5B2EBC` | `--color-accent` |
+| Accent Hover | `#4A25A0` | `--color-accent-hover` |
+| Accent Soft | `#EEEAF4` | `--color-accent-soft` |
+| Background (Quartz) | `#FBFAFD` | `--color-background` |
+| Surface | `#FFFFFF` | `--color-surface` |
+| Surface Muted | `#F2EFF7` | `--color-surface-muted` |
+| Foreground | `#1A1226` | `--color-foreground` |
+| Muted (Lilac Ash) | `#EEEAF4` | `--color-muted` |
+| Muted Foreground | `#5A5168` | `--color-muted-foreground` |
+| Border | `#E0DAEA` | `--color-border` |
+| Border Strong | `#C4B9D6` | `--color-border-strong` |
+| Destructive | `#B42318` | `--color-destructive` |
+| Ring | `#5B2EBC` | `--color-ring` |
 
-**Color Notes:** Ink green + brass editorial authority
+**Dark-section pairs (hero, methodology, contact):** text `#F4F1FA` on `#1A1226` (16.2:1); muted text `#A99BC6` (7.1:1); accent-on-dark `#A886F0` (6.3:1, large text/labels only).
+
+**Color Notes:** Flat royal violet on plum black and quartz — premium product-company authority. **No gradients of any kind** (the violet is always flat; AI-style purple/pink gradients remain banned). Violet marks action and emphasis only; headings stay ink. Contrast verified: body ≥4.5:1 (AA+), headings and CTA ≥7:1 (AAA).
 
 ### Typography
 
-- **Heading Font:** Lexend
-- **Body Font:** Source Sans 3
-- **Mood:** corporate, trustworthy, accessible, readable, professional, clean
-- **Google Fonts:** [Lexend + Source Sans 3](https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap)
-
-**CSS Import:**
-```css
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
-```
+- **Heading Font:** Sora (Latin) — weight 600/700, tracking -0.03em
+- **Body Font:** Sora (Latin) — weight 300/400/500
+- **Arabic Font:** Readex Pro (display + body) — weight 300–700, tracking 0
+- **Mood:** premium, precise, product-grade, modern, bilingual-first
+- **Loading:** `next/font/google` variable fonts (`Sora`, `Readex_Pro`) — one variable file per family
+- **Google Fonts (preview only):** [Sora + Readex Pro](https://fonts.googleapis.com/css2?family=Sora:wght@300..700&family=Readex+Pro:wght@300..700&display=swap)
 
 ### Spacing Variables
 
@@ -52,11 +58,11 @@
 |-------|-------|-------|
 | `--space-xs` | `4px` / `0.25rem` | Tight gaps |
 | `--space-sm` | `8px` / `0.5rem` | Icon gaps, inline spacing |
-| `--space-md` | `16px` / `1rem` | Standard padding |
-| `--space-lg` | `24px` / `1.5rem` | Section padding |
-| `--space-xl` | `32px` / `2rem` | Large gaps |
-| `--space-2xl` | `48px` / `3rem` | Section margins |
-| `--space-3xl` | `64px` / `4rem` | Hero padding |
+| `--space-md` | `24px` / `1.5rem` | Standard padding |
+| `--space-lg` | `32px` / `2rem` | Section padding |
+| `--space-xl` | `48px` / `3rem` | Large gaps |
+| `--space-2xl` | `64px` / `4rem` | Section margins |
+| `--space-3xl` | `96px` / `6rem` | Hero padding |
 
 ### Shadow Depths
 
@@ -74,31 +80,38 @@
 ### Buttons
 
 ```css
-/* Primary Button */
+/* Primary Button — flat royal violet, 8px radius */
 .btn-primary {
-  background: #B8792B;
-  color: #14231E;
-  padding: 12px 24px;
-  border-radius: 2px;
-  font-weight: 700;
-  transition: color 200ms ease, background-color 200ms ease;
+  background: #5B2EBC;
+  color: #FFFFFF;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 200ms ease, transform 200ms ease;
   cursor: pointer;
 }
 
 .btn-primary:hover {
-  background: #FFFDF8;
+  background: #4A25A0;
 }
 
-/* Secondary Button */
+/* On dark sections the primary button may invert: bg #F4F1FA, color #1A1226 */
+
+/* Secondary Button — quiet outline */
 .btn-secondary {
   background: transparent;
-  color: #14231E;
-  border-bottom: 1px solid #14231E;
-  padding: 12px 24px;
-  border-radius: 0;
-  font-weight: 600;
-  transition: all 200ms ease;
+  color: #1A1226;
+  border: 1px solid #C4B9D6;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: border-color 200ms ease, background-color 200ms ease;
   cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: #5B2EBC;
+  background: #EEEAF4;
 }
 ```
 
@@ -106,18 +119,20 @@
 
 ```css
 .card {
-  background: #FFFDF8;
-  border: 1px solid #D6CEC0;
-  border-radius: 0;
-  padding: 32px;
-  box-shadow: none;
-  transition: background-color 200ms ease, border-color 200ms ease;
+  background: #FFFFFF;
+  border: 1px solid #E0DAEA;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .card:hover {
-  background: #F0DFC5;
-  border-color: #B8792B;
+  border-color: #C4B9D6;
+  box-shadow: var(--shadow-md);
 }
+
+/* Emphasis variant: 3px inline-start rule in Royal Violet (RTL-aware: border-inline-start) */
 ```
 
 ### Inputs
@@ -125,16 +140,17 @@
 ```css
 .input {
   padding: 12px 16px;
-  border: 1px solid #D6CEC0;
-  border-radius: 2px;
+  border: 1px solid #E0DAEA;
+  border-radius: 8px;
   font-size: 16px;
-  transition: border-color 200ms ease;
+  background: #FFFFFF;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .input:focus {
-  border-color: #B8792B;
+  border-color: #5B2EBC;
   outline: none;
-  box-shadow: 0 0 0 3px #B8792B20;
+  box-shadow: 0 0 0 3px #5B2EBC20;
 }
 ```
 
@@ -160,39 +176,48 @@
 
 ## Style Guidelines
 
-**Style:** Trust & Authority + Founder-led Editorial Advisory
+**Style:** Royal Violet — premium product-company authority (identity v4)
 
-**Keywords:** decisive, editorial, founder-led, architecture, field notes, real products, quiet authority, spacious, asymmetric
+**Keywords:** flat violet, plum black, quartz calm, soft 8–12px radii, precise grotesk, bilingual-first, scarce accent, quiet depth
 
-**Best For:** Healthcare/medical landing pages, financial services, enterprise software, premium/luxury products, legal services
+**Best For:** founder-led B2B technology advisory positioning itself with product-company polish rather than corporate-consultancy tropes
 
-**Key Effects:** thin editorial rules, restrained reveal motion, large numeric markers, paper/ink contrast, precise hover color shifts
+**Key Effects:** flat color fields (never gradients), soft diffuse shadows, 3px violet inline-start rules for emphasis, ghost numerals, 200–300ms transitions, visible focus, WCAG AA+ (body ≥4.5:1, headings/CTA target ≥7:1)
 
 ### Page Pattern
 
-**Pattern Name:** Trust & Authority + Conversion
+**Pattern Name:** Trust & Authority journey (structure retained from v3, reskinned)
 
-- **Conversion Strategy:** Name the decision problem, show where the practice fits, prove through real products, make the first conversation low-friction.
-- **CTA Placement:** Hero + navigation + final contact section.
-- **Section Order:** 1. Hero (decision + proof), 2. Fit signals, 3. Services, 4. Case studies, 5. Operating model, 6. Practice + leadership, 7. Contact.
+- **Conversion Strategy:** decision-first narrative; proof through real case studies; low-friction contact form.
+- **CTA Placement:** hero + nav + final contact section
+- **Section Order:** 1. Hero (decision + proof), 2. Fit signals, 3. Services, 4. Case studies, 5. Operating model, 6. Practice + leadership, 7. Contact
+- **Section Rhythm:** dark plum hero → quartz/white light sections → dark methodology → light → dark contact (alternation retained)
 
 ---
 
 ## Motion
 
-**Reveal motion** — Trigger: first viewport entry | Duration: 700ms | Easing: `cubic-bezier(0.16, 1, 0.3, 1)`
+**Stagger List** (Standard) — Trigger: load or scroll | Duration: 300-450ms | Easing: `back.out(1.4)`
 
-- Use opacity + translateY only, with 60–90ms stagger for related items.
-- Keep hover/focus transitions between 150–300ms and avoid layout-shifting transforms.
-- `prefers-reduced-motion` must disable all decorative motion and smooth scrolling.
+```js
+gsap.from('.grid-item', { opacity: 0, scale: 0.92, y: 16, duration: 0.4, stagger: { each: 0.06, from: 'start', grid: 'auto' }, ease: 'back.out(1.4)' });
+```
+
+**Framework notes:** grid: 'auto' lets GSAP infer rows/columns from a CSS grid layout for a natural wave stagger
+
+- ✅ Combine with from: 'center' for a bento-grid layout to draw the eye inward first
+- ❌ Don't use back.out on dense data tables; the overshoot reads as sloppy on informational UI
+- ⚡ Group DOM writes; avoid interleaving layout reads (getBoundingClientRect) between staggered tweens
 
 ---
 
 ## Anti-Patterns (Do NOT Use)
 
-- ❌ Playful design
-- ❌ Hidden credentials
-- ❌ AI purple/pink gradients
+- ❌ Gradients of any kind — the violet is always flat (AI purple/pink gradients remain hard-banned)
+- ❌ Playful design, decorative flourishes
+- ❌ Violet as a text/heading color at body sizes (accent marks action and labels only)
+- ❌ Cheap visuals
+- ❌ Fast animations
 
 ### Additional Forbidden Patterns
 

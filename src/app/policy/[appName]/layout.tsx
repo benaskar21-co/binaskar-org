@@ -1,36 +1,24 @@
-import {
-  IBM_Plex_Sans_Arabic,
-  Lexend,
-  Source_Sans_3,
-} from "next/font/google";
+import { Readex_Pro, Sora } from "next/font/google";
 
 import "../../globals.css";
 
-const bodyFont = Source_Sans_3({
+// Identity v4 "Royal Violet" — same faces as the [locale] layout.
+const bodyFont = Sora({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
 
-const arabicFont = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
+const arabicFont = Readex_Pro({
+  subsets: ["arabic", "latin"],
   variable: "--font-arabic",
-  display: "swap",
-});
-
-const displayFont = Lexend({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-display-latin",
   display: "swap",
 });
 
 export default function AppPolicyLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const fontClass = `${bodyFont.variable} ${arabicFont.variable} ${displayFont.variable}`;
+  const fontClass = `${bodyFont.variable} ${arabicFont.variable}`;
 
   return (
     <html
@@ -41,7 +29,7 @@ export default function AppPolicyLayout({
       style={
         {
           "--font-display":
-            "var(--font-arabic), var(--font-display-latin), system-ui, sans-serif",
+            "var(--font-arabic), var(--font-body), system-ui, sans-serif",
         } as React.CSSProperties
       }
     >

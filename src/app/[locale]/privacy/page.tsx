@@ -26,7 +26,7 @@ export default async function PrivacyPage({ params }: PageProps) {
     <section className="bg-background py-20 sm:py-28 lg:py-32">
       <div className="section-shell max-w-5xl">
         <p className="eyebrow">{messages.meta.siteName}</p>
-        <h1 className="mt-5 max-w-3xl font-display text-[clamp(3rem,7vw,6rem)] font-medium leading-none tracking-[-0.06em] text-primary">
+        <h1 className="hero-title mt-5 max-w-3xl font-display font-medium text-primary">
           {messages.privacy.title}
         </h1>
         <p className="mt-5 text-sm font-semibold text-muted-foreground">
