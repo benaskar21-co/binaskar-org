@@ -8,8 +8,8 @@ The identity is **Order from Noise — النظام من الضجيج**. The mar
 
 - Primary mark: «Order from Noise» dot-matrix in `src/components/brand-mark.tsx` (viewBox 64×64, 5 columns × 4 rows; columns 1–3 jittered and faded, column 4 ordered ink, column 5 Royal Violet).
 - Colors are token-driven in the component: `variant="dark"` renders ink dots for light surfaces; `variant="light"` renders light dots for dark surfaces (`--primary-foreground` + `--accent-bright`).
-- Favicon (`src/app/icon.svg`): simplified **3-column** derivative (noise → ink → violet), adaptive to browser dark mode via an embedded `prefers-color-scheme` media query. Hex values are hardcoded there by necessity — keep them in sync with `globals.css` tokens.
-- App icon (`src/app/apple-icon.svg`): plum tile (`#1A1226`, radius 40/180) with light dots and violet resolved column.
+- Favicon (`src/app/icon.svg`): simplified **3-column** derivative (noise → ink → violet). Carries explicit `width`/`height` (an SVG with no intrinsic size renders unreliably as a favicon) and sets fills as **attributes**, with `prefers-color-scheme` only as a dark-mode override — favicons render in a restricted mode, so a style-only fill would fall back to black. Hex values are hardcoded here by necessity; keep them in sync with `globals.css` tokens.
+- App icon (`src/app/apple-icon.png`, 180×180): plum tile (`#1A1226`, radius 40) with light dots and a violet resolved column. **Must stay a raster file** — Next.js only accepts `.png/.jpg/.jpeg` for the `apple-icon` convention and silently ignores an `apple-icon.svg` (no link tag is emitted at all). Regenerate by rendering the same geometry at 180×180 if the mark changes.
 - Reading direction: the mark resolves left→right in all locales (it is an abstract diagram, not script; do not mirror it in RTL).
 - Small-size use: mark alone; clear space equal to one quarter of the mark width.
 - Never stretch, rotate, outline, add gradients to, or place the mark over a busy image.

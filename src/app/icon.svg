@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
   <!-- Order from Noise — simplified 3-column favicon derivative of the BrandMark.
-       Adapts to browser theme via prefers-color-scheme. -->
+       Fills are set as attributes so the mark still renders if the stylesheet is
+       dropped (favicons render in a restricted mode); the media query is only a
+       dark-theme enhancement. Keep in sync with src/components/brand-mark.tsx. -->
   <style>
-    .ink { fill: #1a1226; }
-    .violet { fill: #5b2ebc; }
     @media (prefers-color-scheme: dark) {
       .ink { fill: #f4f1fa; }
       .violet { fill: #a886f0; }
     }
   </style>
-  <circle class="ink" cx="10.5" cy="12" r="4.4" opacity="0.4"/>
-  <circle class="ink" cx="8" cy="30.5" r="5.6" opacity="0.4"/>
-  <circle class="ink" cx="11" cy="49" r="3.8" opacity="0.4"/>
-  <circle class="ink" cx="30" cy="11" r="5" opacity="0.75"/>
-  <circle class="ink" cx="31.5" cy="31" r="5" opacity="0.75"/>
-  <circle class="ink" cx="30.5" cy="51" r="5" opacity="0.75"/>
-  <circle class="violet" cx="52" cy="11" r="5.6"/>
-  <circle class="violet" cx="52" cy="31" r="5.6"/>
-  <circle class="violet" cx="52" cy="51" r="5.6"/>
+  <circle class="ink" fill="#1a1226" cx="10.5" cy="12" r="4.4" opacity="0.4"/>
+  <circle class="ink" fill="#1a1226" cx="8" cy="30.5" r="5.6" opacity="0.4"/>
+  <circle class="ink" fill="#1a1226" cx="11" cy="49" r="3.8" opacity="0.4"/>
+  <circle class="ink" fill="#1a1226" cx="30" cy="11" r="5" opacity="0.75"/>
+  <circle class="ink" fill="#1a1226" cx="31.5" cy="31" r="5" opacity="0.75"/>
+  <circle class="ink" fill="#1a1226" cx="30.5" cy="51" r="5" opacity="0.75"/>
+  <circle class="violet" fill="#5b2ebc" cx="52" cy="11" r="5.6"/>
+  <circle class="violet" fill="#5b2ebc" cx="52" cy="31" r="5.6"/>
+  <circle class="violet" fill="#5b2ebc" cx="52" cy="51" r="5.6"/>
 </svg>
