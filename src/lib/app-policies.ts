@@ -33,8 +33,8 @@ const ektifaiPolicy: AppPolicy = {
   developerEn: "Bin Askar Technology",
   packageName: "org.binaskar.ektifai",
   supportEmail: "care@binaskar.org",
-  effectiveDateAr: "آخر تحديث: 4 أغسطس 2026",
-  effectiveDateEn: "Last updated: August 4, 2026",
+  effectiveDateAr: "آخر تحديث: 13 أغسطس 2026",
+  effectiveDateEn: "Last updated: August 13, 2026",
   summaryAr:
     "توضح هذه السياسة كيف يتعامل تطبيق اكتفائي مع بيانات الحساب والميزانية والمصروفات ورسائل المعاملات البنكية. نعالج الحد الأدنى اللازم لتقديم الخدمة، ولا نبيع بياناتك الشخصية.",
   summaryEn:
@@ -155,6 +155,36 @@ const ektifaiPolicy: AppPolicy = {
         paragraphs: [
           "When purchasing a subscription, checkout may be completed through the applicable app store or a hosted page operated by a payment provider. That provider processes payment-method data under its policy; we receive transaction status and reference information to verify and activate service.",
           "Offer search may open search links on third-party retailer sites. Use of those sites is governed by the retailer’s policy, and we do not control product availability or final price.",
+        ],
+      },
+    },
+    {
+      // Apple requires auto-renewing subscription terms to be reachable from a public
+      // URL, not only inside the binary. This section is that URL's half of it; the
+      // app carries the same wording in its own Terms screen.
+      id: "subscriptions",
+      ar: {
+        title: "الاشتراكات والتجديد التلقائي",
+        paragraphs: [
+          "جميع خطط اكتفائي المدفوعة اشتراك شهري يتجدد تلقائياً حتى تُوقف التجديد. مدة كل اشتراك شهر واحد، ويظهر السعر داخل التطبيق قبل إتمام الشراء.",
+          "إيقاف التجديد يمنع أي خصم لاحق، ويستمر اشتراكك حتى نهاية الفترة المدفوعة مسبقاً.",
+        ],
+        bullets: [
+          "على iPhone وiPad: يتم الشراء والتجديد عبر App Store، ويُخصم المبلغ من حساب Apple خلال 24 ساعة قبل نهاية الفترة الحالية ما لم تُوقف التجديد قبل ذلك. تُدار الاشتراكات وتُلغى من إعدادات حساب Apple فقط، ولا نستطيع إلغاء اشتراك App Store نيابة عنك. تخضع تلك المشتريات أيضاً لشروط استخدام Apple القياسية.",
+          "على أندرويد: تتم عملية الدفع عبر مزود الدفع المعتمد لدينا، ويمكن إدارة الاشتراك من داخل التطبيق أو بمراسلتنا على بريد الدعم.",
+          "قد تختلف الأسعار بين المنصتين؛ السعر المعتمد هو الظاهر داخل التطبيق على جهازك وقت الشراء.",
+        ],
+      },
+      en: {
+        title: "Subscriptions and automatic renewal",
+        paragraphs: [
+          "All paid Ektifai plans are monthly subscriptions that renew automatically until auto-renew is turned off. Each subscription lasts one month, and the price is shown in the app before purchase is completed.",
+          "Turning off auto-renew stops any further charge; your subscription continues until the end of the period already paid for.",
+        ],
+        bullets: [
+          "On iPhone and iPad: purchase and renewal happen through the App Store. Your Apple account is charged within 24 hours before the end of the current period unless auto-renew is turned off beforehand. Subscriptions are managed and cancelled only in your Apple account settings, and we cannot cancel an App Store subscription on your behalf. Those purchases are also subject to Apple's standard Terms of Use.",
+          "On Android: payment is handled by our payment provider, and the subscription can be managed in the app or by contacting our support email.",
+          "Prices may differ between platforms; the price that applies is the one shown in the app on your device at the time of purchase.",
         ],
       },
     },
