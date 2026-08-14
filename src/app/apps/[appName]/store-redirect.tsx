@@ -11,10 +11,14 @@ import {
 /**
  * Sends a phone straight to its store and leaves everyone else on the page.
  *
- * The page always renders first and this only replaces the location afterwards, so a
- * desktop visitor, a crawler, or anyone with JS disabled still sees both store buttons
- * instead of a blank redirect shell. `?stay=1` suppresses the jump, which is how the
- * page can be checked on a real phone without being bounced out of the browser.
+ * Behavior contract for /apps/{slug}:
+ * - iPhone/iPad/Android with a matching store listing → redirected automatically.
+ * - Desktop, crawlers, JS disabled, or web-only products → stay on the page.
+ * - `?stay=1` suppresses the jump on phones too — share this variant when the
+ *   page itself (details, both store buttons) is what people should see.
+ *
+ * The page always renders first and this only replaces the location afterwards, so
+ * nobody ever gets a blank redirect shell.
  */
 export function StoreRedirect({ links }: { links: AppStoreLinks }) {
   const [redirecting, setRedirecting] = useState(false);
@@ -29,16 +33,19 @@ export function StoreRedirect({ links }: { links: AppStoreLinks }) {
     const url = storeUrlForPlatform(links, platform);
     if (!url) return;
 
-    setRedirecting(true);
+    // Deferred so the state update is asynchronous relative to the effect body;
+    // the status line appears in the same frame the navigation starts.
+    const statusTimer = window.setTimeout(() => setRedirecting(true), 0);
     // `replace`, not `assign`: Back should return to whatever linked here, not bounce
     // the visitor into the store again.
     window.location.replace(url);
+    return () => window.clearTimeout(statusTimer);
   }, [links]);
 
   if (!redirecting) return null;
 
   return (
-    <p className="text-sm text-secondary" role="status" aria-live="polite">
+    <p className="mb-4 text-sm text-secondary" role="status" aria-live="polite">
       <span lang="ar" dir="rtl">
         جاري تحويلك إلى المتجر…
       </span>

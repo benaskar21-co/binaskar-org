@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { BrandMark } from "@/components/brand-mark";
-import {
-  appLinkSlugs,
-  appStoreUrl,
-  getAppLinks,
-  playStoreUrl,
-} from "@/lib/app-links";
+import { appLinkSlugs, getAppLinks } from "@/lib/app-links";
 import { siteConfig } from "@/lib/i18n/config";
 
+import { AppActions, AppCard, AppIcon, AppsHeader } from "../app-page-ui";
 import { StoreRedirect } from "./store-redirect";
 
 type PageProps = {
@@ -36,44 +31,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const title = `تحميل ${links.nameAr} | Download ${links.nameEn}`;
+  const isStoreApp = Boolean(links.iosAppId || links.androidPackage);
+  const title = isStoreApp
+    ? `تحميل ${links.nameAr} | Download ${links.nameEn}`
+    : `${links.nameAr} | ${links.nameEn}`;
   const description = `${links.taglineAr} ${links.taglineEn}`;
   return {
     metadataBase: new URL(siteConfig.url),
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: "website", locale: "ar_SA" },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      locale: "ar_SA",
+      images: [{ url: links.icon }],
+    },
     robots: { index: true, follow: true },
   };
-}
-
-function StoreButton({
-  href,
-  labelAr,
-  labelEn,
-  primary,
-}: {
-  href: string;
-  labelAr: string;
-  labelEn: string;
-  primary?: boolean;
-}) {
-  const base =
-    "inline-flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg px-8 py-3 text-center transition-colors duration-200";
-  const tone = primary
-    ? "bg-primary text-white hover:bg-accent"
-    : "border border-border bg-surface text-primary hover:border-accent hover:text-accent";
-  return (
-    <a href={href} className={`${base} ${tone}`} rel="noopener">
-      <span lang="ar" dir="rtl" className="font-display text-base font-semibold">
-        {labelAr}
-      </span>
-      <span lang="en" dir="ltr" className="text-xs opacity-80">
-        {labelEn}
-      </span>
-    </a>
-  );
 }
 
 /**
@@ -81,147 +58,153 @@ function StoreButton({
  *
  * Phones are redirected to their own store by {@link StoreRedirect}; everyone else —
  * desktop, crawlers, JS disabled — reads this page and picks a store button. An
- * unknown slug renders the same shell with general information rather than a 404,
+ * unknown slug renders the same shell with the full app list rather than a 404,
  * because these links go out in campaigns and print, where a dead end costs a
  * download and cannot be corrected after the fact.
  */
 export default async function AppDownloadPage({ params }: PageProps) {
   const { appName } = await params;
-  const links = getAppLinks(appName);
+  const app = getAppLinks(appName);
+  const others = appLinkSlugs
+    .filter((slug) => slug !== app?.slug)
+    .map((slug) => getAppLinks(slug))
+    .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border bg-surface/90">
-        <div className="section-shell flex min-h-20 items-center py-4">
-          <Link
-            href="/ar"
-            className="flex min-h-11 cursor-pointer items-center gap-3 transition-colors duration-200 hover:text-accent"
-            aria-label="العودة إلى موقع بن عسكر للتقنية"
-          >
-            <BrandMark className="h-10 w-11 shrink-0" />
-            <span className="flex flex-col leading-tight">
-              <span className="font-display text-sm font-semibold sm:text-base">
-                {siteConfig.nameAr}
-              </span>
-              <span lang="en" dir="ltr" className="text-[0.68rem] text-muted-foreground sm:text-xs">
-                {siteConfig.name}
-              </span>
-            </span>
-          </Link>
-        </div>
-      </header>
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <AppsHeader />
 
-      <main id="main-content">
-        <section className="py-16 sm:py-24">
-          <div className="section-shell max-w-3xl">
-            {links ? (
-              <>
-                <p className="eyebrow">
-                  {links.nameAr} · <span lang="en" dir="ltr">{links.nameEn}</span>
-                </p>
-                <h1 className="hero-title mt-6 font-display font-semibold text-primary">
-                  حمّل التطبيق
-                  <span
-                    lang="en"
-                    dir="ltr"
-                    className="mt-3 block font-[var(--font-display-latin)] text-[0.44em] tracking-[-0.04em] text-accent"
-                  >
-                    Download the app
-                  </span>
-                </h1>
-                <p lang="ar" dir="rtl" className="mt-6 text-lg leading-8 text-secondary">
-                  {links.taglineAr}
-                </p>
-                <p lang="en" dir="ltr" className="mt-2 text-base leading-7 text-secondary">
-                  {links.taglineEn}
-                </p>
-
-                <div className="mt-10 space-y-4">
-                  <StoreRedirect links={links} />
-                  <div className="flex flex-wrap gap-4">
-                    {links.iosAppId ? (
-                      <StoreButton
-                        href={appStoreUrl(links.iosAppId)}
-                        labelAr="App Store — آيفون وآيباد"
-                        labelEn="Download on the App Store"
-                        primary
-                      />
-                    ) : null}
-                    {links.androidPackage ? (
-                      <StoreButton
-                        href={playStoreUrl(links.androidPackage)}
-                        labelAr="Google Play — أندرويد"
-                        labelEn="Get it on Google Play"
-                        primary={!links.iosAppId}
-                      />
-                    ) : null}
-                  </div>
-                  {/* Stated plainly rather than left as a guess when one store is absent. */}
-                  {!links.iosAppId || !links.androidPackage ? (
-                    <p className="text-sm text-secondary">
-                      <span lang="ar" dir="rtl">
-                        {links.iosAppId
-                          ? "نسخة أندرويد قادمة قريبًا."
-                          : "نسخة iOS قادمة قريبًا."}
-                      </span>
+      <main id="main-content" className="flex-1 overflow-x-clip">
+        {app ? (
+          <>
+            <section className="relative overflow-hidden border-b border-border bg-surface">
+              <div
+                className="pointer-events-none absolute -end-28 -top-28 opacity-[0.05]"
+                aria-hidden="true"
+              >
+                <div className="h-[26rem] w-[26rem] rounded-full bg-accent blur-3xl" />
+              </div>
+              <div className="section-shell relative max-w-5xl py-14 sm:py-20">
+                <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:gap-10">
+                  <AppIcon app={app} size="large" />
+                  <div className="min-w-0 flex-1">
+                    <p className="eyebrow">
+                      {app.categoryAr} · <span lang="en" dir="ltr">{app.categoryEn}</span>
                     </p>
-                  ) : null}
-                </div>
+                    <h1 className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 font-display text-4xl font-semibold text-primary sm:text-5xl">
+                      <span lang="ar">{app.nameAr}</span>
+                      <span
+                        lang="en"
+                        dir="ltr"
+                        className="text-[0.5em] font-medium text-muted-foreground"
+                      >
+                        {app.nameEn}
+                      </span>
+                    </h1>
+                    <p lang="ar" className="mt-4 max-w-2xl text-xl font-medium leading-9 text-primary">
+                      {app.taglineAr}
+                    </p>
+                    <p lang="ar" className="mt-3 max-w-2xl text-base leading-8 text-secondary">
+                      {app.descriptionAr}
+                    </p>
+                    <p lang="en" dir="ltr" className="mt-2 max-w-2xl text-sm leading-7 text-muted-foreground">
+                      {app.descriptionEn}
+                    </p>
 
-                <p className="mt-10 text-sm text-secondary">
-                  <Link href={`/policy/${links.slug}`} className="border-b border-accent text-primary hover:text-accent">
-                    سياسة الخصوصية والشروط / Privacy &amp; terms
-                  </Link>
-                </p>
-              </>
-            ) : (
-              <>
-                <p className="eyebrow">{siteConfig.nameAr} · <span lang="en" dir="ltr">{siteConfig.name}</span></p>
-                <h1 className="hero-title mt-6 font-display font-semibold text-primary">
-                  هذا التطبيق غير متوفر
-                  <span
-                    lang="en"
-                    dir="ltr"
-                    className="mt-3 block font-[var(--font-display-latin)] text-[0.44em] tracking-[-0.04em] text-accent"
-                  >
-                    App not found
-                  </span>
-                </h1>
-                <p lang="ar" dir="rtl" className="mt-6 text-lg leading-8 text-secondary">
-                  الرابط الذي فتحته لا يطابق أي تطبيق منشور. قد يكون الرابط قديمًا أو
-                  فيه خطأ مطبعي. تجد تطبيقاتنا المتوفرة أدناه.
-                </p>
-                <p lang="en" dir="ltr" className="mt-2 text-base leading-7 text-secondary">
-                  This link does not match a published app — it may be out of date or
-                  mistyped. Our available apps are listed below.
-                </p>
+                    <div className="mt-8">
+                      <StoreRedirect links={app} />
+                      <AppActions app={app} />
+                    </div>
 
-                <ul className="mt-10 space-y-4">
-                  {appLinkSlugs.map((slug) => {
-                    const app = getAppLinks(slug);
-                    if (!app) return null;
-                    return (
-                      <li key={slug}>
-                        <Link
-                          href={`/apps/${slug}`}
-                          className="inline-flex min-h-11 items-center border-b border-accent text-base font-semibold text-primary transition-colors duration-200 hover:text-accent"
+                    <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border pt-5 text-sm">
+                      {app.website ? (
+                        <a
+                          href={app.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cursor-pointer border-b border-accent text-primary transition-colors duration-200 hover:text-accent"
                         >
-                          {app.nameAr} — <span lang="en" dir="ltr" className="ms-1">{app.nameEn}</span>
+                          <span lang="en" dir="ltr">
+                            {app.website.replace(/^https?:\/\/(www\.)?/, "")}
+                          </span>
+                        </a>
+                      ) : null}
+                      {app.policySlug ? (
+                        <Link
+                          href={`/policy/${app.policySlug}`}
+                          className="cursor-pointer border-b border-accent text-primary transition-colors duration-200 hover:text-accent"
+                        >
+                          سياسة الخصوصية / Privacy &amp; terms
                         </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
 
-                <p className="mt-10 text-sm text-secondary">
-                  <Link href="/ar" className="border-b border-accent text-primary hover:text-accent">
-                    كل التطبيقات / All apps
-                  </Link>
-                </p>
-              </>
-            )}
-          </div>
-        </section>
+            {others.length > 0 ? (
+              <section className="py-14 sm:py-20">
+                <div className="section-shell max-w-5xl">
+                  <h2 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-2xl font-semibold text-primary">
+                    <span lang="ar">من أعمالنا أيضًا</span>
+                    <span lang="en" dir="ltr" className="text-base font-medium text-muted-foreground">
+                      More from our work
+                    </span>
+                  </h2>
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    {others.map((other) => (
+                      <AppCard key={other.slug} app={other} />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ) : null}
+          </>
+        ) : (
+          <section className="py-16 sm:py-24">
+            <div className="section-shell max-w-3xl">
+              <p className="eyebrow">
+                {siteConfig.nameAr} · <span lang="en" dir="ltr">{siteConfig.name}</span>
+              </p>
+              <h1 className="hero-title mt-6 font-display font-semibold text-primary">
+                هذا التطبيق غير متوفر
+                <span
+                  lang="en"
+                  dir="ltr"
+                  className="mt-3 block text-[0.44em] text-accent"
+                >
+                  App not found
+                </span>
+              </h1>
+              <p lang="ar" className="mt-6 text-lg leading-8 text-secondary">
+                الرابط الذي فتحته لا يطابق أي تطبيق منشور. قد يكون الرابط قديمًا أو
+                فيه خطأ مطبعي. تجد تطبيقاتنا المتوفرة أدناه.
+              </p>
+              <p lang="en" dir="ltr" className="mt-2 text-base leading-7 text-secondary">
+                This link does not match a published app — it may be out of date or
+                mistyped. Our available apps are listed below.
+              </p>
+
+              <div className="mt-10 grid gap-4">
+                {appLinkSlugs.map((slug) => {
+                  const entry = getAppLinks(slug);
+                  if (!entry) return null;
+                  return <AppCard key={slug} app={entry} />;
+                })}
+              </div>
+
+              <p className="mt-10 text-sm text-secondary">
+                <Link
+                  href="/apps"
+                  className="cursor-pointer border-b border-accent text-primary hover:text-accent"
+                >
+                  كل التطبيقات / All apps
+                </Link>
+              </p>
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );
