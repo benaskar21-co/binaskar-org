@@ -9,6 +9,10 @@ export function proxy(request: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/policy/") ||
+    // /apps/{slug} is the download onelink printed on campaigns and shared in
+    // messages. It must stay exactly as written — prefixing a locale would redirect
+    // to /ar/apps/{slug}, which is not a route, so every shared link would 404.
+    pathname.startsWith("/apps/") ||
     pathname.includes(".")
   ) {
     return NextResponse.next();
