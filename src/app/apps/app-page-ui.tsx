@@ -6,6 +6,7 @@ import {
   appStoreUrl,
   playStoreUrl,
   type AppStoreLinks,
+  type ExtensionStore,
 } from "@/lib/app-links";
 import { siteConfig } from "@/lib/i18n/config";
 
@@ -90,6 +91,77 @@ export function StoreButton({
   );
 }
 
+const EXTENSION_STORE_LABELS: Record<
+  ExtensionStore["key"],
+  { nameEn: string; topAr: string }
+> = {
+  chrome: { nameEn: "Chrome Web Store", topAr: "أضفه من" },
+  firefox: { nameEn: "Firefox Add-ons", topAr: "أضفه من" },
+  safari: { nameEn: "App Store", topAr: "لسفاري من" },
+};
+
+/** Puzzle-piece glyph — the universal "browser extension" mark, in currentColor. */
+function ExtensionGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor" aria-hidden="true">
+      <path d="M20.5 11h-1.75V7.5c0-1.1-.9-2-2-2h-3.5V3.75a2.25 2.25 0 1 0-4.5 0V5.5h-3.5c-1.1 0-2 .9-2 2v3.33h1.67a2.42 2.42 0 1 1 0 4.84H3.25v3.33c0 1.1.9 2 2 2h3.33v-1.67a2.42 2.42 0 1 1 4.84 0V21h3.33c1.1 0 2-.9 2-2v-3.5h1.75a2.25 2.25 0 1 0 0-4.5z" />
+    </svg>
+  );
+}
+
+/**
+ * One extension-store card: a real link when the listing is live, and a clearly
+ * labeled "in review" state when it is not — an in-review URL is a guaranteed 404,
+ * so it is never rendered as a link.
+ */
+export function ExtensionStoreButton({
+  store,
+  primary,
+}: {
+  store: ExtensionStore;
+  primary?: boolean;
+}) {
+  const labels = EXTENSION_STORE_LABELS[store.key];
+
+  if (!store.live) {
+    return (
+      <span className="inline-flex min-h-14 min-w-52 items-center justify-center gap-3 rounded-xl border border-dashed border-border-strong bg-surface-muted px-6 py-3 text-muted-foreground">
+        <ExtensionGlyph />
+        <span className="flex flex-col text-start leading-tight">
+          <span lang="ar" className="text-[0.68rem]">
+            قيد المراجعة <span lang="en" dir="ltr">(in review)</span>
+          </span>
+          <span lang="en" dir="ltr" className="font-display text-base font-semibold">
+            {labels.nameEn}
+          </span>
+        </span>
+      </span>
+    );
+  }
+
+  const tone = primary
+    ? "bg-primary text-primary-foreground hover:bg-accent hover:text-white"
+    : "border border-border-strong bg-surface text-primary hover:border-accent hover:text-accent";
+
+  return (
+    <a
+      href={store.url}
+      rel="noopener"
+      className={`inline-flex min-h-14 min-w-52 cursor-pointer items-center justify-center gap-3 rounded-xl px-6 py-3 transition-colors duration-200 ${tone}`}
+    >
+      <ExtensionGlyph />
+      <span className="flex flex-col text-start leading-tight">
+        <span lang="ar" className="text-[0.68rem] opacity-80">
+          {labels.topAr}
+        </span>
+        <span lang="en" dir="ltr" className="font-display text-base font-semibold">
+          {labels.nameEn}
+        </span>
+      </span>
+    </a>
+  );
+}
+
 /** App icon: store artwork on a tile, or a wordmark on a light card. */
 export function AppIcon({
   app,
@@ -152,7 +224,9 @@ export function AppCard({ app }: { app: AppStoreLinks }) {
           {app.taglineAr}
         </span>
         <span className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-accent-hover">
-          {isStoreApp ? (
+          {app.extensionStores ? (
+            <span lang="en" dir="ltr">Chrome · Firefox · Safari</span>
+          ) : isStoreApp ? (
             <span lang="en" dir="ltr">iOS · Android</span>
           ) : (
             <span lang="ar">منصة ويب</span>
@@ -174,6 +248,30 @@ export function AppCard({ app }: { app: AppStoreLinks }) {
 /** Store buttons + availability note for an app, or the website action for web platforms. */
 export function AppActions({ app }: { app: AppStoreLinks }) {
   const isStoreApp = Boolean(app.iosAppId || app.androidPackage);
+
+  if (app.extensionStores) {
+    const liveCount = app.extensionStores.filter((s) => s.live).length;
+    return (
+      <div className="space-y-4">
+        <div className="flex flex-wrap gap-4">
+          {app.extensionStores.map((store, index) => (
+            <ExtensionStoreButton
+              key={store.key}
+              store={store}
+              primary={store.live && index === app.extensionStores!.findIndex((s) => s.live)}
+            />
+          ))}
+        </div>
+        {liveCount < app.extensionStores.length ? (
+          <p className="text-sm text-secondary">
+            <span lang="ar">
+              المتاجر المعلّمة «قيد المراجعة» ستُفتح روابطها فور اعتمادها.
+            </span>
+          </p>
+        ) : null}
+      </div>
+    );
+  }
 
   if (!isStoreApp) {
     return (

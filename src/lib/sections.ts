@@ -4,6 +4,7 @@ export const sections = {
   methodology: "methodology",
   experience: "experience",
   caseStudies: "case-studies",
+  products: "products",
   about: "about",
   leader: "leader",
   contact: "contact",

@@ -138,6 +138,13 @@
       }
     }
   },
+  "products": {
+    "eyebrow": "Our products",
+    "title": "Apps we build and run ourselves.",
+    "subtitle": "The same methodology we bring to clients, applied to us: products we own from idea to store.",
+    "visit": "App page",
+    "allApps": "All apps & platforms"
+  },
   "caseStudies": {
     "eyebrow": "Work in the market",
     "title": "Real products. Real decisions.",

@@ -5,6 +5,7 @@ import {
   ContactSection,
 } from "@/components/about-contact";
 import { CaseStudiesSection, LeaderSection } from "@/components/case-studies-leader";
+import { ProductsSection } from "@/components/products";
 import { HashScrollHandler } from "@/components/hash-scroll-handler";
 import { Hero } from "@/components/hero";
 import {
@@ -30,6 +31,7 @@ export default async function HomePage({ params }: PageProps) {
       <ExperienceSection locale={locale} />
       <ServicesSection locale={locale} />
       <CaseStudiesSection locale={locale} />
+      <ProductsSection locale={locale} />
       <MethodologySection locale={locale} />
       <AboutSection locale={locale} />
       <LeaderSection locale={locale} />

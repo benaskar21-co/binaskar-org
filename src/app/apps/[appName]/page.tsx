@@ -136,6 +136,15 @@ export default async function AppDownloadPage({ params }: PageProps) {
                         >
                           سياسة الخصوصية / Privacy &amp; terms
                         </Link>
+                      ) : app.privacyUrl ? (
+                        <a
+                          href={app.privacyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cursor-pointer border-b border-accent text-primary transition-colors duration-200 hover:text-accent"
+                        >
+                          سياسة الخصوصية / Privacy &amp; terms
+                        </a>
                       ) : null}
                     </div>
                   </div>

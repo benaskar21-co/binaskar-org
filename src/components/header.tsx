@@ -27,7 +27,9 @@ export function Header({ locale, activeSection = "home" }: HeaderProps) {
       ? sections.services
       : activeSection === sections.leader
         ? sections.about
-        : activeSection;
+        : activeSection === sections.products
+          ? sections.caseStudies
+          : activeSection;
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-primary/95 text-white shadow-sm backdrop-blur-md">
       <span className="absolute inset-x-0 top-0 h-px bg-accent-bright/50" aria-hidden="true" />

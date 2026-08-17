@@ -2,6 +2,14 @@ import { getAppPolicy } from "@/lib/app-policies";
 
 export type StorePlatform = "ios" | "android" | "other";
 
+export type ExtensionStore = {
+  key: "chrome" | "firefox" | "safari";
+  /** Permanent listing URL. AMO slugs and Apple ids are fixed at submission. */
+  url: string;
+  /** False while the listing is still in review — shown as "in review", never linked. */
+  live: boolean;
+};
+
 export type AppStoreLinks = {
   slug: string;
   nameAr: string;
@@ -22,9 +30,28 @@ export type AppStoreLinks = {
   iosAppId: string | null;
   /** Play Store applicationId. Null when the app is not on Google Play. */
   androidPackage: string | null;
+  /**
+   * Browser-extension listings (Chrome Web Store / AMO / App Store), for products
+   * that ship as an extension rather than a phone app. Ordered as displayed.
+   */
+  extensionStores: ExtensionStore[] | null;
+  /** Privacy policy hosted outside this site (product subdomains). */
+  privacyUrl: string | null;
   /** Slug under /policy when the policy is hosted on this site (our own apps only). */
   policySlug: string | null;
+  /**
+   * True for products Bin Askar builds and operates itself (shown on the landing
+   * page); false for client products we led (shown as case studies).
+   */
+  own: boolean;
 };
+
+/** The products we build and run ourselves, in landing-page order. */
+export function getOwnApps(): AppStoreLinks[] {
+  return appLinkSlugs
+    .map((slug) => getAppLinks(slug))
+    .filter((app): app is AppStoreLinks => app !== null && app.own);
+}
 
 /**
  * Everything /apps/{slug} needs, in one place.
@@ -56,7 +83,50 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // Verified against Apple's lookup service for bundleId org.binaskar.ektifai.
     iosAppId: "6793854538",
     androidPackage: "org.binaskar.ektifai",
+    extensionStores: null,
+    privacyUrl: null,
     policySlug: "ektifai",
+    own: true,
+  },
+  fursara: {
+    nameAr: "فُرصارا",
+    nameEn: "Fursara",
+    taglineAr: "مساعد التقديم على الوظائف داخل متصفحك.",
+    taglineEn: "Your job-application assistant, inside the browser.",
+    descriptionAr:
+      "إضافة متصفح تملأ حقول طلبات التوظيف من ملفك الشخصي بنقرة واحدة، وتكتب مسوّدات الإجابات النصية بالذكاء الاصطناعي لتراجعها، وتقارن سيرتك الذاتية بإعلان الوظيفة بدرجة توافق وسببها — لا تُرسل شيئًا حتى تُرسله أنت.",
+    descriptionEn:
+      "A browser extension that fills job-application fields from your profile in one click, drafts written answers with AI for your review, and scores your CV against the open job posting — nothing is submitted until you submit it.",
+    categoryAr: "إضافة متصفح · التوظيف",
+    categoryEn: "Browser extension · Careers",
+    icon: "/apps/fursara.png",
+    iconShape: "square",
+    website: "https://fursara.binaskar.org",
+    iosAppId: null,
+    androidPackage: null,
+    // Mirrors app/lib/extension-stores.ts in the fursati repo (the flip-point).
+    // Chrome approved and public 2026-08-17; AMO slug and Apple id are permanent
+    // but still in review — never linked until they go live.
+    extensionStores: [
+      {
+        key: "chrome",
+        url: "https://chromewebstore.google.com/detail/ajpnpplmkilneffbjnnlkelbppnmldid",
+        live: true,
+      },
+      {
+        key: "firefox",
+        url: "https://addons.mozilla.org/firefox/addon/fursara/",
+        live: false,
+      },
+      {
+        key: "safari",
+        url: "https://apps.apple.com/app/id6802211692",
+        live: false,
+      },
+    ],
+    privacyUrl: "https://fursara.binaskar.org/ar/privacy",
+    policySlug: null,
+    own: true,
   },
   hido: {
     nameAr: "هايدو",
@@ -75,7 +145,10 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // App Store id 6477162077 (Hido هايدو) and the matching public Play listing.
     iosAppId: "6477162077",
     androidPackage: "com.hido.hidoapp",
+    extensionStores: null,
+    privacyUrl: null,
     policySlug: null,
+    own: false,
   },
   minnha: {
     nameAr: "منحة",
@@ -94,7 +167,10 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // Web platform: verified as having no App Store or Play listing.
     iosAppId: null,
     androidPackage: null,
+    extensionStores: null,
+    privacyUrl: null,
     policySlug: null,
+    own: false,
   },
 };
 
@@ -149,6 +225,19 @@ export function storeUrlForPlatform(
   if (platform === "ios" && links.iosAppId) return appStoreUrl(links.iosAppId);
   if (platform === "android" && links.androidPackage) {
     return playStoreUrl(links.androidPackage);
+  }
+  // Extension products: on iOS every browser is WebKit, so the extension arrives
+  // through the App Store; on Android only Firefox can run extensions at all.
+  // Desktop always stays on the page. Redirect only to LIVE listings — an
+  // in-review URL is a guaranteed 404.
+  if (links.extensionStores) {
+    const target =
+      platform === "ios"
+        ? links.extensionStores.find((s) => s.key === "safari")
+        : platform === "android"
+          ? links.extensionStores.find((s) => s.key === "firefox")
+          : undefined;
+    if (target?.live) return target.url;
   }
   return null;
 }
