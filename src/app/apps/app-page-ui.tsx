@@ -129,7 +129,7 @@ export function ExtensionStoreButton({
         <ExtensionGlyph />
         <span className="flex flex-col text-start leading-tight">
           <span lang="ar" className="text-[0.68rem]">
-            قيد المراجعة <span lang="en" dir="ltr">(in review)</span>
+            قريبًا <span lang="en" dir="ltr">(soon)</span>
           </span>
           <span lang="en" dir="ltr" className="font-display text-base font-semibold">
             {labels.nameEn}
@@ -265,7 +265,7 @@ export function AppActions({ app }: { app: AppStoreLinks }) {
         {liveCount < app.extensionStores.length ? (
           <p className="text-sm text-secondary">
             <span lang="ar">
-              المتاجر المعلّمة «قيد المراجعة» ستُفتح روابطها فور اعتمادها.
+              المتاجر المعلّمة «قريبًا» ستُفتح روابطها فور توفّرها.
             </span>
           </p>
         ) : null}
