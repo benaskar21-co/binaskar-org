@@ -188,12 +188,96 @@ export function getAppLinks(slug: string): AppStoreLinks | null {
   return { ...entry, slug: key, nameAr, nameEn };
 }
 
-export function appStoreUrl(iosAppId: string): string {
-  return `https://apps.apple.com/app/id${iosAppId}`;
+/**
+ * Campaign attribution carried from one onelink into both stores.
+ *
+ * Apple and Google disagree about how attribution travels: Apple reads a single
+ * opaque Campaign Token (`ct`) in App Analytics, while Google expects a whole
+ * urlencoded utm string in `referrer` that the Play Install Referrer API hands
+ * back to the app. One token in our URL therefore has to expand into both shapes.
+ */
+export type Attribution = {
+  /** Apple Campaign Token, verbatim — also the Play utm_source fallback. */
+  token: string;
+  source: string;
+  medium: string;
+  campaign: string;
+};
+
+/** Saudi storefront: the market these apps are published and marketed for. */
+const APPLE_STOREFRONT = "sa";
+
+/** Current campaign, used when a link does not name its own. */
+export const DEFAULT_CAMPAIGN = "wein_rah_ratbak";
+
+/**
+ * Channel tokens marketing puts in bios. The token is what they swap per channel;
+ * the mapping turns it into the utm triple Play needs.
+ */
+const CHANNELS: Record<string, { source: string; medium: string }> = {
+  ig_bio: { source: "instagram", medium: "bio" },
+  tt_bio: { source: "tiktok", medium: "bio" },
+  sc_bio: { source: "snapchat", medium: "bio" },
+};
+
+export const marketingChannels = Object.keys(CHANNELS);
+
+/**
+ * Tokens end up inside URLs we hand to the stores, so anything outside this
+ * shape is dropped rather than forwarded — a junk or hostile value must never
+ * reach a store URL, and losing attribution is better than breaking the link.
+ */
+const TOKEN_PATTERN = /^[a-z0-9_-]{1,40}$/i;
+
+/**
+ * Reads the channel off our own onelink. `c` is the documented parameter;
+ * `ct` is accepted too because it is Apple's own name for the same thing and
+ * marketing reaches for it by habit. An unregistered but well-formed token
+ * still attributes: source falls back to the token itself.
+ */
+export function parseAttribution(
+  search: string | URLSearchParams,
+): Attribution | null {
+  const params =
+    typeof search === "string" ? new URLSearchParams(search) : search;
+  const raw = (params.get("c") ?? params.get("ct") ?? "").trim();
+  if (!TOKEN_PATTERN.test(raw)) return null;
+
+  const token = raw.toLowerCase();
+  const known = CHANNELS[token];
+  const requested = (params.get("campaign") ?? "").trim();
+  return {
+    token,
+    source: known?.source ?? token,
+    medium: known?.medium ?? "onelink",
+    campaign: TOKEN_PATTERN.test(requested)
+      ? requested.toLowerCase()
+      : DEFAULT_CAMPAIGN,
+  };
 }
 
-export function playStoreUrl(androidPackage: string): string {
-  return `https://play.google.com/store/apps/details?id=${androidPackage}`;
+export function appStoreUrl(
+  iosAppId: string,
+  attribution?: Attribution | null,
+): string {
+  const url = `https://apps.apple.com/${APPLE_STOREFRONT}/app/id${iosAppId}`;
+  if (!attribution) return url;
+  // mt=8 (mobile software) is legacy but harmless, and marketing's existing
+  // links carry it — keeping it means our links match theirs character for
+  // character when they audit a campaign.
+  return `${url}?ct=${encodeURIComponent(attribution.token)}&mt=8`;
+}
+
+export function playStoreUrl(
+  androidPackage: string,
+  attribution?: Attribution | null,
+): string {
+  const url = `https://play.google.com/store/apps/details?id=${androidPackage}`;
+  if (!attribution) return url;
+  // The whole utm string is one parameter value, so it is encoded as a unit:
+  // the inner separators must arrive at Play as %3D/%26, not as real =/&.
+  const referrer = `utm_source=${attribution.source}&utm_medium=${attribution.medium}&utm_campaign=${attribution.campaign}`;
+  return `${url}&referrer=${encodeURIComponent(referrer)}`;
 }
 
 /**
@@ -221,10 +305,13 @@ export function detectPlatform(
 export function storeUrlForPlatform(
   links: AppStoreLinks,
   platform: StorePlatform,
+  attribution?: Attribution | null,
 ): string | null {
-  if (platform === "ios" && links.iosAppId) return appStoreUrl(links.iosAppId);
+  if (platform === "ios" && links.iosAppId) {
+    return appStoreUrl(links.iosAppId, attribution);
+  }
   if (platform === "android" && links.androidPackage) {
-    return playStoreUrl(links.androidPackage);
+    return playStoreUrl(links.androidPackage, attribution);
   }
   // Extension products: on iOS every browser is WebKit, so the extension arrives
   // through the App Store; on Android only Firefox can run extensions at all.

@@ -20,7 +20,7 @@ test.describe("Arabic single page", () => {
   test("contact button reveals form", async ({ page }) => {
     await page.goto("/ar");
     await page
-      .getByRole("link", { name: "ناقش التحدّي" })
+      .getByRole("link", { name: "احجز جلسة استشارية" })
       .click();
     await expect(page).toHaveURL(/\/ar#contact/);
     await expect(page.getByLabel("الاسم")).toBeVisible();

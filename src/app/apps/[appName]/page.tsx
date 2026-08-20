@@ -5,6 +5,7 @@ import { appLinkSlugs, getAppLinks } from "@/lib/app-links";
 import { siteConfig } from "@/lib/i18n/config";
 
 import { AppActions, AppCard, AppIcon, AppsHeader } from "../app-page-ui";
+import { StoreAttribution } from "./store-attribution";
 import { StoreRedirect } from "./store-redirect";
 
 type PageProps = {
@@ -113,6 +114,7 @@ export default async function AppDownloadPage({ params }: PageProps) {
 
                     <div className="mt-8">
                       <StoreRedirect links={app} />
+                      <StoreAttribution links={app} />
                       <AppActions app={app} />
                     </div>
 

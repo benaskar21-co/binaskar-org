@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import {
   detectPlatform,
+  parseAttribution,
   storeUrlForPlatform,
   type AppStoreLinks,
 } from "@/lib/app-links";
@@ -16,6 +17,8 @@ import {
  * - Desktop, crawlers, JS disabled, or web-only products → stay on the page.
  * - `?stay=1` suppresses the jump on phones too — share this variant when the
  *   page itself (details, both store buttons) is what people should see.
+ * - `?c={channel}` carries campaign attribution into whichever store the visitor
+ *   lands in, so one bio link attributes correctly on both platforms.
  *
  * The page always renders first and this only replaces the location afterwards, so
  * nobody ever gets a blank redirect shell.
@@ -26,11 +29,12 @@ export function StoreRedirect({ links }: { links: AppStoreLinks }) {
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has("stay")) return;
 
+    const search = window.location.search;
     const platform = detectPlatform(
       window.navigator.userAgent,
       window.navigator.maxTouchPoints,
     );
-    const url = storeUrlForPlatform(links, platform);
+    const url = storeUrlForPlatform(links, platform, parseAttribution(search));
     if (!url) return;
 
     // Deferred so the state update is asynchronous relative to the effect body;

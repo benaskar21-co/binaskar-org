@@ -76,6 +76,9 @@ export function StoreButton({
     <a
       href={href}
       rel="noopener"
+      // Marks the anchor for StoreAttribution, which re-tags the href on the
+      // client when the visitor arrived on a campaign link.
+      data-store-link={store}
       className={`inline-flex min-h-14 min-w-52 cursor-pointer items-center justify-center gap-3 rounded-xl px-6 py-3 transition-colors duration-200 ${tone}`}
     >
       <StoreGlyph store={store} />

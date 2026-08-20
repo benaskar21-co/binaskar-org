@@ -2,6 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   appStoreUrl,
+  DEFAULT_CAMPAIGN,
+  marketingChannels,
+  parseAttribution,
   detectPlatform,
   getAppLinks,
   playStoreUrl,
@@ -24,7 +27,9 @@ describe("app store links", () => {
   });
 
   it("builds the store URLs Apple and Google actually serve", () => {
-    expect(appStoreUrl("6793854538")).toBe("https://apps.apple.com/app/id6793854538");
+    expect(appStoreUrl("6793854538")).toBe(
+      "https://apps.apple.com/sa/app/id6793854538",
+    );
     expect(playStoreUrl("org.binaskar.ektifai")).toBe(
       "https://play.google.com/store/apps/details?id=org.binaskar.ektifai",
     );
@@ -72,5 +77,68 @@ describe("app store links", () => {
       const iosOnly = { ...links, androidPackage: null };
       expect(storeUrlForPlatform(iosOnly, "android")).toBeNull();
     });
+  });
+});
+
+describe("campaign attribution", () => {
+  it("expands a channel token into Apple's ct and Play's utm referrer", () => {
+    const attribution = parseAttribution("?c=ig_bio");
+    expect(attribution).toEqual({
+      token: "ig_bio",
+      source: "instagram",
+      medium: "bio",
+      campaign: DEFAULT_CAMPAIGN,
+    });
+
+    expect(appStoreUrl("6793854538", attribution)).toBe(
+      "https://apps.apple.com/sa/app/id6793854538?ct=ig_bio&mt=8",
+    );
+    // The utm string is one parameter value: its separators must arrive encoded.
+    expect(playStoreUrl("org.binaskar.ektifai", attribution)).toBe(
+      "https://play.google.com/store/apps/details?id=org.binaskar.ektifai" +
+        "&referrer=utm_source%3Dinstagram%26utm_medium%3Dbio%26utm_campaign%3Dwein_rah_ratbak",
+    );
+  });
+
+  it("maps every documented bio channel to its own source", () => {
+    expect(marketingChannels).toEqual(["ig_bio", "tt_bio", "sc_bio"]);
+    expect(parseAttribution("?c=tt_bio")?.source).toBe("tiktok");
+    expect(parseAttribution("?c=sc_bio")?.source).toBe("snapchat");
+  });
+
+  it("accepts ct= as an alias and is case-insensitive", () => {
+    expect(parseAttribution("?ct=IG_BIO")?.source).toBe("instagram");
+  });
+
+  it("still attributes an unregistered token instead of dropping it", () => {
+    expect(parseAttribution("?c=x_bio")).toMatchObject({
+      source: "x_bio",
+      medium: "onelink",
+    });
+  });
+
+  it("allows naming a different campaign", () => {
+    expect(parseAttribution("?c=ig_bio&campaign=ramadan_2027")?.campaign).toBe(
+      "ramadan_2027",
+    );
+  });
+
+  it("drops malformed tokens rather than forwarding them into a store URL", () => {
+    for (const search of ["", "?c=", "?c=a b", "?c=<script>", "?c=" + "a".repeat(41)]) {
+      expect(parseAttribution(search)).toBeNull();
+    }
+    // No token means the plain store URL, unchanged.
+    expect(appStoreUrl("6793854538", null)).toBe(
+      "https://apps.apple.com/sa/app/id6793854538",
+    );
+  });
+
+  it("carries attribution through the platform redirect", () => {
+    const links = getAppLinks("ektifai")!;
+    const attribution = parseAttribution("?c=sc_bio");
+    expect(storeUrlForPlatform(links, "ios", attribution)).toContain("ct=sc_bio");
+    expect(storeUrlForPlatform(links, "android", attribution)).toContain(
+      "utm_source%3Dsnapchat",
+    );
   });
 });
