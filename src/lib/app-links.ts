@@ -105,8 +105,8 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     iosAppId: null,
     androidPackage: null,
     // Mirrors app/lib/extension-stores.ts in the fursati repo (the flip-point).
-    // Chrome approved and public 2026-08-17; AMO slug and Apple id are permanent
-    // but still in review — never linked until they go live.
+    // Chrome live 2026-08-17, Firefox/AMO live 2026-08-19; the Apple id is
+    // permanent but still in review — never linked until it goes live.
     extensionStores: [
       {
         key: "chrome",
@@ -116,7 +116,7 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
       {
         key: "firefox",
         url: "https://addons.mozilla.org/firefox/addon/fursara/",
-        live: false,
+        live: true,
       },
       {
         key: "safari",
