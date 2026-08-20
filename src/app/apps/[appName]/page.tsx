@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { appLinkSlugs, getAppLinks } from "@/lib/app-links";
+import {
+  applicationCategory,
+  appLinkSlugs,
+  getAppLinks,
+  operatingSystems,
+  type AppStoreLinks,
+} from "@/lib/app-links";
 import { siteConfig } from "@/lib/i18n/config";
 
 import { AppActions, AppCard, AppIcon, AppsHeader } from "../app-page-ui";
@@ -33,10 +39,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const isStoreApp = Boolean(links.iosAppId || links.androidPackage);
-  const title = isStoreApp
+  // A brand-name title is only ever searched by someone who already knows the
+  // app exists, so a page that has problem-focused copy titles itself with it.
+  const defaultTitle = isStoreApp
     ? `تحميل ${links.nameAr} | Download ${links.nameEn}`
     : `${links.nameAr} | ${links.nameEn}`;
-  const description = `${links.taglineAr} ${links.taglineEn}`;
+  const seoTitle = links.seo?.titleAr
+    ? [links.seo.titleAr, links.seo.titleEn].filter(Boolean).join(" | ")
+    : null;
+  const title = seoTitle ?? defaultTitle;
+  const description = links.seo?.descriptionAr
+    ? [links.seo.descriptionAr, links.seo.descriptionEn].filter(Boolean).join(" ")
+    : `${links.taglineAr} ${links.taglineEn}`;
   return {
     metadataBase: new URL(siteConfig.url),
     title,
@@ -52,6 +66,147 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     robots: { index: true, follow: true },
   };
+}
+
+/** Paragraphs from a body string; a blank line starts a new one. */
+function paragraphs(body: string): string[] {
+  return body.split(/\n\s*\n/).map((t) => t.trim()).filter(Boolean);
+}
+
+/**
+ * Structured data for the app.
+ *
+ * `aggregateRating` is deliberately absent: inventing one is a structured-data
+ * violation that can get rich results suppressed sitewide, and these apps have
+ * no ratings yet. `price: "0"` is the cost to install — accurate for a free
+ * download even when advanced features are subscription-based.
+ */
+function AppJsonLd({ app }: { app: AppStoreLinks }) {
+  const isStoreApp = Boolean(app.iosAppId || app.androidPackage);
+  if (!isStoreApp) return null;
+
+  const graph: Record<string, unknown>[] = [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: app.nameAr,
+      alternateName: app.nameEn,
+      applicationCategory: applicationCategory(app),
+      operatingSystem: operatingSystems(app),
+      description: app.seo?.descriptionAr ?? app.descriptionAr,
+      url: `${siteConfig.url}/apps/${app.slug}`,
+      image: `${siteConfig.url}${app.icon}`,
+      inLanguage: "ar-SA",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "SAR",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: siteConfig.nameAr,
+        url: siteConfig.url,
+      },
+    },
+  ];
+
+  // Only claim an FAQ when the page actually shows one.
+  if (app.seo?.faq?.length) {
+    graph.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: app.seo.faq.map((item) => ({
+        "@type": "Question",
+        name: item.qAr,
+        acceptedAnswer: { "@type": "Answer", text: item.aAr },
+      })),
+    });
+  }
+
+  return (
+    <>
+      {graph.map((node, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(node) }}
+        />
+      ))}
+    </>
+  );
+}
+
+/** The ranking content: prose sections then an FAQ, Arabic first. */
+function AppSeoContent({ app }: { app: AppStoreLinks }) {
+  const seo = app.seo;
+  if (!seo?.sections?.length && !seo?.faq?.length) return null;
+
+  return (
+    <section className="border-b border-border py-14 sm:py-20">
+      <div className="section-shell max-w-3xl">
+        {seo.sections?.map((section) => (
+          <article key={section.headingAr} className="mb-12 last:mb-0">
+            <h2 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-2xl font-semibold text-primary sm:text-3xl">
+              <span lang="ar">{section.headingAr}</span>
+              <span
+                lang="en"
+                dir="ltr"
+                className="text-base font-medium text-muted-foreground"
+              >
+                {section.headingEn}
+              </span>
+            </h2>
+            {paragraphs(section.bodyAr).map((text) => (
+              <p key={text} lang="ar" className="mt-4 text-base leading-8 text-secondary">
+                {text}
+              </p>
+            ))}
+            <p
+              lang="en"
+              dir="ltr"
+              className="mt-4 border-t border-border pt-4 text-sm leading-7 text-muted-foreground"
+            >
+              {section.bodyEn}
+            </p>
+          </article>
+        ))}
+
+        {seo.faq?.length ? (
+          <div className="mt-14 border-t border-border pt-10">
+            <h2 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-display text-2xl font-semibold text-primary sm:text-3xl">
+              <span lang="ar">أسئلة شائعة</span>
+              <span
+                lang="en"
+                dir="ltr"
+                className="text-base font-medium text-muted-foreground"
+              >
+                Frequently asked questions
+              </span>
+            </h2>
+            <dl className="mt-8">
+              {seo.faq.map((item) => (
+                <div key={item.qAr} className="mb-8 last:mb-0">
+                  <dt lang="ar" className="font-display text-lg font-semibold text-primary">
+                    {item.qAr}
+                  </dt>
+                  <dd lang="ar" className="mt-2 text-base leading-8 text-secondary">
+                    {item.aAr}
+                  </dd>
+                  <dd
+                    lang="en"
+                    dir="ltr"
+                    className="mt-2 text-sm leading-7 text-muted-foreground"
+                  >
+                    <span className="font-semibold">{item.qEn}</span> {item.aEn}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
 }
 
 /**
@@ -153,6 +308,9 @@ export default async function AppDownloadPage({ params }: PageProps) {
                 </div>
               </div>
             </section>
+
+            <AppJsonLd app={app} />
+            <AppSeoContent app={app} />
 
             {others.length > 0 ? (
               <section className="py-14 sm:py-20">

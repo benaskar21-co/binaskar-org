@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  applicationCategory,
   appStoreUrl,
   DEFAULT_CAMPAIGN,
   marketingChannels,
+  operatingSystems,
   parseAttribution,
   detectPlatform,
   getAppLinks,
@@ -140,5 +142,56 @@ describe("campaign attribution", () => {
     expect(storeUrlForPlatform(links, "android", attribution)).toContain(
       "utm_source%3Dsnapchat",
     );
+  });
+});
+
+describe("app page SEO content", () => {
+  it("leaves apps without a seo block untouched", () => {
+    for (const slug of ["hido", "minnha", "fursara"]) {
+      expect(getAppLinks(slug)!.seo).toBeUndefined();
+    }
+  });
+
+  it("gives Ektifai problem-focused copy, not brand copy", () => {
+    const seo = getAppLinks("ektifai")!.seo!;
+    // The old title was "تحميل اكتفائي" — only searched by people who already
+    // know the app. The new one has to lead with the problem instead.
+    expect(seo.titleAr).not.toContain("تحميل");
+    expect(seo.titleAr).toContain("راتب");
+    expect(seo.sections).toHaveLength(5);
+    expect(seo.faq).toHaveLength(6);
+  });
+
+  it("carries enough Arabic prose to rank", () => {
+    const seo = getAppLinks("ektifai")!.seo!;
+    const words = [
+      ...seo.sections!.flatMap((s) => [s.headingAr, s.bodyAr]),
+      ...seo.faq!.flatMap((f) => [f.qAr, f.aAr]),
+    ]
+      .join(" ")
+      .split(/\s+/)
+      .filter(Boolean).length;
+    expect(words).toBeGreaterThan(500);
+  });
+
+  it("writes each language natively rather than mirroring one into the other", () => {
+    const seo = getAppLinks("ektifai")!.seo!;
+    for (const section of seo.sections!) {
+      expect(section.bodyAr).not.toEqual(section.bodyEn);
+      expect(section.bodyEn.length).toBeGreaterThan(40);
+    }
+  });
+
+  it("maps categories to schema.org application types", () => {
+    expect(applicationCategory(getAppLinks("ektifai")!)).toBe("FinanceApplication");
+    expect(applicationCategory(getAppLinks("hido")!)).toBe("TravelApplication");
+    expect(applicationCategory(getAppLinks("minnha")!)).toBe("EducationApplication");
+    // An unmapped category must fall back, never guess.
+    expect(applicationCategory(getAppLinks("fursara")!)).toBe("BusinessApplication");
+  });
+
+  it("reports only the platforms an app actually ships on", () => {
+    expect(operatingSystems(getAppLinks("ektifai")!)).toBe("iOS, Android");
+    expect(operatingSystems(getAppLinks("minnha")!)).toBe("");
   });
 });
