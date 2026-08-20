@@ -5,6 +5,8 @@ import {
   applicationCategory,
   appLinkSlugs,
   getAppLinks,
+  isInstallableSoftware,
+  liveExtensionStores,
   operatingSystems,
   type AppStoreLinks,
 } from "@/lib/app-links";
@@ -82,9 +84,11 @@ function paragraphs(body: string): string[] {
  * download even when advanced features are subscription-based.
  */
 function AppJsonLd({ app }: { app: AppStoreLinks }) {
-  const isStoreApp = Boolean(app.iosAppId || app.androidPackage);
-  if (!isStoreApp) return null;
+  // Covers phone apps and browser extensions alike; a web-only platform or an
+  // extension whose stores are all still unreleased has nothing to declare.
+  if (!isInstallableSoftware(app)) return null;
 
+  const installUrl = liveExtensionStores(app)[0]?.url;
   const graph: Record<string, unknown>[] = [
     {
       "@context": "https://schema.org",
@@ -107,6 +111,7 @@ function AppJsonLd({ app }: { app: AppStoreLinks }) {
         name: siteConfig.nameAr,
         url: siteConfig.url,
       },
+      ...(installUrl ? { installUrl } : {}),
     },
   ];
 

@@ -80,6 +80,9 @@ export type AppStoreLinks = {
  * guessing a wrong one.
  */
 export function applicationCategory(app: AppStoreLinks): string {
+  // A browser extension is classified by what it is, not by the subject it
+  // serves — "BrowserApplication" is the schema.org value for this shape.
+  if (app.extensionStores) return "BrowserApplication";
   const map: Record<string, string> = {
     Finance: "FinanceApplication",
     Travel: "TravelApplication",
@@ -88,8 +91,33 @@ export function applicationCategory(app: AppStoreLinks): string {
   return map[app.categoryEn] ?? "BusinessApplication";
 }
 
+const BROWSER_NAMES: Record<ExtensionStore["key"], string> = {
+  chrome: "Chrome",
+  firefox: "Firefox",
+  safari: "Safari",
+};
+
+/** Live extension listings, in display order. Empty while all are unreleased. */
+export function liveExtensionStores(app: AppStoreLinks): ExtensionStore[] {
+  return app.extensionStores?.filter((store) => store.live) ?? [];
+}
+
+/** True when the page has something real to describe as installable software. */
+export function isInstallableSoftware(app: AppStoreLinks): boolean {
+  return Boolean(
+    app.iosAppId || app.androidPackage || liveExtensionStores(app).length,
+  );
+}
+
 /** "iOS, Android" — only the platforms the app is actually published on. */
 export function operatingSystems(app: AppStoreLinks): string {
+  // For an extension the useful answer is which browsers it runs in, and only
+  // the ones actually published — an in-review listing is not availability.
+  if (app.extensionStores) {
+    return liveExtensionStores(app)
+      .map((store) => BROWSER_NAMES[store.key])
+      .join(", ");
+  }
   const systems = [
     app.iosAppId ? "iOS" : null,
     app.androidPackage ? "Android" : null,
@@ -270,6 +298,97 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     privacyUrl: "https://fursara.binaskar.org/ar/privacy",
     policySlug: null,
     own: true,
+    // Copy derived from the approved store pack in fursati/browser-extension/
+    // store/listing-copy.md — the same claims reviewed for Chrome and AMO.
+    // Numerals kept Western; the store copy's "١٠٠" would mix scripts here.
+    seo: {
+      titleAr: "إضافة تملأ طلبات التوظيف وتحلّل توافق سيرتك — فُرصارا",
+      titleEn: "Autofill job applications and score your CV fit — Fursara",
+      descriptionAr:
+        "املأ طلبات التوظيف بنقرة من ملفك الشخصي، واكتب مسوّدات الإجابات بالذكاء الاصطناعي، واعرف درجة توافق سيرتك مع الوظيفة قبل أن تتقدم. تعمل داخل متصفحك.",
+      descriptionEn:
+        "Fill job applications in one click from your profile, draft written answers with AI, and score your CV against the posting before you apply — all inside your browser.",
+      sections: [
+        {
+          headingAr: "التقديم على الوظائف يستهلك وقتك في إعادة الكتابة",
+          headingEn: "Applying wastes your time on retyping",
+          bodyAr:
+            "كل طلب توظيف يطلب المعلومات نفسها: الاسم والبريد والجوال وسنوات الخبرة والتعليم. تكتبها مرة، ثم تكتبها مجددًا في الموقع التالي، ثم في الذي يليه. النتيجة أن الوقت يذهب إلى النسخ واللصق بدل أن يذهب إلى اختيار الوظائف المناسبة وكتابة إجابات جيدة.\n\nفُرصارا إضافة متصفح تتولى هذا الجزء المتكرر: تملأ الحقول من ملفك المحفوظ، وتساعدك على الإجابات النصية، وتخبرك قبل أن تتقدم ما إذا كانت الوظيفة تستحق وقتك أصلًا.",
+          bodyEn:
+            "Every application asks for the same things: name, email, phone, years of experience, education. You type them, then type them again on the next site. Fursara takes over that repetitive part — filling fields from your saved profile, helping with written answers, and telling you before you apply whether the role is worth your time.",
+        },
+        {
+          headingAr: "تعبئة الطلب بنقرة واحدة",
+          headingEn: "One click fills the application",
+          bodyAr:
+            "اضغط زرًا واحدًا فيملأ فُرصارا الاسم والبريد والجوال والخبرات والتعليم وبقية الحقول من ملفك المحفوظ في لوحة التحكم. الإضافة تميّز الحقول التي غيّرتها لتراجعها بنفسك قبل الإرسال.\n\nالتعبئة مجانية دائمًا ولا تستهلك رصيدًا، وتعمل على مواقع التوظيف العربية والعالمية على حد سواء. واجهة الإضافة بالعربية والإنجليزية مع إمكانية التبديل بينهما من داخلها.",
+          bodyEn:
+            "One button fills your name, email, phone, experience, education, and the rest from the profile saved in your dashboard, marking what it changed so you can review before sending. Filling is always free, never uses a credit, and works on Arabic and international job sites alike.",
+        },
+        {
+          headingAr: "مسوّدات الإجابات النصية بالذكاء الاصطناعي",
+          headingEn: "AI drafts for the written questions",
+          bodyAr:
+            "الأسئلة المفتوحة هي ما يوقف أغلب المتقدمين: «اذكر تحديًا واجهته وكيف تجاوزته»، «لماذا تناسب هذا الدور؟». يكتب لك فُرصارا مسوّدة مبنية على خبراتك الحقيقية كما وردت في سيرتك الذاتية، لا على كلام عام.\n\nالمسوّدة نقطة بداية تحرّرها كما تشاء، ولا تُرسل حتى تُرسلها أنت بنفسك.",
+          bodyEn:
+            "Open questions are where most applicants stall: \"describe a challenge you faced\", \"why are you a fit?\". Fursara drafts an answer from the real experience in your CV rather than generic filler. It is a starting point you edit, and nothing is sent until you send it.",
+        },
+        {
+          headingAr: "اعرف درجة توافقك قبل أن تتقدم",
+          headingEn: "Know your fit score before applying",
+          bodyAr:
+            "افتح أي إعلان وظيفة واضغط «حلّل توافقي». يقرأ فُرصارا وصف الوظيفة من الصفحة المفتوحة أمامك، ويقارنه بسيرتك الذاتية، ويعطيك درجة من 100 مع شرح واضح لسببها: أين تتطابق خبرتك فعلًا، وأين الفجوة الحقيقية.\n\nهذا يغيّر ترتيب أولوياتك: بدل التقديم على عشرين وظيفة بالتساوي، تعرف أي خمس منها تستحق إجابات مكتوبة بعناية.",
+          bodyEn:
+            "Open any posting and press \"Analyze my fit\". Fursara reads the job description from the page, compares it with your CV, and returns a score out of 100 with the reasoning: where your experience genuinely matches and where the real gap is — so you can spend careful answers on the roles that deserve them.",
+        },
+        {
+          headingAr: "ما لا يفعله فُرصارا — وهذا مقصود",
+          headingEn: "What Fursara deliberately does not do",
+          bodyAr:
+            "لا يضغط زر الإرسال أبدًا؛ المراجعة والإرسال قرارك وحدك. لا يتجاوز اختبارات التحقق البشري. لا يقرأ أي صفحة ولا يملأ أي حقل دون ضغطة صريحة منك. ولا يبيع بياناتك ولا بيانات سيرتك الذاتية لأي جهة.\n\nترسل الإضافة نص إعلان الوظيفة وحقول ملفك إلى خوادم فُرصارا فقط لتنفيذ ما طلبته، وتُحفظ جلسة الدخول والإعدادات في تخزين المتصفح وتُحذف عند إزالة الإضافة.",
+          bodyEn:
+            "It never presses submit — reviewing and sending is your decision alone. It never bypasses a CAPTCHA, reads no page and fills no field without an explicit click, and does not sell your data or CV. The extension sends the posting text and your profile fields to Fursara servers only to do what you asked; session and settings live in browser storage and are removed when you uninstall.",
+        },
+      ],
+      faq: [
+        {
+          qAr: "هل يرسل فُرصارا الطلب نيابة عني؟",
+          aAr: "لا. الإضافة تملأ الحقول فقط وتترك المراجعة والإرسال لك. لا تضغط زر الإرسال ولا تتجاوز اختبارات التحقق البشري.",
+          qEn: "Does Fursara submit the application for me?",
+          aEn: "No. It fills the fields and leaves reviewing and submitting to you. It never presses submit and never bypasses a CAPTCHA.",
+        },
+        {
+          qAr: "ما المتصفحات المدعومة؟",
+          aAr: "فُرصارا متاح على متصفح كروم والمتصفحات المبنية عليه مثل Edge وBrave، وعلى فايرفوكس. نسخة سفاري قادمة قريبًا.",
+          qEn: "Which browsers are supported?",
+          aEn: "Chrome and Chromium browsers such as Edge and Brave, plus Firefox. A Safari version is on the way.",
+        },
+        {
+          qAr: "هل أحتاج إلى حساب؟",
+          aAr: "نعم، حساب مجاني وسيرة ذاتية مرفوعة على لوحة التحكم — منها تأتي البيانات التي تُملأ في الطلبات وتُبنى عليها الإجابات وتحليل التوافق.",
+          qEn: "Do I need an account?",
+          aEn: "Yes — a free account with a CV uploaded to the dashboard. That is the source for the filled fields, the drafted answers, and the fit analysis.",
+        },
+        {
+          qAr: "هل يعمل مع مواقع التوظيف العربية؟",
+          aAr: "نعم. فُرصارا يدعم مواقع التوظيف العربية والعالمية، وواجهته متاحة بالعربية والإنجليزية مع إمكانية التبديل من داخل الإضافة.",
+          qEn: "Does it work with Arabic job sites?",
+          aEn: "Yes. Fursara supports Arabic and international job sites, and its interface switches between Arabic and English from inside the extension.",
+        },
+        {
+          qAr: "هل بيانات سيرتي الذاتية آمنة؟",
+          aAr: "لا تُباع بياناتك ولا بيانات سيرتك لأي جهة. يُرسل نص إعلان الوظيفة وحقول ملفك إلى خوادم فُرصارا فقط لتنفيذ ما طلبته. التفاصيل الكاملة في سياسة الخصوصية.",
+          qEn: "Is my CV data safe?",
+          aEn: "Your data and CV are not sold to anyone. The posting text and your profile fields go to Fursara servers only, to do what you asked. Full details in the privacy policy.",
+        },
+        {
+          qAr: "هل الإضافة مجانية؟",
+          aAr: "تعبئة الطلبات مجانية دائمًا ولا تستهلك رصيدًا. مزايا الذكاء الاصطناعي — كتابة الإجابات وتحليل التوافق — تعمل برصيد على حسابك.",
+          qEn: "Is the extension free?",
+          aEn: "Application autofill is always free and never uses a credit. The AI features — drafted answers and fit analysis — run on credit in your account.",
+        },
+      ],
+    },
   },
   hido: {
     nameAr: "هايدو",

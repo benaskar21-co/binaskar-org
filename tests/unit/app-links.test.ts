@@ -5,6 +5,8 @@ import {
   appStoreUrl,
   DEFAULT_CAMPAIGN,
   marketingChannels,
+  isInstallableSoftware,
+  liveExtensionStores,
   operatingSystems,
   parseAttribution,
   detectPlatform,
@@ -147,7 +149,8 @@ describe("campaign attribution", () => {
 
 describe("app page SEO content", () => {
   it("leaves apps without a seo block untouched", () => {
-    for (const slug of ["hido", "minnha", "fursara"]) {
+    // Client products stay as they were; only our own products get copy.
+    for (const slug of ["hido", "minnha"]) {
       expect(getAppLinks(slug)!.seo).toBeUndefined();
     }
   });
@@ -186,12 +189,36 @@ describe("app page SEO content", () => {
     expect(applicationCategory(getAppLinks("ektifai")!)).toBe("FinanceApplication");
     expect(applicationCategory(getAppLinks("hido")!)).toBe("TravelApplication");
     expect(applicationCategory(getAppLinks("minnha")!)).toBe("EducationApplication");
-    // An unmapped category must fall back, never guess.
-    expect(applicationCategory(getAppLinks("fursara")!)).toBe("BusinessApplication");
+    // An extension is classified by its shape, not the subject it serves.
+    expect(applicationCategory(getAppLinks("fursara")!)).toBe("BrowserApplication");
   });
 
   it("reports only the platforms an app actually ships on", () => {
     expect(operatingSystems(getAppLinks("ektifai")!)).toBe("iOS, Android");
     expect(operatingSystems(getAppLinks("minnha")!)).toBe("");
+  });
+
+  it("declares only browsers an extension is actually published on", () => {
+    // Safari is submitted but unreleased: claiming it would advertise a 404.
+    expect(operatingSystems(getAppLinks("fursara")!)).toBe("Chrome, Firefox");
+    expect(liveExtensionStores(getAppLinks("fursara")!).map((s) => s.key)).toEqual([
+      "chrome",
+      "firefox",
+    ]);
+  });
+
+  it("emits structured data for extensions but not for web-only platforms", () => {
+    expect(isInstallableSoftware(getAppLinks("fursara")!)).toBe(true);
+    expect(isInstallableSoftware(getAppLinks("ektifai")!)).toBe(true);
+    expect(isInstallableSoftware(getAppLinks("minnha")!)).toBe(false);
+  });
+
+  it("gives Fursara problem-focused copy too", () => {
+    const seo = getAppLinks("fursara")!.seo!;
+    expect(seo.sections).toHaveLength(5);
+    expect(seo.faq).toHaveLength(6);
+    // Western digits only — the store copy's "١٠٠" would mix scripts on a line.
+    const arabic = seo.sections!.map((x) => x.bodyAr).join(" ");
+    expect(arabic).not.toMatch(/[٠-٩]/);
   });
 });
