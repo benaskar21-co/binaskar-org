@@ -93,7 +93,7 @@ export function ProductsSection({ locale }: { locale: Locale }) {
           <p className="mt-8">
             <Link
               href="/apps"
-              className="inline-flex min-h-11 cursor-pointer items-center border-b border-accent text-sm font-bold text-primary transition-colors duration-200 hover:text-accent"
+              className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-primary-foreground transition-colors duration-200 hover:bg-accent-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               {messages.products.allApps}
             </Link>

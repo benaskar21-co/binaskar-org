@@ -79,7 +79,6 @@ export function CaseStudiesSection({ locale }: { locale: Locale }) {
             id="case-studies-heading"
             eyebrow={messages.caseStudies.eyebrow}
             title={messages.caseStudies.title}
-            subtitle={messages.caseStudies.subtitle}
           />
         </Reveal>
 
@@ -175,13 +174,9 @@ export function LeaderSection({ locale }: { locale: Locale }) {
             </div>
           </div>
           <div className="p-7 sm:p-11 lg:p-16">
-            <p className="eyebrow">{messages.leader.eyebrow}</p>
-            <h2
-              id="leader-heading"
-              className="section-title mt-5 max-w-3xl font-display font-medium text-primary"
-            >
-              {messages.leader.title}
-            </h2>
+            <p id="leader-heading" className="eyebrow">
+              {messages.leader.eyebrow}
+            </p>
             <blockquote className="mt-9 max-w-3xl border-s-2 border-accent ps-6 font-display text-2xl font-medium leading-[1.45] tracking-[-0.025em] text-primary sm:text-3xl">
               “{messages.leader.quote}”
             </blockquote>

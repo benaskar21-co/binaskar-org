@@ -21,6 +21,15 @@ export function buildMetadata(
   const path = isHome ? `/${locale}` : `/${locale}/privacy`;
   const url = `${siteConfig.url}${path}`;
 
+  // Link previews. twitter.card is summary_large_image, which renders blank
+  // without an image — so these must stay in sync with the locale.
+  const ogImage = {
+    url: `/og-${locale}.png`,
+    width: 1200,
+    height: 630,
+    alt: `${siteName} — ${messages.meta.tagline}`,
+  };
+
   const keywords = isHome
     ? locale === "ar"
       ? [
@@ -61,11 +70,13 @@ export function buildMetadata(
       siteName,
       locale: locale === "ar" ? "ar_SA" : "en_US",
       type: "website",
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [ogImage.url],
     },
     robots: {
       index: true,

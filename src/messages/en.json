@@ -1,8 +1,8 @@
 {
   "meta": {
     "siteName": "Bin Askar Technology",
-    "tagline": "Technology leadership that turns complexity into decisions and delivery",
-    "description": "Bin Askar Technology is a Riyadh-based technology advisory and leadership practice helping organizations and digital products make clearer decisions and build for growth."
+    "tagline": "Leadership that turns an idea into a project.",
+    "description": "Bin Askar Technology is a Riyadh-based technology advisory and leadership practice, helping organizations and digital product teams make better technology decisions."
   },
   "nav": {
     "home": "Home",
@@ -21,9 +21,9 @@
   },
   "hero": {
     "eyebrow": "Technology advisory & leadership · Riyadh",
-    "title": "Clearer technology decisions. Stronger digital products.",
-    "subtitle": "We lead strategy, architecture, and delivery when technology becomes a critical business decision — not just another software project.",
-    "ctaPrimary": "Discuss the challenge",
+    "title": "Technology decisions that hold. Digital products that last.",
+    "subtitle": "Technology leadership and partnership on the decisions that matter.",
+    "ctaPrimary": "Book a consultation",
     "ctaSecondary": "Explore how we work",
     "proof": {
       "experience": {
@@ -41,10 +41,10 @@
     },
     "brief": {
       "label": "Engagement brief",
-      "title": "Turn complexity into a path your team can execute and own.",
+      "title": "Turning hard decisions into a smooth, executable plan.",
       "items": {
-        "direction": "Technology direction tied to business goals",
-        "architecture": "Architecture designed for reality and growth",
+        "direction": "Technology goals aligned to company goals",
+        "architecture": "Fit-for-purpose architecture that absorbs growth",
         "delivery": "Disciplined delivery with knowledge transfer"
       },
       "footer": "Executive leadership · Engineering depth"
@@ -53,7 +53,7 @@
   "services": {
     "eyebrow": "Where we engage",
     "title": "Technology leadership at moments of change.",
-    "subtitle": "We do not sell a list of technologies. We choose the intervention that removes the nearest obstacle between your decision and the outcome.",
+    "subtitle": "We choose the intervention that removes the nearest obstacle between your decision and the outcome.",
     "items": {
       "cto": {
         "title": "CTO as a Service",
@@ -72,7 +72,7 @@
       },
       "ai": {
         "title": "Applied AI",
-        "description": "Move AI use cases from demo to production through model selection, RAG and agents, evaluation, governance, and quality controls.",
+        "description": "We turn technology and AI ideas into projects that deliver on business goals.",
         "deliverable": "Use case · Evaluation · Operations"
       },
       "product": {
@@ -85,7 +85,7 @@
   "methodology": {
     "eyebrow": "Operating model",
     "title": "From ambiguity to internal capability.",
-    "subtitle": "Every stage ends with a decision or asset your team can use — not a presentation that lives on its own.",
+    "subtitle": "Every stage ends with a decision or an asset your team actually uses.",
     "steps": {
       "discover": {
         "title": "Understand",
@@ -111,7 +111,7 @@
   },
   "experience": {
     "eyebrow": "When we fit best",
-    "title": "When adding developers is not enough.",
+    "title": "When technology is the obstacle between you and the goal.",
     "subtitle": "We engage when the problem sits in the decision, architecture, or delivery model — and someone needs to connect all three to business goals.",
     "sectors": {
       "telecom": "Telecommunications",
@@ -129,26 +129,25 @@
         "description": "Constant scope changes, a business-technology gap, or releases that cannot be predicted."
       },
       "architecture": {
-        "title": "The platform has outgrown its architecture",
-        "description": "Complexity, operating cost, and change risk rise as users and integrations grow."
+        "title": "Every change is now slower and more expensive",
+        "description": "The system works, but it can no longer absorb growth: every new feature costs more and breaks something else."
       },
       "ai": {
-        "title": "An AI opportunity has no safe path to production",
-        "description": "Promising prototypes still need a clear use case, evaluation, governance, and operations."
+        "title": "A successful AI demo that nobody knows how to run",
+        "description": "The model works in the demo, but there is no way to measure it, control it, or run it in front of real customers."
       }
     }
   },
   "products": {
     "eyebrow": "Our products",
-    "title": "Apps we build and run ourselves.",
+    "title": "We apply what we advise to our own products first.",
     "subtitle": "The same methodology we bring to clients, applied to us: products we own from idea to store.",
     "visit": "App page",
     "allApps": "All apps & platforms"
   },
   "caseStudies": {
-    "eyebrow": "Work in the market",
-    "title": "Real products. Real decisions.",
-    "subtitle": "Examples of products where technology leadership was directly involved — from business model to architecture and delivery.",
+    "eyebrow": "Partners",
+    "title": "Partners in products",
     "viewProject": "Visit the product",
     "caseLabel": "Case",
     "challengeLabel": "Context",
@@ -177,12 +176,12 @@
     }
   },
   "leader": {
-    "eyebrow": "Leadership",
-    "title": "The decision stays close to delivery.",
+    "eyebrow": "Who you will work with",
+    "title": "",
     "name": "Abdullah Bin Askar",
     "role": "Founder & Technology Advisor",
     "bio": "A technology leader with more than a decade across enterprise solutions and digital products in telecom, government, and startups. He combines the perspective of a CTO with hands-on engineering, from team design and governance to architecture and launch.",
-    "quote": "The best technology decision is not the most complex. It is the clearest for the team and the closest to measurable impact.",
+    "quote": "Yesterday's solutions were right at the time. We have the knowledge and the ability to review them, improve them, or replace them with something better.",
     "credentials": {
       "pspo": "Professional Scrum Product Owner I",
       "psm": "Professional Scrum Master I & II",
@@ -191,14 +190,14 @@
     "linkedin": "Professional profile on LinkedIn"
   },
   "cta": {
-    "eyebrow": "Start with the problem",
-    "title": "A critical technology decision should not stay ambiguous.",
+    "eyebrow": "Consultation and partnership",
+    "title": "Start with a consultation.",
     "subtitle": "Share the context, what your team is trying to achieve, and where progress stops today."
   },
   "contact": {
-    "title": "Tell us where the path is blocked.",
-    "subtitle": "A focused first conversation to understand the challenge and determine whether we are the right partner.",
-    "expectation": "We review the context carefully and reply with a clear next step — not a generic sales pitch.",
+    "title": "Tell us about the goal.",
+    "subtitle": "A focused first conversation to understand the challenge and identify where we could work together.",
+    "expectation": "We review your message carefully and come back with a clear next step.",
     "form": {
       "name": "Name",
       "email": "Work email",
@@ -220,7 +219,7 @@
   },
   "about": {
     "eyebrow": "About the practice",
-    "title": "An independent technology practice. An owner’s mindset.",
+    "title": "A technology practice. We work as if it were ours.",
     "intro": "Bin Askar Technology is a Riyadh-based technology advisory and leadership practice. We work closely with decision makers and teams, and stay close to delivery until direction becomes reality.",
     "mission": {
       "title": "The central idea",
@@ -235,7 +234,7 @@
         },
         "startups": {
           "title": "Founders & startups",
-          "description": "When a product needs mature technology leadership before or while building the internal team."
+          "description": "When a product needs a capable technology partner before or while building the internal team."
         },
         "government": {
           "title": "Public-sector programs",
@@ -255,7 +254,7 @@
           "description": "Quality is a daily decision in architecture, code, and operations — not a final phase."
         },
         "partnership": {
-          "title": "Transfer ownership",
+          "title": "Handover and support",
           "description": "Work with the team, document decisions, and transfer knowledge so the impact remains after the engagement."
         }
       }
@@ -285,6 +284,6 @@
   },
   "footer": {
     "rights": "All rights reserved.",
-    "built": "Independent Saudi technology practice · Riyadh"
+    "built": "Saudi technology practice · Riyadh"
   }
 }
