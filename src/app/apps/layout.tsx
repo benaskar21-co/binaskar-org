@@ -1,6 +1,7 @@
 import { Readex_Pro, Sora } from "next/font/google";
 
 import "../globals.css";
+import { Analytics } from "@/components/analytics";
 
 // Identity v4 "Royal Violet" — same faces as the [locale] layout. This route
 // lives outside the locale prefix (links go out in stores and campaigns), so it
@@ -42,6 +43,7 @@ export default function AppsLayout({
         }}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

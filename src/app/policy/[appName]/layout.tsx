@@ -1,6 +1,7 @@
 import { Readex_Pro, Sora } from "next/font/google";
 
 import "../../globals.css";
+import { Analytics } from "@/components/analytics";
 
 // Identity v4 "Royal Violet" — same faces as the [locale] layout.
 const bodyFont = Sora({
@@ -40,6 +41,7 @@ export default function AppPolicyLayout({
         }}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

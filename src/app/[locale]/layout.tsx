@@ -12,6 +12,7 @@ import {
 import { buildMetadata } from "@/lib/seo";
 
 import "../globals.css";
+import { Analytics } from "@/components/analytics";
 
 // Identity v4 "Royal Violet": Sora carries both Latin body and display;
 // Readex Pro carries Arabic. Both load as single variable-font files.
@@ -90,6 +91,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
           {children}
         </main>
         <Footer locale={locale} />
+        <Analytics />
       </body>
     </html>
   );

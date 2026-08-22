@@ -273,8 +273,8 @@
         "content": "We use your data solely to respond to your inquiries. We do not sell or share your data with third parties for marketing purposes."
       },
       "cookies": {
-        "title": "Cookies",
-        "content": "We may use essential cookies to improve browsing experience. We do not use advertising trackers."
+        "title": "Cookies & analytics",
+        "content": "We use Google Analytics to measure how many people visit and which pages they read. It stores analytics cookies on your device and collects aggregate data: the pages you viewed, where you arrived from, your device and browser type, and an approximate city-level location. We do not run advertising tracking, and we do not connect this data to your name or email address. You can opt out by blocking cookies in your browser settings or by installing Google's opt-out add-on."
       },
       "contact": {
         "title": "Contact",
