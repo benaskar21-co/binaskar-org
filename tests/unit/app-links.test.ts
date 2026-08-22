@@ -105,9 +105,15 @@ describe("campaign attribution", () => {
   });
 
   it("maps every documented bio channel to its own source", () => {
-    expect(marketingChannels).toEqual(["ig_bio", "tt_bio", "sc_bio"]);
+    expect(marketingChannels).toEqual(["ig_bio", "tt_bio", "sc_bio", "yt_bio"]);
     expect(parseAttribution("?c=tt_bio")?.source).toBe("tiktok");
     expect(parseAttribution("?c=sc_bio")?.source).toBe("snapchat");
+    // Registered rather than left to the fallback, which would have reported
+    // YouTube as source "yt_bio" on medium "onelink", apart from the others.
+    expect(parseAttribution("?c=yt_bio")).toMatchObject({
+      source: "youtube",
+      medium: "bio",
+    });
   });
 
   it("accepts ct= as an alias and is case-insensitive", () => {

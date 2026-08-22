@@ -10,6 +10,7 @@ Google Play, desktop sees the app page — and every case carries the campaign t
 | Instagram bio | `https://binaskar.org/apps/ektifai?c=ig_bio` |
 | TikTok bio | `https://binaskar.org/apps/ektifai?c=tt_bio` |
 | Snapchat bio | `https://binaskar.org/apps/ektifai?c=sc_bio` |
+| YouTube bio / description | `https://binaskar.org/apps/ektifai?c=yt_bio` |
 
 Swap the `c=` token per channel — that is the only part that changes.
 
@@ -46,9 +47,16 @@ link produces.
 
 ### Adding a channel
 
-Any well-formed token works immediately — `?c=x_bio` reports as `utm_source=x_bio`,
-`utm_medium=onelink`. To give a new channel a proper source and medium (the way `ig_bio` becomes
-`instagram` / `bio`), add it to `CHANNELS` in `src/lib/app-links.ts`.
+Any well-formed token works immediately, so a new link never breaks — but an **unregistered** token
+reports as `utm_source=<token>` on `utm_medium=onelink`, which lands apart from the registered
+channels in Play Console. Registering it is one line in `CHANNELS` in `src/lib/app-links.ts`:
+
+```ts
+x_bio: { source: "twitter", medium: "bio" },
+```
+
+Registered today: `ig_bio` · `tt_bio` · `sc_bio` · `yt_bio`. Ask before running a campaign on a
+channel that is not on that list, so its numbers group correctly from the first click.
 
 Tokens are limited to letters, digits, `_` and `-`, up to 40 characters. Anything else is ignored
 and the visitor still reaches the store — attribution is dropped, never the download.

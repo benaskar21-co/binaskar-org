@@ -480,6 +480,7 @@ const CHANNELS: Record<string, { source: string; medium: string }> = {
   ig_bio: { source: "instagram", medium: "bio" },
   tt_bio: { source: "tiktok", medium: "bio" },
   sc_bio: { source: "snapchat", medium: "bio" },
+  yt_bio: { source: "youtube", medium: "bio" },
 };
 
 export const marketingChannels = Object.keys(CHANNELS);
