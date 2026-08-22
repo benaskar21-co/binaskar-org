@@ -274,7 +274,7 @@
       },
       "cookies": {
         "title": "Cookies & analytics",
-        "content": "We use Google Analytics to measure how many people visit and which pages they read. It stores analytics cookies on your device and collects aggregate data: the pages you viewed, where you arrived from, your device and browser type, and an approximate city-level location. We do not run advertising tracking, and we do not connect this data to your name or email address. You can opt out by blocking cookies in your browser settings or by installing Google's opt-out add-on."
+        "content": "We use Google Analytics to measure how many people visit and which pages they read. We ask before any analytics cookie is stored: until you accept, nothing is placed on your device and we receive only aggregate, cookieless measurement. If you accept, it collects the pages you viewed, where you arrived from, your device and browser type, and an approximate city-level location. We do not run advertising tracking, and we do not connect this data to your name or email address. You can decline when asked, change your mind by clearing this site's data in your browser, or block cookies in your browser settings."
       },
       "contact": {
         "title": "Contact",
