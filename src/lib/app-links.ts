@@ -277,11 +277,10 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     androidPackage: null,
     // Mirrors app/lib/extension-stores.ts in the fursati repo (the flip-point).
     // Chrome live 2026-08-17, Firefox/AMO live 2026-08-19, App Store live
-    // 2026-08-24 — verified against Apple's lookup API (Fursara 1.0, bundle
-    // sa.fursara.app). That approval covers iPhone and iPad; the macOS build of
-    // the same listing is still Waiting for Review, so the link is real but Mac
-    // users cannot install yet. Kept as one "safari" row because this file
-    // describes browsers, not operating systems, and Safari genuinely is served.
+    // 2026-08-24 for iPhone and iPad and 2026-08-25 for macOS — one listing,
+    // id 6802211692, bundle sa.fursara.app, verified against Apple's lookup API.
+    // Every Safari platform is served now, so the single "safari" row is exact
+    // rather than approximate.
     extensionStores: [
       {
         key: "chrome",
