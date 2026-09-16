@@ -205,9 +205,22 @@ describe("app page SEO content", () => {
   });
 
   it("declares only browsers an extension is actually published on", () => {
-    // Safari is submitted but unreleased: claiming it would advertise a 404.
-    expect(operatingSystems(getAppLinks("fursara")!)).toBe("Chrome, Firefox");
-    expect(liveExtensionStores(getAppLinks("fursara")!).map((s) => s.key)).toEqual([
+    // All three of Fursara's listings are live (Apple id 6802211692 verified
+    // against the lookup API 2026-09-16). The point of the assertion is that
+    // the string is derived from `live`, not hardcoded — flipping a store back
+    // to unreleased must drop it rather than advertise a 404.
+    expect(operatingSystems(getAppLinks("fursara")!)).toBe(
+      "Chrome, Firefox, Safari",
+    );
+
+    const unreleasedSafari = {
+      ...getAppLinks("fursara")!,
+      extensionStores: getAppLinks("fursara")!.extensionStores!.map((store) =>
+        store.key === "safari" ? { ...store, live: false } : store,
+      ),
+    };
+    expect(operatingSystems(unreleasedSafari)).toBe("Chrome, Firefox");
+    expect(liveExtensionStores(unreleasedSafari).map((s) => s.key)).toEqual([
       "chrome",
       "firefox",
     ]);

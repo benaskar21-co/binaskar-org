@@ -66,6 +66,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: "ar_SA",
       images: [{ url: links.icon }],
     },
+    // Safari's Smart App Banner on iOS. Driven by the registry rather than
+    // hardcoded, so every app with an App Store listing gets one and an app
+    // without one never advertises a store page that does not exist.
+    ...(links.iosAppId ? { itunes: { appId: links.iosAppId } } : {}),
     robots: { index: true, follow: true },
   };
 }
