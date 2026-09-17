@@ -21,12 +21,30 @@ device and forwards it, so a single bio entry covers both stores with attributio
 
 | Visitor | Lands on |
 | --- | --- |
-| iPhone / iPad | `https://apps.apple.com/sa/app/id6793854538?ct=ig_bio&mt=8` |
+| iPhone / iPad | `https://apps.apple.com/sa/app/id6793854538?pt=129210939&ct=ig_bio&mt=8` |
 | Android | `https://play.google.com/store/apps/details?id=org.binaskar.ektifai&referrer=utm_source%3Dinstagram%26utm_medium%3Dbio%26utm_campaign%3Dwein_rah_ratbak` |
 | Desktop | the app page, with both store buttons tagged |
 
 The direct store links above still work if a placement demands one — they are exactly what this
 link produces.
+
+## Apple campaign tokens
+
+iOS links carry `pt=129210939` (our App Store Connect provider token) plus `mt=8`. Both are added
+automatically — nothing to paste.
+
+`ct` depends on how the visitor arrived:
+
+| Arrived via | `ct` |
+| --- | --- |
+| A channel link (`?c=ig_bio`) | `ig_bio` — the channel always wins |
+| Any untagged visit to the page | `web_ektifai` |
+
+So generic website traffic is separated from the named bio channels instead of being lumped in with
+one of them. `pt` is set per app and is deliberately **absent** on client products such as Hido:
+it identifies our provider, and attaching it to someone else's app would misattribute their
+installs. Android is unaffected — `pt`/`ct`/`mt` are Apple-only; Play uses the `referrer` utm
+string.
 
 ## Reading the numbers
 

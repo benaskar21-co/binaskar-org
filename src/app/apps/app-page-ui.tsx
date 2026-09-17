@@ -303,7 +303,7 @@ export function AppActions({ app }: { app: AppStoreLinks }) {
     <div className="space-y-4">
       <div className="flex flex-wrap gap-4">
         {app.iosAppId ? (
-          <StoreButton href={appStoreUrl(app.iosAppId)} store="ios" primary />
+          <StoreButton href={appStoreUrl(app)} store="ios" primary />
         ) : null}
         {app.androidPackage ? (
           <StoreButton

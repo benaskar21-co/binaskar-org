@@ -57,6 +57,17 @@ export type AppStoreLinks = {
   /** Play Store applicationId. Null when the app is not on Google Play. */
   androidPackage: string | null;
   /**
+   * Apple App Analytics provider token (`pt`). Identifies OUR App Store Connect
+   * provider, so it belongs only on apps we publish — putting it on a client's
+   * app would attribute their installs to our provider.
+   */
+  iosProviderToken: string | null;
+  /**
+   * `ct` used when a visitor arrives without a channel token, i.e. plain web
+   * traffic. A named channel (`?c=ig_bio`) always wins over this.
+   */
+  iosDefaultCampaign: string | null;
+  /**
    * Browser-extension listings (Chrome Web Store / AMO / App Store), for products
    * that ship as an extension rather than a phone app. Ordered as displayed.
    */
@@ -162,6 +173,9 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // Verified against Apple's lookup service for bundleId org.binaskar.ektifai.
     iosAppId: "6793854538",
     androidPackage: "org.binaskar.ektifai",
+    // Provider token from App Store Connect; ct for untagged web traffic.
+    iosProviderToken: "129210939",
+    iosDefaultCampaign: "web_ektifai",
     extensionStores: null,
     privacyUrl: null,
     policySlug: "ektifai",
@@ -275,6 +289,8 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     website: "https://fursara.binaskar.org",
     iosAppId: null,
     androidPackage: null,
+    iosProviderToken: null,
+    iosDefaultCampaign: null,
     // Mirrors app/lib/extension-stores.ts in the fursati repo (the flip-point).
     // Chrome live 2026-08-17, Firefox/AMO live 2026-08-19, App Store live
     // 2026-08-24 for iPhone and iPad and 2026-08-25 for macOS — one listing,
@@ -410,6 +426,10 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // App Store id 6477162077 (Hido هايدو) and the matching public Play listing.
     iosAppId: "6477162077",
     androidPackage: "com.hido.hidoapp",
+    // Client app under a different App Store Connect provider — our pt must
+    // never appear on it.
+    iosProviderToken: null,
+    iosDefaultCampaign: null,
     extensionStores: null,
     privacyUrl: null,
     policySlug: null,
@@ -432,6 +452,8 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // Web platform: verified as having no App Store or Play listing.
     iosAppId: null,
     androidPackage: null,
+    iosProviderToken: null,
+    iosDefaultCampaign: null,
     extensionStores: null,
     privacyUrl: null,
     policySlug: null,
@@ -522,16 +544,30 @@ export function parseAttribution(
   };
 }
 
+/**
+ * App Store URL for an app, carrying whatever Apple attribution applies.
+ *
+ * Takes the app rather than a bare id so a call site cannot forget the
+ * provider token. Parameter order matches the links marketing already uses
+ * (`pt`, `ct`, `mt`) so an audit compares character for character.
+ *
+ * `ct` precedence: an explicit channel token beats the app's default, because
+ * losing `ig_bio` to a generic `web_*` would erase the per-channel reporting
+ * the bio links exist for.
+ */
 export function appStoreUrl(
-  iosAppId: string,
+  app: Pick<AppStoreLinks, "iosAppId" | "iosProviderToken" | "iosDefaultCampaign">,
   attribution?: Attribution | null,
 ): string {
-  const url = `https://apps.apple.com/${APPLE_STOREFRONT}/app/id${iosAppId}`;
-  if (!attribution) return url;
-  // mt=8 (mobile software) is legacy but harmless, and marketing's existing
-  // links carry it — keeping it means our links match theirs character for
-  // character when they audit a campaign.
-  return `${url}?ct=${encodeURIComponent(attribution.token)}&mt=8`;
+  const url = `https://apps.apple.com/${APPLE_STOREFRONT}/app/id${app.iosAppId}`;
+  const campaign = attribution?.token ?? app.iosDefaultCampaign;
+  const params = new URLSearchParams();
+  if (app.iosProviderToken) params.set("pt", app.iosProviderToken);
+  if (campaign) params.set("ct", campaign);
+  // mt=8 (mobile software) is legacy but harmless, and it is in the links
+  // marketing hands out; only meaningful alongside a campaign.
+  if ([...params.keys()].length) params.set("mt", "8");
+  return params.size ? `${url}?${params}` : url;
 }
 
 export function playStoreUrl(
@@ -574,7 +610,7 @@ export function storeUrlForPlatform(
   attribution?: Attribution | null,
 ): string | null {
   if (platform === "ios" && links.iosAppId) {
-    return appStoreUrl(links.iosAppId, attribution);
+    return appStoreUrl(links, attribution);
   }
   if (platform === "android" && links.androidPackage) {
     return playStoreUrl(links.androidPackage, attribution);

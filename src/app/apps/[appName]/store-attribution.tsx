@@ -36,7 +36,7 @@ export function StoreAttribution({ links }: { links: AppStoreLinks }) {
     };
 
     if (links.iosAppId) {
-      retag("ios", appStoreUrl(links.iosAppId, attribution));
+      retag("ios", appStoreUrl(links, attribution));
     }
     if (links.androidPackage) {
       retag("android", playStoreUrl(links.androidPackage, attribution));

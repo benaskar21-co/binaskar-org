@@ -31,9 +31,14 @@ describe("app store links", () => {
   });
 
   it("builds the store URLs Apple and Google actually serve", () => {
-    expect(appStoreUrl("6793854538")).toBe(
-      "https://apps.apple.com/sa/app/id6793854538",
-    );
+    // A store URL with no Apple tokens at all stays bare.
+    expect(
+      appStoreUrl({
+        iosAppId: "6793854538",
+        iosProviderToken: null,
+        iosDefaultCampaign: null,
+      }),
+    ).toBe("https://apps.apple.com/sa/app/id6793854538");
     expect(playStoreUrl("org.binaskar.ektifai")).toBe(
       "https://play.google.com/store/apps/details?id=org.binaskar.ektifai",
     );
@@ -94,8 +99,10 @@ describe("campaign attribution", () => {
       campaign: DEFAULT_CAMPAIGN,
     });
 
-    expect(appStoreUrl("6793854538", attribution)).toBe(
-      "https://apps.apple.com/sa/app/id6793854538?ct=ig_bio&mt=8",
+    // A named channel beats the app's default ct, and the provider token rides
+    // along: losing ig_bio to web_ektifai would erase per-channel reporting.
+    expect(appStoreUrl(getAppLinks("ektifai")!, attribution)).toBe(
+      "https://apps.apple.com/sa/app/id6793854538?pt=129210939&ct=ig_bio&mt=8",
     );
     // The utm string is one parameter value: its separators must arrive encoded.
     expect(playStoreUrl("org.binaskar.ektifai", attribution)).toBe(
@@ -137,9 +144,10 @@ describe("campaign attribution", () => {
     for (const search of ["", "?c=", "?c=a b", "?c=<script>", "?c=" + "a".repeat(41)]) {
       expect(parseAttribution(search)).toBeNull();
     }
-    // No token means the plain store URL, unchanged.
-    expect(appStoreUrl("6793854538", null)).toBe(
-      "https://apps.apple.com/sa/app/id6793854538",
+    // No channel token still attributes as plain web traffic — this is the
+    // exact URL marketing asked the iOS redirect to produce.
+    expect(appStoreUrl(getAppLinks("ektifai")!, null)).toBe(
+      "https://apps.apple.com/sa/app/id6793854538?pt=129210939&ct=web_ektifai&mt=8",
     );
   });
 
@@ -239,5 +247,29 @@ describe("app page SEO content", () => {
     // Western digits only — the store copy's "١٠٠" would mix scripts on a line.
     const arabic = seo.sections!.map((x) => x.bodyAr).join(" ");
     expect(arabic).not.toMatch(/[٠-٩]/);
+  });
+});
+
+describe("Apple provider token", () => {
+  it("produces marketing's exact untagged iOS URL for Ektifai", () => {
+    expect(storeUrlForPlatform(getAppLinks("ektifai")!, "ios", null)).toBe(
+      "https://apps.apple.com/sa/app/id6793854538?pt=129210939&ct=web_ektifai&mt=8",
+    );
+  });
+
+  it("never puts our provider token on a client's app", () => {
+    const hido = getAppLinks("hido")!;
+    expect(hido.iosProviderToken).toBeNull();
+    const url = storeUrlForPlatform(hido, "ios", parseAttribution("?c=ig_bio"))!;
+    expect(url).not.toContain("pt=");
+    expect(url).toBe("https://apps.apple.com/sa/app/id6477162077?ct=ig_bio&mt=8");
+  });
+
+  it("leaves Android untouched — pt/ct/mt are Apple-only", () => {
+    const android = storeUrlForPlatform(getAppLinks("ektifai")!, "android", null)!;
+    expect(android).toBe(
+      "https://play.google.com/store/apps/details?id=org.binaskar.ektifai",
+    );
+    for (const p of ["pt=", "ct=", "mt=8"]) expect(android).not.toContain(p);
   });
 });
