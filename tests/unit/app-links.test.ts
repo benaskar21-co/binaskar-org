@@ -97,6 +97,7 @@ describe("campaign attribution", () => {
       source: "instagram",
       medium: "bio",
       campaign: DEFAULT_CAMPAIGN,
+      campaignExplicit: false,
     });
 
     // A named channel beats the app's default ct, and the provider token rides
@@ -265,11 +266,70 @@ describe("Apple provider token", () => {
     expect(url).toBe("https://apps.apple.com/sa/app/id6477162077?ct=ig_bio&mt=8");
   });
 
-  it("leaves Android untouched — pt/ct/mt are Apple-only", () => {
+  it("keeps Apple-only params out of the Android link", () => {
     const android = storeUrlForPlatform(getAppLinks("ektifai")!, "android", null)!;
-    expect(android).toBe(
-      "https://play.google.com/store/apps/details?id=org.binaskar.ektifai",
+    // Android carries a Play referrer instead; pt/ct/mt are Apple's alone.
+    for (const p of ["pt=", "&ct=", "mt=8"]) expect(android).not.toContain(p);
+  });
+});
+
+describe("Android web-redirect attribution", () => {
+  const play = "https://play.google.com/store/apps/details?id=org.binaskar.ektifai";
+  const referrer = (url: string) =>
+    decodeURIComponent(new URL(url).searchParams.get("referrer") ?? "");
+
+  it("attributes an untagged Android install from the website", () => {
+    // Previously bare: Play Console filed these as organic, so iOS website
+    // traffic was measured and Android website traffic was not.
+    const url = storeUrlForPlatform(getAppLinks("ektifai")!, "android", null)!;
+    expect(url).toBe(
+      `${play}&referrer=utm_source%3Dweb%26utm_medium%3Dredirect%26utm_campaign%3Dektifai_sep`,
     );
-    for (const p of ["pt=", "ct=", "mt=8"]) expect(android).not.toContain(p);
+  });
+
+  it("keeps the channel as the source while naming the path", () => {
+    const url = storeUrlForPlatform(
+      getAppLinks("ektifai")!,
+      "android",
+      parseAttribution("?c=ig_bio"),
+    )!;
+    // source is the mapped platform, not the raw ig_bio token: one platform
+    // must not appear under two source names across the two paths.
+    expect(referrer(url)).toBe(
+      "utm_source=instagram&utm_medium=redirect&utm_campaign=ektifai_sep",
+    );
+  });
+
+  it("still lets an explicit ?campaign= win", () => {
+    const url = storeUrlForPlatform(
+      getAppLinks("ektifai")!,
+      "android",
+      parseAttribution("?c=ig_bio&campaign=ramadan_2027"),
+    )!;
+    expect(referrer(url)).toContain("utm_campaign=ramadan_2027");
+  });
+
+  it("encodes the referrer once, as Play requires", () => {
+    const url = storeUrlForPlatform(getAppLinks("ektifai")!, "android", null)!;
+    const raw = new URL(url).search;
+    // Inner separators arrive percent-encoded; decoding once yields real ones.
+    expect(raw).toContain("utm_source%3Dweb%26utm_medium");
+    expect(raw).not.toContain("utm_source=web&utm_medium");
+  });
+
+  it("leaves a client app's Play link alone", () => {
+    const hido = getAppLinks("hido")!;
+    expect(hido.androidRedirect).toBeNull();
+    expect(storeUrlForPlatform(hido, "android", null)).toBe(
+      "https://play.google.com/store/apps/details?id=com.hido.hidoapp",
+    );
+  });
+
+  it("does not leak Android utm into the iOS branch", () => {
+    const ios = storeUrlForPlatform(getAppLinks("ektifai")!, "ios", null)!;
+    expect(ios).toBe(
+      "https://apps.apple.com/sa/app/id6793854538?pt=129210939&ct=web_ektifai&mt=8",
+    );
+    expect(ios).not.toContain("referrer");
   });
 });

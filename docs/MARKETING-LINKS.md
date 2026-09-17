@@ -22,7 +22,7 @@ device and forwards it, so a single bio entry covers both stores with attributio
 | Visitor | Lands on |
 | --- | --- |
 | iPhone / iPad | `https://apps.apple.com/sa/app/id6793854538?pt=129210939&ct=ig_bio&mt=8` |
-| Android | `https://play.google.com/store/apps/details?id=org.binaskar.ektifai&referrer=utm_source%3Dinstagram%26utm_medium%3Dbio%26utm_campaign%3Dwein_rah_ratbak` |
+| Android | `https://play.google.com/store/apps/details?id=org.binaskar.ektifai&referrer=utm_source%3Dinstagram%26utm_medium%3Dredirect%26utm_campaign%3Dektifai_sep` |
 | Desktop | the app page, with both store buttons tagged |
 
 The direct store links above still work if a placement demands one — they are exactly what this
@@ -45,6 +45,23 @@ one of them. `pt` is set per app and is deliberately **absent** on client produc
 it identifies our provider, and attaching it to someone else's app would misattribute their
 installs. Android is unaffected — `pt`/`ct`/`mt` are Apple-only; Play uses the `referrer` utm
 string.
+
+## Play referrer from the website
+
+Android installs routed by this site now carry a referrer too. Before this, an untagged Android
+visitor installed with no referrer at all and Play Console filed it as organic — iOS website
+traffic was measured and Android website traffic was not.
+
+| Arrived via | Play `referrer` (decoded) |
+| --- | --- |
+| Any untagged visit | `utm_source=web&utm_medium=redirect&utm_campaign=ektifai_sep` |
+| A channel link (`?c=ig_bio`) | `utm_source=instagram&utm_medium=redirect&utm_campaign=ektifai_sep` |
+
+`utm_medium=redirect` is what separates a website-routed install from a tap on a direct Play link
+in a bio (`utm_medium=bio`), so you can tell which path converts. `utm_source` uses the channel's
+mapped platform name, not the raw token, so Instagram never appears as both `instagram` and
+`ig_bio`. An explicit `?campaign=` still overrides `ektifai_sep`. The whole referrer value is
+URL-encoded once, as Play requires.
 
 ## Reading the numbers
 

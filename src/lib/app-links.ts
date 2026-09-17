@@ -68,6 +68,14 @@ export type AppStoreLinks = {
    */
   iosDefaultCampaign: string | null;
   /**
+   * Play `referrer` stamped on installs that came through this website's
+   * redirect. Without it an Android visitor arriving from the site installs
+   * unattributed and Play Console files it as organic — the iOS `ct` has no
+   * Android counterpart otherwise. Null for client apps, whose Play Console
+   * is not ours to label.
+   */
+  androidRedirect: { source: string; medium: string; campaign: string } | null;
+  /**
    * Browser-extension listings (Chrome Web Store / AMO / App Store), for products
    * that ship as an extension rather than a phone app. Ordered as displayed.
    */
@@ -176,6 +184,11 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // Provider token from App Store Connect; ct for untagged web traffic.
     iosProviderToken: "129210939",
     iosDefaultCampaign: "web_ektifai",
+    androidRedirect: {
+      source: "web",
+      medium: "redirect",
+      campaign: "ektifai_sep",
+    },
     extensionStores: null,
     privacyUrl: null,
     policySlug: "ektifai",
@@ -291,6 +304,7 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     androidPackage: null,
     iosProviderToken: null,
     iosDefaultCampaign: null,
+    androidRedirect: null,
     // Mirrors app/lib/extension-stores.ts in the fursati repo (the flip-point).
     // Chrome live 2026-08-17, Firefox/AMO live 2026-08-19, App Store live
     // 2026-08-24 for iPhone and iPad and 2026-08-25 for macOS — one listing,
@@ -430,6 +444,7 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     // never appear on it.
     iosProviderToken: null,
     iosDefaultCampaign: null,
+    androidRedirect: null,
     extensionStores: null,
     privacyUrl: null,
     policySlug: null,
@@ -454,6 +469,7 @@ const APP_REGISTRY: Record<string, Omit<AppStoreLinks, "slug" | "nameAr" | "name
     androidPackage: null,
     iosProviderToken: null,
     iosDefaultCampaign: null,
+    androidRedirect: null,
     extensionStores: null,
     privacyUrl: null,
     policySlug: null,
@@ -489,6 +505,11 @@ export type Attribution = {
   source: string;
   medium: string;
   campaign: string;
+  /**
+   * True only when the link named its own `?campaign=`. Lets a context that
+   * stamps its own campaign (the web redirect) still yield to an explicit one.
+   */
+  campaignExplicit: boolean;
 };
 
 /** Saudi storefront: the market these apps are published and marketed for. */
@@ -534,13 +555,13 @@ export function parseAttribution(
   const token = raw.toLowerCase();
   const known = CHANNELS[token];
   const requested = (params.get("campaign") ?? "").trim();
+  const campaignExplicit = TOKEN_PATTERN.test(requested);
   return {
     token,
     source: known?.source ?? token,
     medium: known?.medium ?? "onelink",
-    campaign: TOKEN_PATTERN.test(requested)
-      ? requested.toLowerCase()
-      : DEFAULT_CAMPAIGN,
+    campaign: campaignExplicit ? requested.toLowerCase() : DEFAULT_CAMPAIGN,
+    campaignExplicit,
   };
 }
 
@@ -603,6 +624,35 @@ export function detectPlatform(
   return "other";
 }
 
+/**
+ * Play attribution for an install that came through this website.
+ *
+ * The channel still decides `utm_source`, but the medium and campaign name the
+ * path — a visit routed by our redirect is not the same as a tap on a direct
+ * Play link in a bio, and collapsing the two would hide which one converts.
+ * `utm_source` uses the channel's mapped source (`instagram`), not the raw
+ * token (`ig_bio`), so one platform does not appear under two source names.
+ */
+function androidRedirectAttribution(
+  app: AppStoreLinks,
+  attribution?: Attribution | null,
+): Attribution | null {
+  const redirect = app.androidRedirect;
+  // No redirect policy: behave exactly as before — referrer only when a
+  // channel supplied one.
+  if (!redirect) return attribution ?? null;
+
+  return {
+    token: attribution?.token ?? redirect.source,
+    source: attribution?.source ?? redirect.source,
+    medium: redirect.medium,
+    campaign: attribution?.campaignExplicit
+      ? attribution.campaign
+      : redirect.campaign,
+    campaignExplicit: attribution?.campaignExplicit ?? false,
+  };
+}
+
 /** The URL a visitor should be sent to, or null when there is nothing to send them to. */
 export function storeUrlForPlatform(
   links: AppStoreLinks,
@@ -613,7 +663,10 @@ export function storeUrlForPlatform(
     return appStoreUrl(links, attribution);
   }
   if (platform === "android" && links.androidPackage) {
-    return playStoreUrl(links.androidPackage, attribution);
+    return playStoreUrl(
+      links.androidPackage,
+      androidRedirectAttribution(links, attribution),
+    );
   }
   // Extension products: on iOS every browser is WebKit, so the extension arrives
   // through the App Store; on Android only Firefox can run extensions at all.
